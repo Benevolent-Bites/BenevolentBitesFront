@@ -204,24 +204,35 @@ function Header(props) {
   }
 
   return (
-    <React.Fragment>  
-      <AppBar color="primary" position="static" elevation={0} className={classes.topBar}>
+    <React.Fragment>
+      <AppBar
+        component="div"
+        className={classes.secondaryBar}
+        color="primary"
+        position="static"
+        elevation={0}
+      >
         <Toolbar>
-          <Grid container spacing={1} alignItems="center">
-            <Hidden mdUp>
-              <Grid item>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={onDrawerToggle}
-                  className={classes.menuButton}
-                >
-                  <Menu />
-                </IconButton>
-              </Grid>
-            </Hidden>
-            <Grid item xs />
-              <ConditionalRender condition={() => signedIn}>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={onDrawerToggle}
+              className={classes.menuButton}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
+          <Typography variant="h6">Nearby Restaurants</Typography>
+          <Tabs value={tabValue} textColor="inherit">
+            <Tab style={{fontSize: '1.25rem'}} 
+              textColor="inherit" label="Map" value="map" component={Link} to="/"/>
+            <Tab style={{fontSize: '1.25rem'}} 
+              textColor="inherit" label="List" value="list" component={Link} to="/list"/>
+          </Tabs>
+          <ConditionalRender condition={() => signedIn}>
+            <Grid container>
+              <Grid item xs/>
               <Grid item>
                 <Tooltip title="Alerts • No alerts">
                   <IconButton color="inherit" size="medium">
@@ -273,25 +284,8 @@ function Header(props) {
                   </Popper>
                 </div>
               </Grid>
-            </ConditionalRender>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <AppBar
-        component="div"
-        className={classes.secondaryBar}
-        color="primary"
-        position="static"
-        elevation={0}
-      >
-        <Toolbar>
-          <Typography variant="h6">Nearby Restaurants</Typography>
-          <Tabs value={tabValue} textColor="inherit">
-            <Tab style={{fontSize: '1.25rem'}} 
-              textColor="inherit" label="Map" value="map" component={Link} to="/"/>
-            <Tab style={{fontSize: '1.25rem'}} 
-              textColor="inherit" label="List" value="list" component={Link} to="/list"/>
-          </Tabs>
+            </Grid>
+          </ConditionalRender>
         </Toolbar>
       </AppBar>
     </React.Fragment>
