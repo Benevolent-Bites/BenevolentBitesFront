@@ -2,6 +2,7 @@ FROM node:buster
 
 # Set working directory
 WORKDIR /app
+COPY . .
 
 # Add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
