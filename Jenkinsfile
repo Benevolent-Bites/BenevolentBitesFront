@@ -40,8 +40,8 @@ pipeline {
             steps {
                 echo "STAGE: Deploying to DEV..."
                 withCredentials([string(credentialsId: 'OctopusAPIKey', variable: 'APIKey')]) {	                
-                    sh 'sudo octo create-release --project "Benevolent Bites" --server https://benevolentbites.octopus.app/ --apiKey ${APIKey}'
-                    sh 'sudo octo deploy-release --project "Benevolent Bites" --version latest --deployto DEV --server https://benevolentbites.octopus.app/ --apiKey ${APIKey}'         
+                    sh 'sudo octo create-release --project "Benevolent Bites Front" --server https://benevolentbites.octopus.app/ --apiKey ${APIKey}'
+                    sh 'sudo octo deploy-release --project "Benevolent Bites Front" --version latest --deployto DEV --server https://benevolentbites.octopus.app/ --apiKey ${APIKey}'         
                 }
             }
         }
