@@ -15,4 +15,4 @@ RUN npm install serve -g --silent
 RUN npm run build
 
 # Start app
-CMD serve build -s -l 3000
+CMD serve build -s -l $PORT
