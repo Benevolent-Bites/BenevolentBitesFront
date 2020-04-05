@@ -223,8 +223,8 @@ function Header(props) {
               <Menu />
             </IconButton>
           </Hidden>
-          <Typography variant="h6">Nearby Restaurants</Typography>
-          <Tabs value={tabValue} textColor="inherit">
+          <Typography variant="h6" style={{whiteSpace: 'nowrap'}}>Nearby Restaurants</Typography>
+          <Tabs style={{overflow: 'visible'}} value={tabValue} textColor="inherit">
             <Tab style={{fontSize: '1.25rem'}} 
               textColor="inherit" label="Map" value="map" component={Link} to="/"/>
             <Tab style={{fontSize: '1.25rem'}} 
