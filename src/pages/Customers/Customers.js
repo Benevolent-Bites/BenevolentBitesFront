@@ -60,6 +60,7 @@ function Customers (props) {
 	let needsVerify = false;
 
 	if (!initialSignedIn) {
+		console.log(authVerify());
 		if (queryString.get("login") === "success") {
 			needsVerify = true;
 			window.fetch(

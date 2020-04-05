@@ -7,8 +7,6 @@
 
 # testing
 /coverage
-docker-compose.yml
-Dockerfile-local
 
 # production
 /build
