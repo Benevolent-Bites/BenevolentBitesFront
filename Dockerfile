@@ -12,7 +12,6 @@ COPY package.json /app/package.json
 RUN npm install --silent
 RUN npm install react-scripts@3.0.1 -g --silent
 RUN npm install serve -g --silent
-RUN npm run build
 
 # Start app
-CMD serve build -s -l $PORT
+CMD npm run build && serve build -s -l $PORT
