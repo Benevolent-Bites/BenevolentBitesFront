@@ -63,7 +63,7 @@ class About extends React.Component {
 
     async componentDidMount () {
         const content = await window.fetch(
-            process.env.PUBLIC_URL + "/about.html"
+            process.env.PUBLIC_URL + "/abouttext.html"
         ).then(result => result.text());
         document.getElementById("paper").innerHTML = content;
     }
