@@ -162,11 +162,11 @@ function Header(props) {
   const { classes, onDrawerToggle } = props;
 
   return (
-    <React.Fragment>  
+    <Hidden mdUp>
       <AppBar color="primary" position="static" elevation={0} className={classes.topBar}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
-            <Hidden mdUp>
+            
               <Grid item>
                 <IconButton
                   color="inherit"
@@ -177,12 +177,12 @@ function Header(props) {
                   <Menu />
                 </IconButton>
               </Grid>
-            </Hidden>
+            
             <Grid item xs />
           </Grid>
         </Toolbar>
       </AppBar>
-    </React.Fragment>
+    </Hidden>
   );
 }
 

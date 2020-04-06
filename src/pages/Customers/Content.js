@@ -306,13 +306,9 @@ class GiftCard extends React.Component {
   render () {
     const { classes, card, handleQR } = this.props;
     const details = this.state.details;
-    if (!details) {
-      return <React.Fragment><Typography>Could not load restaurant info. <br/> 
-          Balance: {card.balance} <br/></Typography></React.Fragment>
-    }
     return(
       <Card>
-        <CardHeader title={details.name}/>
+        <CardHeader title={details && details.name}/>
         <CardMedia component="img" height="120" image={process.env.PUBLIC_URL + "/img/giftcard.jpg"}/>
         <CardContent><Typography variant="h6">Balance: ${card.balance / 100}</Typography></CardContent>
         <CardActions disableSpacing>

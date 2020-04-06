@@ -365,11 +365,12 @@ function Password (props) {
 
   return(<Paper className={classes.paper}>
     <Typography variant="h5" gutterBottom>
-        Set Password:
+        Set Security Code:
     </Typography>
     <Typography variant="body1" gutterBottom>
-        Please enter a security password for your employees to enter when redeeming user gift cards.
-        Your password is hashed and stored securely on our servers.
+        Please create and enter a security code for your employees to enter when redeeming user gift cards.
+        Share this code only with your employees.
+        Your code is hashed and stored securely on our servers.
     </Typography>
     <Grid container spacing={3} className={classes.formGrid}>
       <Grid item xs={12}>

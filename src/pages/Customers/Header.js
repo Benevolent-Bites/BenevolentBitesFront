@@ -39,36 +39,7 @@ const styles = (theme) => ({
     width: theme.spacing(5),
     height: theme.spacing(5),
   },
-  buttonLink: {
-    [theme.breakpoints.down("sm")]: {
-      padding: 4,
-      display: "flex",
-      margin: "10px 15px 0",
-      width: "-webkit-fill-available",
-      "& svg": {
-        width: "24px",
-        height: "30px",
-        marginRight: "15px",
-        marginLeft: "-15px"
-      },
-      "& .fab,& .fas,& .far,& .fal,& .material-icons": {
-        fontSize: "24px",
-        lineHeight: "30px",
-        width: "24px",
-        height: "30px",
-        marginRight: "15px",
-        marginLeft: "-15px"
-      },
-      "& > span": {
-        justifyContent: "flex-start",
-        width: "100%"
-      }
-    }
-  },
   manager: {
-    [theme.breakpoints.down("sm")]: {
-      width: "100%"
-    },
     display: "inline-block"
   },
   topBar: {
@@ -124,34 +95,6 @@ const styles = (theme) => ({
       color: "white",
     }
   },
-  popperNav: {
-    [theme.breakpoints.down("sm")]: {
-      position: "static !important",
-      left: "unset !important",
-      top: "unset !important",
-      transform: "none !important",
-      willChange: "unset !important",
-      "& > div": {
-        boxShadow: "none !important",
-        marginLeft: "0rem",
-        marginRight: "0rem",
-        transition: "none !important",
-        marginTop: "0px !important",
-        marginBottom: "0px !important",
-        padding: "0px !important",
-        backgroundColor: "transparent !important",
-        "& ul li": {
-          color: "white!important",
-          margin: "10px 15px 0!important",
-          padding: "10px 15px !important",
-          "&:hover": {
-            backgroundColor: "hsla(0,0%,78%,.2)",
-            boxShadow: "none"
-          }
-        }
-      }
-    }
-  },
   popperClose: {
     pointerEvents: "none"
   },
@@ -180,125 +123,83 @@ function Header(props) {
   }
 
   return (
-    <React.Fragment>
-      <ConditionalRender condition={() => signedIn}>
-        <AppBar color="primary" position="static" elevation={0} className={classes.topBar}>
-          <Toolbar>
-            <Grid container spacing={1} alignItems="center">
-              <Hidden smUp>
-                <Grid item>
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={onDrawerToggle}
-                    className={classes.menuButton}
-                  >
-                    <Menu />
-                  </IconButton>
-                </Grid>
-              </Hidden>
-              <Grid item xs />
-              <Grid item>
-                <Tooltip title="Alerts • No alerts">
-                  <IconButton color="inherit" size="medium">
-                    <Notifications />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                <div className={classes.manager}>
-                  <IconButton
-                    simple={(!(window.innerWidth > 959)).toString()}
-                    onClick={handleClickProfile}
-                    className={classes.buttonLink}
-                  >
-                    <Avatar className={classes.avatar} src={avatarSrc}><Person /></Avatar>
-                  </IconButton>
-                  <Popper
-                    open={Boolean(openProfile)}
-                    anchorEl={openProfile}
-                    transition
-                    disablePortal
-                    className={
-                      clsx({ [classes.popperClose]: !openProfile }, classes.popperNav)
-                    }
-                  >
-                    {({ TransitionProps, placement }) => (
-                      <Grow
-                        {...TransitionProps}
-                        id="profile-menu-list-grow"
-                        style={{
-                          transformOrigin:
-                            placement === "bottom" ? "center top" : "center bottom"
-                        }}
-                      >
-                        <Paper>
-                          <ClickAwayListener onClickAway={handleCloseProfile}>
-                            <MenuList role="menu">
-                              <MenuItem
-                                onClick={() => {handleCloseProfile();logout()}}
-                                className={classes.dropdownItem}
-                              >
-                                <Typography variant="body1">Log Out</Typography>
-                              </MenuItem>
-                            </MenuList>
-                          </ClickAwayListener>
-                        </Paper>
-                      </Grow>
-                    )}
-                  </Popper>
-                </div>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </ConditionalRender>
-      <ConditionalRender condition={() => !signedIn}>
-        <AppBar
-          component="div"
-          className={classes.secondaryBar}
-          color="primary"
-          position="static"
-          elevation={0}
-        >
-          <Toolbar>
-            <Grid container alignItems="center" spacing={1} className={classes.titleBar}>
-              <Grid item xs/>
-              <Grid item>
-                <Button 
-                  className={classes.button}
-                  component="a"
-                  href={userLogin()}
-                  disableElevation
-                  variant="contained" 
-                  size="large"
-                  startIcon={<Google color="plain"/>}
-                >
-                  Log In / Sign Up
-                </Button>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </ConditionalRender>
-      <AppBar
+    <AppBar
         component="div"
         className={classes.secondaryBar}
         color="primary"
         position="static"
         elevation={0}
       >
-        <Tabs value={tabValue} textColor="inherit">
-          <Tab style={{fontSize: '1.15rem'}} 
-            textColor="inherit" label="Dashboard" value="dashboard" component={Link} to="/users"/>
-          <Tab style={{fontSize: '1.15rem'}} 
-            textColor="inherit" label="My Info" value="info" component={Link} to="/users/info"/>
-          <Tab style={{fontSize: '1.15rem'}} 
-            textColor="inherit" label="My Cards" value="cards" component={Link} to="/users/cards"/>
-        </Tabs>
+        <Toolbar>
+          <Hidden mdUp>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={onDrawerToggle}
+              className={classes.menuButton}
+            >
+              <Menu />
+            </IconButton>
+          </Hidden>
+          <Tabs value={tabValue} textColor="inherit" variant="scrollable">
+            <Tab style={{fontSize: '1.25rem'}} 
+                textColor="inherit" label="Dashboard" value="dashboard" component={Link} to="/users"/>
+            <Tab style={{fontSize: '1.25rem'}} 
+              textColor="inherit" label="My Info" value="info" component={Link} to="/users/info"/>
+            <Tab style={{fontSize: '1.25rem'}} 
+              textColor="inherit" label="My Cards" value="cards" component={Link} to="/users/cards"/>
+          </Tabs>
+          <ConditionalRender condition={() => signedIn}>
+            <Tooltip title="Alerts • No alerts">
+              <IconButton color="inherit" size="medium" style={{marginLeft: 'auto'}}>
+                <Notifications />
+              </IconButton>
+            </Tooltip>
+            <div className={classes.manager} style={{marginRight: '10px'}}>
+              <IconButton
+                simple={(!(window.innerWidth > 959)).toString()}
+                onClick={handleClickProfile}
+                className={classes.buttonLink}
+              >
+                <Avatar className={classes.avatar} src={avatarSrc}><Person /></Avatar>
+              </IconButton>
+              <Popper
+                open={Boolean(openProfile)}
+                anchorEl={openProfile}
+                transition
+                disablePortal
+                className={
+                  clsx({ [classes.popperClose]: !openProfile }, classes.popperNav)
+                }
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    id="profile-menu-list-grow"
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom"
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleCloseProfile}>
+                        <MenuList role="menu">
+                          <MenuItem
+                            onClick={() => {handleCloseProfile();logout()}}
+                            className={classes.dropdownItem}
+                          >
+                            <Typography variant="body1">Log Out</Typography>
+                          </MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
+          </ConditionalRender>
+        </Toolbar>
       </AppBar>
-
-    </React.Fragment>
   );
 }
 

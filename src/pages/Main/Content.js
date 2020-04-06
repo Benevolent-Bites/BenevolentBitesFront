@@ -79,6 +79,7 @@ const styles = (theme) => ({
     marginTop: theme.spacing(3)
   },
   searchBar: {
+    transform: 'none',
     border: '1px solid rgba(0, 0, 0, 0.25)',
     marginTop: -theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -171,6 +172,7 @@ class MainView extends React.Component {
       return
     }
     this.setState({loading: true});
+    window.setTimeout(() => this.setState({loading: false}), 5000);
     this.setState({lastSearch: this.state.searchValue});
     this.setState({on: [], off: []});
     window.fetch(

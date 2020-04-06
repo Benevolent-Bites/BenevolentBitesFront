@@ -66,9 +66,6 @@ const styles = (theme) => ({
     }
   },
   manager: {
-    [theme.breakpoints.down("sm")]: {
-      width: "100%"
-    },
     display: "inline-block"
   },
   topBar: {
@@ -125,7 +122,7 @@ const styles = (theme) => ({
     }
   },
   popperNav: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.up("xl")]: {
       position: "static !important",
       left: "unset !important",
       top: "unset !important",
@@ -204,8 +201,7 @@ function Header(props) {
   }
 
   return (
-    <React.Fragment>
-      <AppBar
+    <AppBar
         component="div"
         className={classes.secondaryBar}
         color="primary"
@@ -223,72 +219,68 @@ function Header(props) {
               <Menu />
             </IconButton>
           </Hidden>
-          <Typography variant="h6" style={{whiteSpace: 'nowrap'}}>Nearby Restaurants</Typography>
-          <Tabs style={{overflow: 'visible'}} value={tabValue} textColor="inherit">
-            <Tab style={{fontSize: '1.25rem'}} 
-              textColor="inherit" label="Map" value="map" component={Link} to="/"/>
-            <Tab style={{fontSize: '1.25rem'}} 
-              textColor="inherit" label="List" value="list" component={Link} to="/list"/>
-          </Tabs>
-          <ConditionalRender condition={() => signedIn}>
-            <Grid container>
-              <Grid item xs/>
-              <Grid item>
-                <Tooltip title="Alerts • No alerts">
-                  <IconButton color="inherit" size="medium">
-                    <Notifications />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-              <Grid item>
-                <div className={classes.manager}>
-                  <IconButton
-                    simple={(!(window.innerWidth > 959)).toString()}
-                    onClick={handleClickProfile}
-                    className={classes.buttonLink}
-                  >
-                    <Avatar className={classes.avatar} src={avatarSrc}><Person /></Avatar>
-                  </IconButton>
-                  <Popper
-                    open={Boolean(openProfile)}
-                    anchorEl={openProfile}
-                    transition
-                    disablePortal
-                    className={
-                      clsx({ [classes.popperClose]: !openProfile }, classes.popperNav)
-                    }
-                  >
-                    {({ TransitionProps, placement }) => (
-                      <Grow
-                        {...TransitionProps}
-                        id="profile-menu-list-grow"
-                        style={{
-                          transformOrigin:
-                            placement === "bottom" ? "center top" : "center bottom"
-                        }}
-                      >
-                        <Paper>
-                          <ClickAwayListener onClickAway={handleCloseProfile}>
-                            <MenuList role="menu">
-                              <MenuItem
-                                onClick={() => {handleCloseProfile();logout()}}
-                                className={classes.dropdownItem}
-                              >
-                                <Typography variant="body1">Log Out</Typography>
-                              </MenuItem>
-                            </MenuList>
-                          </ClickAwayListener>
-                        </Paper>
-                      </Grow>
-                    )}
-                  </Popper>
-                </div>
-              </Grid>
+          <Grid container alignItems="center" style={{marginRight:'20px'}}>
+            <Grid item lg={3} xs><Typography align="center" variant="h6">Nearby Restaurants</Typography></Grid>
+            <Grid item xs>
+              <Tabs style={{overflow: 'visible'}} value={tabValue} textColor="inherit">
+                <Tab style={{fontSize: '1.25rem'}} 
+                  textColor="inherit" label="Map" value="map" component={Link} to="/"/>
+                <Tab style={{fontSize: '1.25rem'}} 
+                  textColor="inherit" label="List" value="list" component={Link} to="/list"/>
+              </Tabs>
             </Grid>
+          </Grid>
+          <ConditionalRender condition={() => signedIn}>
+            <Tooltip title="Alerts • No alerts">
+              <IconButton color="inherit" size="medium" style={{marginLeft: 'auto'}}>
+                <Notifications />
+              </IconButton>
+            </Tooltip>
+            <div className={classes.manager} style={{marginRight: '20px'}}>
+              <IconButton
+                simple={(!(window.innerWidth > 959)).toString()}
+                onClick={handleClickProfile}
+                className={classes.buttonLink}
+              >
+                <Avatar className={classes.avatar} src={avatarSrc}><Person /></Avatar>
+              </IconButton>
+              <Popper
+                open={Boolean(openProfile)}
+                anchorEl={openProfile}
+                transition
+                disablePortal
+                className={
+                  clsx({ [classes.popperClose]: !openProfile }, classes.popperNav)
+                }
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    id="profile-menu-list-grow"
+                    style={{
+                      transformOrigin:
+                        placement === "bottom" ? "center top" : "center bottom"
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleCloseProfile}>
+                        <MenuList role="menu">
+                          <MenuItem
+                            onClick={() => {handleCloseProfile();logout()}}
+                            className={classes.dropdownItem}
+                          >
+                            <Typography variant="body1">Log Out</Typography>
+                          </MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
           </ConditionalRender>
         </Toolbar>
       </AppBar>
-    </React.Fragment>
   );
 }
 
