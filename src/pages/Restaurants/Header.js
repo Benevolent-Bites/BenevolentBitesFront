@@ -5,7 +5,6 @@ import {
   Notifications,
   Person
 } from '@material-ui/icons'
-import { Google } from 'grommet-icons'
 import {
   AppBar,
   Paper,
@@ -15,8 +14,6 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-  Button,
-  Grid,
   Hidden,
   IconButton,
   Tab,
@@ -28,7 +25,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import { ConditionalRender } from '../common';
 import { Link } from 'react-router-dom';
-import { restLogin, frontUrl, getAvatar } from '../../endpoints';
+import { frontUrl } from '../../endpoints';
 import Cookies from 'js-cookie';
 import clsx from 'clsx';
 

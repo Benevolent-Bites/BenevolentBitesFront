@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { withStyles } from '@material-ui/core/styles';
-import {
-	Typography
-} from '@material-ui/core'
-import { Switch, useLocation, Redirect } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Content from './Content';
 import Header from './Header';
-import { ConditionalRender, Spinner } from '../common';
-import { authLogin, authVerify } from '../../endpoints';
 
 const drawerWidth = 290;
 const styles = (theme) => ({

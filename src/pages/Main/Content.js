@@ -1,46 +1,23 @@
 import React from 'react';
-import Cookies from 'js-cookie';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { ConditionalRender, Spinner } from '../common';
+import { ConditionalRender } from '../common';
 import RestaurantCard from './RestaurantCard';
-import { Route, Switch, Link } from 'react-router-dom';
-import { userBuy, searchCoords, restGetDetails } from '../../endpoints';
+import { searchCoords } from '../../endpoints';
 import {
   AppBar,
   Toolbar,
   Typography,
-  ClickAwayListener,
   Paper,
-  Box,
   Backdrop,
   Grid,
-  Container,
   CircularProgress,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardMedia,
-  CardContent,
-  Collapse,
-  CardHeader,
-  Button,
-  Footer,
-  IconButton,
   TextField,
-  Divider,
-  ButtonGroup
+  Divider
 } from '@material-ui/core'
 
 import {
-  CheckRounded,
-  CloseRounded,
-  AddRounded,
-  ExitToAppRounded,
-  SearchRounded,
-  ExpandMore,
-  AttachMoney
+  SearchRounded
 } from '@material-ui/icons'
 
 import GoogleMapsContainer from './Maps';

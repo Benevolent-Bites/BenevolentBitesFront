@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {
 	Typography
 } from '@material-ui/core'
-import { Switch, useLocation, Redirect } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Content from './Content';
 import Header from './Header';
 import { ConditionalRender, Spinner } from '../common';

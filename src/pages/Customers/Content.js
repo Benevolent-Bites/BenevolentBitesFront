@@ -1,11 +1,10 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { ConditionalRender, Spinner } from '../common';
-import { Route, Switch, Link } from 'react-router-dom';
-import { userGetInfo, userSetInfo, squareSignup, userGetCards, restGetDetails, frontUrl } from '../../endpoints';
+import { Spinner } from '../common';
+import { Link } from 'react-router-dom';
+import { userGetInfo, userSetInfo, userGetCards, restGetDetails, frontUrl } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -14,25 +13,19 @@ import {
   Dialog,
   Divider,
   DialogTitle,
-  CardActionArea,
   CardActions,
   CardContent,
   Collapse,
   CardHeader,
-  Box,
   Grid,
-  Container,
   Hidden,
   Button,
-  IconButton,
   TextField,
   List,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   ListItem,
-  Tooltip,
-  Checkbox
 } from '@material-ui/core'
 
 import {
@@ -40,7 +33,6 @@ import {
   CloseRounded,
   AddRounded,
   ExpandMore,
-  ExitToAppRounded
 } from '@material-ui/icons'
 
 import QRCode from 'qrcode.react';
@@ -116,7 +108,7 @@ class AddInfo extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.info && Object.keys(this.props.info).length == 0) {
+    if (this.props.info && Object.keys(this.props.info).length === 0) {
       let ok;
       window.fetch(
         userGetInfo(),
@@ -345,7 +337,7 @@ function MyCards (props) {
   const { classes, cards, setCards } = props;
   const [dialogContents, setDialogContents] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  if (cards && cards.length == 0) {
+  if (cards && cards.length === 0) {
     let ok;
     window.fetch(
       userGetCards(),
@@ -496,7 +488,7 @@ class Homepage extends React.Component {
   checkItems(key) {
     const itemsDict = {
       addInfo: () => {
-        if (Object.keys(this.props.info).length == 0) {
+        if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(userGetInfo()).then(
             (info) => {
               if (info["name"]) {

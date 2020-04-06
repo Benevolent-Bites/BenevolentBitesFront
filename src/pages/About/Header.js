@@ -2,35 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Menu,
-  Notifications,
-  Person
 } from '@material-ui/icons'
-import { Google } from 'grommet-icons'
 import {
   AppBar,
-  Paper,
-  Popper,
-  Grow,
-  ClickAwayListener,
-  MenuList,
-  MenuItem,
-  Avatar,
-  Button,
   Grid,
   Hidden,
   IconButton,
-  Tab,
-  Tabs,
   Toolbar,
-  Tooltip,
-  Typography
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import { ConditionalRender } from '../common';
-import { Link } from 'react-router-dom';
-import { frontUrl, getAvatar } from '../../endpoints';
-import Cookies from 'js-cookie';
-import clsx from 'clsx';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 

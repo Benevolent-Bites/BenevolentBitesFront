@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import { Paper, Typography, Card, CardActionArea, CardActions, CardMedia,
-  CardContent, Button, ButtonGroup, CardHeader, Collapse, Divider, IconButton } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-
-import { ConditionalRender } from '../common';
+import { withStyles } from '@material-ui/core/styles';
 import RestaurantCard from './RestaurantCard';
-import clsx from 'clsx';
-import { userBuy } from '../../endpoints';
 
 const styles = (theme) => ({
   expand: {

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import {
     Typography,
@@ -13,9 +12,8 @@ import {
     TextField,
     InputAdornment
 } from '@material-ui/core'
-import { Switch, useLocation, Redirect } from 'react-router-dom';
-import { ConditionalRender, Spinner } from '../common';
-import { restLogin, authVerify, getAvatar, restRedeemCard, frontUrl } from '../../endpoints';
+import { useLocation } from 'react-router-dom';
+import { restRedeemCard, frontUrl } from '../../endpoints';
 import Header from './Header';
 
 const styles = (theme) => ({

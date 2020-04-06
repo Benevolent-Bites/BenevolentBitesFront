@@ -1,36 +1,27 @@
 import React from 'react';
-import Cookies from 'js-cookie';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { ConditionalRender, Spinner } from '../common';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Spinner } from '../common';
+import { Link } from 'react-router-dom';
 import { restGetInfo, restSetInfo, squareSignup, restSetPassword } from '../../endpoints';
 import {
   Typography,
   Paper,
-  Box,
   Grid,
-  Container,
-  Card,
   Hidden,
   Button,
-  IconButton,
   TextField,
   List,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   ListItem,
-  Tooltip,
-  Checkbox
 } from '@material-ui/core'
 
 import {
   CheckRounded,
   CloseRounded,
-  AddRounded,
-  ExitToAppRounded
+  AddRounded
 } from '@material-ui/icons'
 
 const styles = (theme) => ({
@@ -91,7 +82,7 @@ function AddInfo (props) {
     })
   }
 
-  if (info && Object.keys(info).length == 0) {
+  if (info && Object.keys(info).length === 0) {
     let ok;
     window.fetch(
       restGetInfo(),
@@ -276,7 +267,7 @@ function Employees (props) {
     })
   }
 
-  if (info && Object.keys(info).length == 0) {
+  if (info && Object.keys(info).length === 0) {
     let ok;
     window.fetch(
       restGetInfo(),
@@ -525,7 +516,7 @@ class Homepage extends React.Component {
   checkItems(key) {
     const itemsDict = {
       regEmployees: () => {
-        if (Object.keys(this.props.info).length == 0) {
+        if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
             info => {
               this.props.setInfo(info);
@@ -565,7 +556,7 @@ class Homepage extends React.Component {
         }
       },
       regSquare: () => {
-        if (Object.keys(this.props.info).length == 0) {
+        if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
             info => {
               this.props.setInfo(info);
@@ -601,7 +592,7 @@ class Homepage extends React.Component {
         }
       },
       addInfo: () => {
-        if (Object.keys(this.props.info).length == 0) {
+        if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
             (info) => {
               this.props.setInfo(info);

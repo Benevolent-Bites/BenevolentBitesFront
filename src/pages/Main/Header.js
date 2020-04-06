@@ -4,8 +4,7 @@ import {
   Menu,
   Notifications,
   Person
-} from '@material-ui/icons'
-import { Google } from 'grommet-icons'
+} from '@material-ui/icons';
 import {
   AppBar,
   Paper,
@@ -15,7 +14,6 @@ import {
   MenuList,
   MenuItem,
   Avatar,
-  Button,
   Grid,
   Hidden,
   IconButton,
@@ -220,7 +218,7 @@ function Header(props) {
             </IconButton>
           </Hidden>
           <Grid container alignItems="center" style={{marginRight:'20px'}}>
-            <Grid item lg={3} xs><Typography align="center" variant="h6">Nearby Restaurants</Typography></Grid>
+            <Grid item lg={2} xs><Typography align="center" variant="h6">Nearby Restaurants</Typography></Grid>
             <Grid item xs>
               <Tabs style={{overflow: 'visible'}} value={tabValue} textColor="inherit">
                 <Tab style={{fontSize: '1.25rem'}} 
