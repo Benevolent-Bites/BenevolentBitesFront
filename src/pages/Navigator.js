@@ -130,7 +130,7 @@ function Navigator(props) {
             ))}
             <Divider className={classes.divider} />
             <ListItem
-                key="About Us"
+                key="Our Mission"
                 button component={NavLink} to={"/about"} activeClassName={classes.itemActiveItem}
                 className={classes.item}
               >
