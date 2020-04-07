@@ -15,7 +15,7 @@ export function frontUrl () {
     const dict = {
         prod: "https://benevolentbites.tech",
         dev:  "https://dev.benevolentbites.tech",
-        local: "http://localhost:9000"
+        local: "http://localhost:3000"
     }
     return dict[env.toLowerCase()];
 }

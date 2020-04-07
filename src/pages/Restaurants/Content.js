@@ -126,7 +126,7 @@ function AddInfo (props) {
           label="Contact Email"
           fullWidth
           autoComplete="email"
-          value={info.email || ''}
+          value={info.contact || ''}
           onChange={updateInfo}
         />
       </Grid>
@@ -250,9 +250,9 @@ function Employees (props) {
   const { classes, info, setInfo } = props;
   const [submitMessage, setSubmitMessage] = React.useState();
 
-  function updateInfo (event, idx) {
+  function updateInfo (event, idx, prop) {
     const employees = info.employees;
-    employees[idx] = event.target.value;
+    employees[idx][prop] = event.target.value;
     setInfo({
       ...info,
       employees: employees
@@ -263,7 +263,7 @@ function Employees (props) {
     const employees = info.employees || [];
     setInfo({
       ...info,
-      employees: [...employees, ""]
+      employees: [...employees, {}]
     })
   }
 
@@ -296,8 +296,21 @@ function Employees (props) {
       </Button>
     </Grid>
     <Grid container spacing={3} className={classes.formGrid}>
-      {info.employees && info.employees.map((email, idx) => <React.Fragment>
-        <Grid item xs={12}>
+      {info.employees && info.employees.map(({name, email}, idx) => <React.Fragment>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            variant="outlined"
+            id={"name" + idx + 1}
+            name={"name" + idx + 1}
+            label={"Employee " + (idx + 1) + " Name"}
+            fullWidth
+            autoComplete="name"
+            value={name || ''}
+            onChange={e => updateInfo(e, idx, "name")}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             variant="outlined"
@@ -307,7 +320,7 @@ function Employees (props) {
             fullWidth
             autoComplete="email"
             value={email || ''}
-            onChange={e => updateInfo(e, idx)}
+            onChange={e => updateInfo(e, idx, "email")}
           />
         </Grid>
       </React.Fragment>)}
