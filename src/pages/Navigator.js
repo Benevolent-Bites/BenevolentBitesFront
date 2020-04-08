@@ -140,7 +140,7 @@ function Navigator(props) {
                     primary: classes.itemPrimary,
                   }}
                 >
-                  About Us
+                  Our Mission
                 </ListItemText>
               </ListItem>
           </React.Fragment>
