@@ -83,3 +83,11 @@ export function searchCoords () {
 export function restRedeemCard () {
     return apiUrl() + "/rest/redeemcard"
 }
+
+export function restGetLocations () {
+    return apiUrl() + "/rest/getlocations"
+}
+
+export function restSetLocation () {
+    return apiUrl() + "/rest/setlocation"
+}

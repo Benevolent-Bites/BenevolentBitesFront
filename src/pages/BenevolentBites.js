@@ -13,6 +13,7 @@ import Customers from './Customers/Customers';
 import Main from './Main/Main';
 import Redeem from './Redeem/Redeem';
 import About from './About/About';
+import Locations from './Locations/Locations';
 
 function Copyright() {
 	return (
@@ -189,6 +190,9 @@ function BenevolentBites (props) {
 				</Hidden>
 			</nav>
 			<Switch>
+				<Route path="/restaurants/chooselocation">
+					<Locations classes={classes} handleDrawerToggle={handleDrawerToggle}/>
+				</Route>
 				<Route path="/restaurants">
 					<Restaurants classes={classes} handleDrawerToggle={handleDrawerToggle}/>
 				</Route>
