@@ -35,7 +35,7 @@ const styles = (theme) => ({
 });
 
 function Main(props) {
-	const { classes, handleDrawerToggle } = props;
+	const { classes, handleDrawerToggle, history } = props;
 
 	const pathDict = {
 		'/':'map',
@@ -54,7 +54,7 @@ function Main(props) {
 				signedIn = {signedIn}
 			/>
 			<main className={classes.main}>
-				<Content signedIn={signedIn} classes={classes} tabValue={tabValue}/>
+				<Content signedIn={signedIn} classes={classes} tabValue={tabValue} history={history}/>
 			</main>
 		</div>
 	);
@@ -62,7 +62,8 @@ function Main(props) {
 
 Main.propTypes = {
 	classes: PropTypes.object.isRequired,
-	handleDrawerToggle: PropTypes.func.isRequired
+	handleDrawerToggle: PropTypes.func.isRequired,
+	history: PropTypes.object.isRequired
 };
   
 export default withStyles(styles)(Main);

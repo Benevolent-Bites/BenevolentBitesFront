@@ -52,7 +52,7 @@ export default function RestaurantCard (props) {
               <Button color="primary">Refer Them</Button></Grid>}>
             <Button color="secondary" variant="outlined" style={{marginRight: '15px'}}
               onClick={() => {
-                const link = userBuy() + "?restId=" + data.uuid + "&amount=" + amount * 100;
+                const link = userBuy() + "?restId=" + data.restID + "&amount=" + amount * 100;
                 if (!signedIn) {
                   window.location.assign(userLogin() + "?redirect=" + link.replace("&", "%26"));
                 } else {

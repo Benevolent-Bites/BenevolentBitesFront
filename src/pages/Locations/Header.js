@@ -24,7 +24,6 @@ import {
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import { ConditionalRender } from '../common';
-import { Link } from 'react-router-dom';
 import { frontUrl } from '../../endpoints';
 import Cookies from 'js-cookie';
 import clsx from 'clsx';

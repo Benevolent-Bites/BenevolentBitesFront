@@ -118,8 +118,7 @@ class MainView extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      lastSearch: "",
-      searchValue: "restaurants",
+      searchValue: new URLSearchParams(window.location.search).get("search") || "restaurants",
       range: 5,
       coords: {},
       on: [],
@@ -134,7 +133,7 @@ class MainView extends React.Component {
         this.setState({
           coords: {lat: position.coords.latitude, lng: position.coords.longitude}
         })
-        this.searchRestaurants();
+        this.searchRestaurants(true);
     })
   }
 
@@ -142,16 +141,20 @@ class MainView extends React.Component {
     this.setState({searchValue: e.target.value});
   }
 
-  searchRestaurants() {
-    const {lat, lng} = this.state.coords;
-    let ok;
-    if(this.state.searchValue === this.state.lastSearch) {
-      return
+  searchRestaurants(override = false) {
+    const queryString = new URLSearchParams(window.location.search);
+    if(this.state.searchValue === queryString.get("search") || Object.keys(this.state.coords).length === 0) {
+      if (!override) {
+        return
+      }
     }
+    const {lat, lng} = this.state.coords;
     this.setState({loading: true});
     window.setTimeout(() => this.setState({loading: false}), 5000);
-    this.setState({lastSearch: this.state.searchValue});
     this.setState({on: [], off: []});
+    queryString.set("search", this.state.searchValue);
+    this.props.history.push(window.location.pathname + "?" + queryString.toString());
+    let ok;
     window.fetch(
       searchCoords() + "?query=" + this.state.searchValue + "&lat=" + lat + "&lng=" + lng + "&range=" + this.state.range,
       {
@@ -174,9 +177,7 @@ class MainView extends React.Component {
   }
 
   render () {
-    const on = [...this.state.on, test_on]; // for testing
-
-    const list = [...on.map(obj => {
+    const list = [...this.state.on.map(obj => {
         return {...obj, on: true}
       }), ...this.state.off.map(obj => {
         return {...obj, on: false}
@@ -217,7 +218,7 @@ class MainView extends React.Component {
                 <Typography align="center" variant="h5" style={{marginBottom: "7px"}}>Offering Credit</Typography>
                 <Divider light />
               </Grid>
-              {on.map((data) => <Grid item xs={12} sm={6}><RestaurantCard signedIn={this.props.signedIn} 
+              {this.state.on.map((data) => <Grid item xs={12} sm={6}><RestaurantCard signedIn={this.props.signedIn} 
                 supported classes={classes} data={data}/></Grid>)}
             </Grid>
             <Divider orientation='vertical' light flexItem style={{marginTop: '52px'}} />
@@ -241,15 +242,16 @@ class MainView extends React.Component {
 }
 
 function Content(props) {
-  const { classes, tabValue, signedIn } = props;
+  const { classes, tabValue, signedIn, history } = props;
 
-  return (<MainView classes={classes} signedIn={signedIn} tabValue={tabValue}/>)
+  return (<MainView classes={classes} signedIn={signedIn} tabValue={tabValue} history={history}/>)
 }
 
 Content.propTypes = {
   classes: PropTypes.object.isRequired,
   tabValue: PropTypes.string.isRequired,
-  signedIn: PropTypes.bool.isRequired
+  signedIn: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Content);
