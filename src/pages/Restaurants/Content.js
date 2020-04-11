@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
 import { Link } from 'react-router-dom';
-import { restGetInfo, restSetInfo, squareSignup, restSetPassword } from '../../endpoints';
+import { restGetInfo, restSetInfo, squareSignup, restSetPassword, restVerifyCall, restVerifyCode } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -11,6 +11,9 @@ import {
   Hidden,
   Button,
   TextField,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   List,
   ListItemIcon,
   ListItemSecondaryAction,
@@ -42,7 +45,7 @@ const styles = (theme) => ({
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
   },
   searchInput: {
-    fontSize: theme.typography.fontSize,
+    color: '#000000'
   },
   block: {
     display: 'block',
@@ -439,20 +442,34 @@ class Homepage extends React.Component {
     super(props);
     this.state = {
       list: {
-        regEmployees: {name: <Typography>Register Employees</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
+        addInfo: {name: <Typography>Add Your Information</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         regSquare: {name: <Typography>Add Square Integration</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        addInfo: {name: <Typography>Add Your Information</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
-      }
+        regEmployees: {name: <Typography>Register Employees</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
+        verify: {name: <Typography>Verify Your Phone</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
+      },
+      verify: false,
+      code: "",
+      resultMessage: ""
     }
   }
 
-  checkBackend (url, key) {
+  async makeCall () {
+    const res = await this.checkBackend(restVerifyCall()).catch(err => console.log(err));
+    if (!res) {
+      this.displayError("verify", "Sorry, there was an error.")
+    } else {
+      this.setState({verify: true});
+    }
+  }
+
+  checkBackend (url, method="GET", body=null) {
     let ok;
     return (
       window.fetch(
         url,
         {
-          method: 'GET',
+          method: method,
+          body: body,
           credentials: 'include',
           mode: 'cors',
           cache: 'no-cache'
@@ -474,11 +491,13 @@ class Homepage extends React.Component {
     let item = this.state.list[key];
     const componentMap = {
       "a": "a",
-      "link": Link
+      "link": Link,
+      "button": "button"
     };
     const linkMap = {
       "a": "href",
-      "link": "to"
+      "link": "to",
+      "button": "onClick"
     };
     item.value = data.link && <ListItemSecondaryAction>
       <Button component={componentMap[component]} {...{[linkMap[component]]: data.link}} style={{textTransform: 'none'}}
@@ -524,6 +543,18 @@ class Homepage extends React.Component {
         [key]: item
       }
     });
+  }
+
+  async verify() {
+    let error;
+    const res = this.checkBackend(restVerifyCode(), "POST", {code: this.state.code}).catch(err => {
+      error = err; console.log(err)})
+    if (res) {
+      this.setState({resultMessage: "Successfully Verified"});
+      this.props.setInfo({...this.props.info, verified: true})
+    } else {
+      this.setState({resultMessage: "Error: " + error});
+    }
   }
 
   checkItems(key) {
@@ -582,11 +613,9 @@ class Homepage extends React.Component {
             },
             error => {
               if (error.message === "sorry bro, that restaurant doesn't exist") {
-                this.props.setInfo({checked: true});
                 this.displayError("regSquare", "Please add info first");
               } else {
                 console.log(error);
-                this.props.setInfo({checked:true});
                 this.displayError("regSquare", "Please log in again.");
               }
             }
@@ -601,6 +630,40 @@ class Homepage extends React.Component {
             }
           } else {
             this.displayError("regSquare", "Please add info first");
+          }
+        }
+      },
+      verify: () => {
+        if (Object.keys(this.props.info).length === 0) {
+          this.checkBackend(restGetInfo()).then(
+            info => {
+              this.props.setInfo(info);
+              if (info.verified === true) {
+                this.displayDone("verify");
+              }
+              else {
+                this.displayResult("verify", {text: "Call Me Now", link: () => this.makeCall()}, "button");
+              }
+            },
+            error => {
+              if (error.message === "sorry bro, that restaurant doesn't exist") {
+                this.displayError("verify", "Please add info first");
+              } else {
+                console.log(error);
+                this.displayError("verify", "Please log in again.");
+              }
+            }
+          )
+        } else {
+          if (this.props.info.name) {
+            if (this.props.info.verified === true) {
+              this.displayDone("verify");
+            }
+            else {
+              this.displayResult("verify", {text: "Call Me Now", link: () => this.makeCall()}, "button");
+            }
+          } else {
+            this.displayError("verify", "Please add info first");
           }
         }
       },
@@ -665,6 +728,22 @@ class Homepage extends React.Component {
             </ListItem>
           ))}
         </List>
+        <Dialog maxWidth='xs' fullWidth open={this.state.verify} onClose={() => this.setState({verify: false})}>
+          <DialogTitle style={{margin: 'auto'}}>You Will Receive a Code Shortly</DialogTitle>
+          <DialogContent>
+              <Grid container spacing={2} style={{marginBottom: '16px'}}>
+                  <Grid item xs={10} sm={8}>
+                      <TextField InputProps={{className: classes.searchInput}} 
+                          variant="outlined" label="Code" value={this.state.code} 
+                              onChange={(e) => this.setState({code: e.target.value})} className={classes.searchBar} />
+                  </Grid>
+                  <Grid item container alignItems="flex-end" xs={6} sm={4}>
+                      <Button variant="contained" color="secondary" onClick={() => this.verify()}>Confirm</Button>
+                  </Grid>
+                  {this.state.resultMessage && <Typography>{this.state.resultMessage}</Typography>}
+              </Grid>
+          </DialogContent>
+      </Dialog>
       </Paper>
     );
   }

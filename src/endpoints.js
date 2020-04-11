@@ -91,3 +91,11 @@ export function restGetLocations () {
 export function restSetLocation () {
     return apiUrl() + "/rest/setlocation"
 }
+
+export function restVerifyCall () {
+    return apiUrl() + "/rest/verifycall"
+}
+
+export function restVerifyCode () {
+    return apiUrl() + "/rest/verifycode"
+}
