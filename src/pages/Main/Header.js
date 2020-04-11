@@ -154,7 +154,7 @@ const styles = (theme) => ({
 
 function Header(props) {
 
-  const { classes, onDrawerToggle, tabValue, signedIn } = props;
+  const { classes, onDrawerToggle, tabValue, signedIn, avatarSrc } = props;
 
   const [openProfile, setOpenProfile] = React.useState(null);
   function handleClickProfile (event) {
@@ -172,30 +172,6 @@ function Header(props) {
     Cookies.remove("bb-access", {path:'/'});
     Cookies.set("signed_in", "0");
     window.location.assign(frontUrl());
-  }
-
-  const [avatarSrc, setAvatarSrc] = React.useState("");
-  if (signedIn) {
-    window.fetch(
-      getAvatar(),
-      {
-        mode: 'cors',
-        credentials: 'include',
-        method: 'GET',
-        cache: 'no-cache'
-      }
-    ).then(result => {
-        if (!result.ok) {
-          throw new Error();
-        }
-        return result.json();
-      }
-    ).then(
-    response => {
-      setAvatarSrc(response.avatar);
-    },
-    error => {console.log(error)}
-    )
   }
 
   return (

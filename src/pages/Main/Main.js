@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { useLocation } from 'react-router-dom';
 import Content from './Content';
 import Header from './Header';
+import { getAvatar } from '../../endpoints';
 
 const drawerWidth = 290;
 const styles = (theme) => ({
@@ -46,12 +47,37 @@ function Main(props) {
 	
 	const signedIn = Cookies.get("signed_in") === "1" || false;
 
+	const [avatarSrc, setAvatarSrc] = React.useState("");
+	if (signedIn) {
+		window.fetch(
+		getAvatar(),
+		{
+			mode: 'cors',
+			credentials: 'include',
+			method: 'GET',
+			cache: 'no-cache'
+		}
+		).then(result => {
+			if (!result.ok) {
+				throw new Error();
+			}
+			return result.json();
+		}
+		).then(
+		response => {
+			setAvatarSrc(response.avatar);
+		},
+			error => {console.log(error)}
+		)
+	}
+
 	return (
 		<div className={classes.app}>
 			<Header 
 				onDrawerToggle={handleDrawerToggle} 
 				tabValue={tabValue}
 				signedIn = {signedIn}
+				avatarSrc = {avatarSrc}
 			/>
 			<main className={classes.main}>
 				<Content signedIn={signedIn} classes={classes} tabValue={tabValue} history={history}/>

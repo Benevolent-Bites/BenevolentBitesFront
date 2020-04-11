@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'js-cookie';
 import { Paper, Typography, Card, Grid, CardActions, CardMedia,
   CardContent, Button, ButtonGroup, CardHeader, Collapse, Divider, IconButton, useMediaQuery } from '@material-ui/core';
 import { ExpandMore, StarRounded, StarBorderRounded, AttachMoneyRounded } from '@material-ui/icons';
@@ -54,6 +55,7 @@ export default function RestaurantCard (props) {
               onClick={() => {
                 const link = userBuy() + "?restId=" + data.restID + "&amount=" + amount * 100;
                 if (!signedIn) {
+                  Cookies.set("signed_in", "1")
                   window.location.assign(userLogin() + "?redirect=" + link.replace("&", "%26"));
                 } else {
                   window.location.assign(link);
