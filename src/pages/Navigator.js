@@ -97,7 +97,7 @@ function Navigator(props) {
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemText classes={{primary: classes.itemDescription}}>
-            Providing meal credit to support your favorite restaurants during the COVID-19 outbreak.
+            A 501(c)(3) nonprofit providing gift cards to support your favorite restaurants during the COVID-19 outbreak.
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (

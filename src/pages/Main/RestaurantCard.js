@@ -24,6 +24,7 @@ export default function RestaurantCard (props) {
       <Card className={classes.card} elevation={map ? 0 : 2}>
         <CardHeader
           title={<Typography variant="h6">{data.name}</Typography>}
+          subheader={<Typography variant="body1">{data.address}</Typography>}
           disableTypography 
         />
         <CardMedia

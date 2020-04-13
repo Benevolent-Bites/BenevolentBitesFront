@@ -205,7 +205,7 @@ function BenevolentBites (props) {
 				<Route path="/about">
 					<About handleDrawerToggle={handleDrawerToggle}/>
 				</Route>
-				<Route path="/" component={Main} handleDrawerToggle={handleDrawerToggle} />
+				<Route path="/" render={(props) => <Main {...props} handleDrawerToggle={handleDrawerToggle}/>}/>
 			</Switch>
 			</div>
 			<footer className={classes.footer}>

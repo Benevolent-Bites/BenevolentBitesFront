@@ -300,7 +300,7 @@ class GiftCard extends React.Component {
     const details = this.state.details;
     return(
       <Card>
-        <CardHeader title={details && details.name}/>
+        <CardHeader title={details && details.name} subheader={details && details.address}/>
         <CardMedia component="img" height="120" image={process.env.PUBLIC_URL + "/img/giftcard.jpg"}/>
         <CardContent><Typography variant="h6">Balance: ${card.balance / 100}</Typography></CardContent>
         <CardActions disableSpacing>

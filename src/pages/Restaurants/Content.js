@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
 import { Link } from 'react-router-dom';
-import { restGetInfo, restSetInfo, squareSignup, restSetPassword, restVerifyCall, restVerifyCode } from '../../endpoints';
+import { restGetInfo, restSetInfo, squareSignup, restSetPassword, 
+  restPublish, restVerifyCall, restVerifyCode } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -445,20 +446,30 @@ class Homepage extends React.Component {
         addInfo: {name: <Typography>Add Your Information</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         regSquare: {name: <Typography>Add Square Integration</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         regEmployees: {name: <Typography>Register Employees</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        verify: {name: <Typography>Verify Your Phone</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
+        setCode: {name: <Typography>Set Security Code</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
+        verify: {name: <Typography>Verify Your Phone</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
+        publish: {name: <Typography>Publish Your Restaurant</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
       },
       verify: false,
       code: "",
-      resultMessage: ""
+      verifyResultMessage: "",
+      phone: "",
+      publish: false,
+      publishResultMessage: ""
     }
   }
 
   async makeCall () {
-    const res = await this.checkBackend(restVerifyCall()).catch(err => console.log(err));
-    if (!res) {
-      this.displayError("verify", "Sorry, there was an error.")
-    } else {
-      this.setState({verify: true});
+    try {
+      const res = await this.checkBackend(restVerifyCall());
+      this.setState({verify: true, phone: res.phone});
+    } catch (error) {
+      console.log(error)
+      if (error.message === "sorry bro, no phone number on google maps") {
+        this.displayError("verify", "Please add your phone number on Google Maps");
+        return
+      }
+      this.displayError("verify", "Sorry, there was an error.");
     }
   }
 
@@ -487,7 +498,7 @@ class Homepage extends React.Component {
     )
   }
 
-  displayResult(key, data, component="link") {
+  displayResult(key, data, component="link", buttonProps={}, icon=true) {
     let item = this.state.list[key];
     const componentMap = {
       "a": "a",
@@ -500,9 +511,11 @@ class Homepage extends React.Component {
       "button": "onClick"
     };
     item.value = data.link && <ListItemSecondaryAction>
-      <Button component={componentMap[component]} {...{[linkMap[component]]: data.link}} style={{textTransform: 'none'}}
-        endIcon={<AddRounded style={{ marginRight: '10px', marginLeft: 'none', color: 'blue', fontSize: 40, textTransform: 'none' }} />}>
-        <Hidden smDown><Typography className={this.props.classes.resultText}>{data.text}</Typography></Hidden>
+      <Button {...buttonProps} component={componentMap[component]} {...{[linkMap[component]]: data.link}} 
+        style={{textTransform: 'none'}} endIcon={icon ? <AddRounded style={{ marginRight: '10px', marginLeft: 'none', 
+        color: 'blue', fontSize: 40}} /> : null}
+      >
+        <Hidden smDown><Typography className={icon?this.props.classes.resultText:null}>{data.text}</Typography></Hidden>
       </Button>
     </ListItemSecondaryAction>
     this.setState({
@@ -550,10 +563,22 @@ class Homepage extends React.Component {
     const res = this.checkBackend(restVerifyCode(), "POST", {code: this.state.code}).catch(err => {
       error = err; console.log(err)})
     if (res) {
-      this.setState({resultMessage: "Successfully Verified"});
+      this.setState({verifyResultMessage: "Successfully Verified"});
       this.props.setInfo({...this.props.info, verified: true})
     } else {
-      this.setState({resultMessage: "Error: " + error});
+      this.setState({verifyResultMessage: "Error: " + error});
+    }
+  }
+
+  async publish() {
+    let error;
+    const res = await this.checkBackend(restPublish()).catch(err => {
+      error = err; console.log(err)})
+    if (res) {
+      this.setState({publishResultMessage: "Published Successfully"});
+      this.props.setInfo({...this.props.info, published: true})
+    } else {
+      this.setState({publishResultMessage: "Error: " + error.message});
     }
   }
 
@@ -599,12 +624,52 @@ class Homepage extends React.Component {
           }
         }
       },
+      setCode: () => {
+        if (Object.keys(this.props.info).length === 0) {
+          this.checkBackend(restGetInfo()).then(
+            info => {
+              this.props.setInfo(info);
+              if (info.employees) {
+                this.displayDone("setCode", 
+                  <React.Fragment>
+                    Done!
+                    <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
+                      component={Link} to="/restaurants/setpassword">Change</Button>
+                  </React.Fragment>);
+              } else {
+                this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
+              }
+            },
+            error => {
+              if (error.message === "sorry bro, that restaurant doesn't exist") {
+                this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
+                this.props.setInfo({checked: true});
+              } else {
+                console.log(error);
+                this.props.setInfo({checked:true});
+                this.displayError("setCode", "Please log in again.");
+              }
+            }
+          )
+        } else {
+          if (this.props.info.employees) {
+            this.displayDone("setCode", 
+              <React.Fragment>
+                Done!
+                <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
+                  component={Link} to="/restaurants/setpassword">Change</Button>
+              </React.Fragment>);
+          } else {
+            this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
+          }
+        }
+      },
       regSquare: () => {
         if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
             info => {
               this.props.setInfo(info);
-              if (info.hasSquare === true) {
+              if (info.hasSquare) {
                 this.displayDone("regSquare");
               }
               else {
@@ -622,7 +687,7 @@ class Homepage extends React.Component {
           )
         } else {
           if (this.props.info.name) {
-            if (this.props.info.hasSquare === true) {
+            if (this.props.info.hasSquare) {
               this.displayDone("regSquare");
             }
             else {
@@ -638,7 +703,7 @@ class Homepage extends React.Component {
           this.checkBackend(restGetInfo()).then(
             info => {
               this.props.setInfo(info);
-              if (info.verified === true) {
+              if (info.verified) {
                 this.displayDone("verify");
               }
               else {
@@ -656,7 +721,7 @@ class Homepage extends React.Component {
           )
         } else {
           if (this.props.info.name) {
-            if (this.props.info.verified === true) {
+            if (this.props.info.verified) {
               this.displayDone("verify");
             }
             else {
@@ -664,6 +729,44 @@ class Homepage extends React.Component {
             }
           } else {
             this.displayError("verify", "Please add info first");
+          }
+        }
+      },
+      publish: () => {
+        if (Object.keys(this.props.info).length === 0) {
+          this.checkBackend(restGetInfo()).then(
+            info => {
+              this.props.setInfo(info);
+              if (info.published) {
+                this.displayDone("publish");
+              }
+              else {
+                this.displayResult("publish", {text: "Publish", link: () => 
+                  this.setState({publish: true})}, "button", 
+                    {color: 'secondary', variant: 'outlined', size: 'small'}, false);
+              }
+            },
+            error => {
+              if (error.message === "sorry bro, that restaurant doesn't exist") {
+                this.displayError("publish", "Please add info first");
+              } else {
+                console.log(error);
+                this.displayError("publish", "Please log in again.");
+              }
+            }
+          )
+        } else {
+          if (this.props.info.name) {
+            if (this.props.info.published) {
+              this.displayDone("publish");
+            }
+            else {
+              this.displayResult("publish", {text: "Publish", link: () => 
+                this.setState({publish: true})}, "button", 
+                  {color: 'secondary', variant: 'outlined', size: 'small'}, false);
+            }
+          } else {
+            this.displayError("publish", "Please add info first");
           }
         }
       },
@@ -729,7 +832,8 @@ class Homepage extends React.Component {
           ))}
         </List>
         <Dialog maxWidth='xs' fullWidth open={this.state.verify} onClose={() => this.setState({verify: false})}>
-          <DialogTitle style={{margin: 'auto'}}>You Will Receive a Code Shortly</DialogTitle>
+          <DialogTitle style={{margin: 'auto'}}>You Will Receive a Code Shortly<br/>
+            Phone: {this.state.phone}</DialogTitle>
           <DialogContent>
               <Grid container spacing={2} style={{marginBottom: '16px'}}>
                   <Grid item xs={10} sm={8}>
@@ -740,10 +844,18 @@ class Homepage extends React.Component {
                   <Grid item container alignItems="flex-end" xs={6} sm={4}>
                       <Button variant="contained" color="secondary" onClick={() => this.verify()}>Confirm</Button>
                   </Grid>
-                  {this.state.resultMessage && <Typography>{this.state.resultMessage}</Typography>}
+                  {this.state.verifyResultMessage && <Typography>{this.state.verifyResultMessage}</Typography>}
               </Grid>
           </DialogContent>
-      </Dialog>
+        </Dialog>
+        <Dialog maxWidth='xs' fullWidth open={this.state.publish} onClose={() => this.setState({publish: false})}>
+          <DialogTitle style={{margin: 'auto'}}>Confirm Publish</DialogTitle>
+          <DialogContent>
+            <Button variant="contained" color="secondary" style={{margin: 'auto', marginBottom: '10px', display: 'block'}}
+              onClick={() => this.publish()}>Confirm</Button>
+            {this.state.publishResultMessage && <Typography align="center">{this.state.publishResultMessage}</Typography>}
+          </DialogContent>
+        </Dialog>
       </Paper>
     );
   }

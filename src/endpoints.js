@@ -99,3 +99,7 @@ export function restVerifyCall () {
 export function restVerifyCode () {
     return apiUrl() + "/rest/verifycode"
 }
+
+export function restPublish () {
+    return apiUrl() + "/rest/publish"
+}
