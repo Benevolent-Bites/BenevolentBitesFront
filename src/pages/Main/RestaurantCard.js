@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { Paper, Typography, Card, Grid, CardActions, CardMedia,
   CardContent, Button, ButtonGroup, CardHeader, Collapse, Divider, IconButton, useMediaQuery } from '@material-ui/core';
 import { ExpandMore, StarRounded, StarBorderRounded, AttachMoneyRounded } from '@material-ui/icons';
-import { userBuy, userLogin, restGetPhoto } from '../../endpoints';
+import { userBuy, userLogin, restGetPhoto, restRefer } from '../../endpoints';
 import clsx from 'clsx';
 import { ConditionalRender } from '../common';
 
@@ -51,7 +51,7 @@ export default function RestaurantCard (props) {
           <ConditionalRender condition={() => supported} alt={<Grid container spacing={1} style={{marginLeft: '8px'}} 
             alignItems="center">
               <Typography variant="body1">Want them on here?</Typography>
-              <Button color="primary">Refer Them</Button></Grid>}>
+              <Button color="primary" component="a" target="_blank" href={restRefer() + "?pid=" + data.restID}>Refer Them</Button></Grid>}>
             <Button color="secondary" variant="outlined" style={{marginRight: '15px'}}
               onClick={() => {
                 const link = userBuy() + "?restId=" + data.restID + "&amount=" + amount * 100;

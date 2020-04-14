@@ -480,7 +480,7 @@ class Homepage extends React.Component {
         url,
         {
           method: method,
-          body: body,
+          body: body && JSON.stringify(body),
           credentials: 'include',
           mode: 'cors',
           cache: 'no-cache'

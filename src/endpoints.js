@@ -103,3 +103,7 @@ export function restVerifyCode () {
 export function restPublish () {
     return apiUrl() + "/rest/publish"
 }
+
+export function restRefer () {
+    return frontUrl() + "/refer"
+}

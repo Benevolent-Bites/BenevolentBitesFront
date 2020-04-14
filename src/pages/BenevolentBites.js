@@ -14,6 +14,7 @@ import Main from './Main/Main';
 import Redeem from './Redeem/Redeem';
 import About from './About/About';
 import Locations from './Locations/Locations';
+import Refer from './Refer/Refer';
 
 function Copyright() {
 	return (
@@ -208,6 +209,9 @@ function BenevolentBites (props) {
 				</Route>
 				<Route path="/about">
 					<About handleDrawerToggle={handleDrawerToggle}/>
+				</Route>
+				<Route path="/refer">
+					<Refer handleDrawerToggle={handleDrawerToggle}/>
 				</Route>
 				<Route path="/" render={(props) => <Main {...props} handleDrawerToggle={handleDrawerToggle}/>}/>
 			</Switch>
