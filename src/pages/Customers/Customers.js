@@ -40,19 +40,16 @@ const styles = (theme) => ({
 });
 
 function Customers (props) {
-	const { classes, handleDrawerToggle } = props;
+	const { classes, handleDrawerToggle, cards, setCards } = props;
 
 	const pathDict = {
-		'/users':'dashboard',
-		'/users/info':'info',
-		'/users/cards': 'cards'
+		'/users': 'cards'
 	};
 
 	const tabValue = pathDict[useLocation().pathname];
 
 	const queryString = new URLSearchParams(window.location.search);
 
-	const [info, setInfo] = React.useState({});
 	const [avatarSrc, setAvatarSrc] = React.useState("");
 
 	const initialSignedIn = Cookies.get("signed_in") === "1" || null;
@@ -127,10 +124,10 @@ function Customers (props) {
 			/>
 			<main className={classes.main}>
 				<ConditionalRender condition={() => needsVerify} alt={
-					<Content tabValue={tabValue} info={info} setInfo={setInfo} />
+					<Content tabValue={tabValue} cards={cards} setCards={setCards} />
 				}>
 					<ConditionalRender condition={() => signedIn === true}>
-						<Content tabValue={tabValue} info={info} setInfo={setInfo} />
+						<Content tabValue={tabValue} cards={cards} setCards={setCards} />
 					</ConditionalRender>
 					<ConditionalRender condition={() => signedIn === false}>
 						<Typography variant="h5">Sorry, please log in again.</Typography>
@@ -146,7 +143,9 @@ function Customers (props) {
 
 Customers.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleDrawerToggle: PropTypes.func.isRequired
+  handleDrawerToggle: PropTypes.func.isRequired,
+  cards: PropTypes.array.isRequired,
+  setCards: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Customers);

@@ -98,7 +98,7 @@ function Redeem(props) {
             return "ok"
         }).catch(err => {error = err});
         if (response) {
-            window.location.assign(frontUrl());
+            setResultMessage("Redeemed Successfully.");
         } else {
             setResultMessage(error.message);
         }

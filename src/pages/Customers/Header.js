@@ -140,10 +140,6 @@ function Header(props) {
           </Hidden>
           <Tabs value={tabValue} textColor="inherit" variant="scrollable">
             <Tab style={{fontSize: '1.25rem'}} 
-                textColor="inherit" label="Dashboard" value="dashboard" component={Link} to="/users"/>
-            <Tab style={{fontSize: '1.25rem'}} 
-              textColor="inherit" label="My Info" value="info" component={Link} to="/users/info"/>
-            <Tab style={{fontSize: '1.25rem'}} 
               textColor="inherit" label="My Cards" value="cards" component={Link} to="/users/cards"/>
           </Tabs>
           <ConditionalRender condition={() => signedIn}>

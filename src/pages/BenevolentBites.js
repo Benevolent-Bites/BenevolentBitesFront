@@ -172,6 +172,9 @@ function BenevolentBites (props) {
 
 	const { classes } = props;
 
+	const [ userCards, setUserCards ] = React.useState([]);
+	const [ restInfo, setRestInfo ] = React.useState({});
+
 	return (
 		<ThemeProvider theme={theme}>
 			<div className={classes.root}>
@@ -194,10 +197,11 @@ function BenevolentBites (props) {
 					<Locations classes={classes} handleDrawerToggle={handleDrawerToggle}/>
 				</Route>
 				<Route path="/restaurants">
-					<Restaurants classes={classes} handleDrawerToggle={handleDrawerToggle}/>
+					<Restaurants classes={classes} handleDrawerToggle={handleDrawerToggle} info={restInfo} 
+						setInfo={setRestInfo} />
 				</Route>
 				<Route path="/users">
-					<Customers handleDrawerToggle={handleDrawerToggle}/>
+					<Customers handleDrawerToggle={handleDrawerToggle} cards={userCards} setCards={setUserCards} />
 				</Route>
 				<Route path="/redeem">
 					<Redeem handleDrawerToggle={handleDrawerToggle}/>

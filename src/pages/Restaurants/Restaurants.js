@@ -11,7 +11,7 @@ import { ConditionalRender, Spinner } from '../common';
 import { restLogin, authVerify, getAvatar } from '../../endpoints';
 
 export default function Restaurants(props) {
-	const { classes, handleDrawerToggle } = props;
+	const { classes, handleDrawerToggle, info, setInfo } = props;
 
 	const pathDict = {
 		'/restaurants':'dashboard',
@@ -24,7 +24,6 @@ export default function Restaurants(props) {
 
 	const queryString = new URLSearchParams(window.location.search);
 
-	const [info, setInfo] = React.useState({});
 	const [avatarSrc, setAvatarSrc] = React.useState("");
 	const initialSignedIn = Cookies.get("signed_in") === "1" || null;
 	const [signedIn, setSignedIn] = React.useState(initialSignedIn);
@@ -122,5 +121,7 @@ export default function Restaurants(props) {
 
 Restaurants.propTypes = {
   classes: PropTypes.object.isRequired,
-  handleDrawerToggle: PropTypes.func.isRequired
+  handleDrawerToggle: PropTypes.func.isRequired,
+  info: PropTypes.object.isRequired,
+  setInfo: PropTypes.func.isRequired
 };

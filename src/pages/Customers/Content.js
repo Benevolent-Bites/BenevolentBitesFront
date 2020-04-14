@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
 import { Link } from 'react-router-dom';
-import { userGetInfo, userSetInfo, userGetCards, restGetDetails, frontUrl } from '../../endpoints';
+import { userGetCards, restGetDetails, frontUrl } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -18,20 +18,13 @@ import {
   Collapse,
   CardHeader,
   Grid,
-  Hidden,
   Button,
-  TextField,
   List,
-  ListItemIcon,
-  ListItemSecondaryAction,
   ListItemText,
   ListItem,
 } from '@material-ui/core'
 
 import {
-  CheckRounded,
-  CloseRounded,
-  AddRounded,
   ExpandMore,
 } from '@material-ui/icons'
 
@@ -99,146 +92,6 @@ function TabPanel(props) {
   )
 }
 
-class AddInfo extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state={
-      submitMessage: ""
-    }
-  }
-
-  componentDidMount() {
-    if (this.props.info && Object.keys(this.props.info).length === 0) {
-      let ok;
-      window.fetch(
-        userGetInfo(),
-        {mode: 'cors', method: 'GET', cache: 'no-cache', credentials: 'include'}
-      ).then(result => {
-        ok = result.ok;
-        return result.json()
-      }).then(response => {
-        if(!ok) {throw new Error(response.error)}
-        return response
-      }).then(
-        info => {this.props.setInfo(info)},
-        error => console.log(error)
-      )
-    }
-  }
-
-  updateInfo (event) {
-    this.props.setInfo({
-      ...this.props.info,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  render() {
-    const { classes, info } = this.props;
-    const updateInfo = this.updateInfo.bind(this);
-
-    return(
-      <Paper className={classes.paper}>
-        <Typography variant="h5" gutterBottom>
-            Enter Your Billing Information Below:
-        </Typography>
-        <Grid container spacing={3} className={classes.formGrid}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              variant="outlined"
-              id="name"
-              name="name"
-              label="Name"
-              value={info.name || ''}
-              fullWidth
-              onChange={updateInfo}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              variant="outlined"
-              id="city"
-              name="city"
-              label="City"
-              fullWidth
-              autoComplete="billing address-level2"
-              value={info.city || ''}
-              onChange={updateInfo}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              variant="outlined"
-              id="address"
-              name="address"
-              label="Address line 1"
-              fullWidth
-              autoComplete="billing address-line1"
-              value={info.address || ''}
-              onChange={updateInfo}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField 
-              required 
-              variant="outlined" 
-              id="state" 
-              name="state" 
-              label="State/Province/Region"
-              autoComplete="billing address-level1"
-              fullWidth
-              value={info.state || ''}
-              onChange={updateInfo}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              variant="outlined"
-              id="zip"
-              name="zip"
-              label="Zip / Postal code"
-              fullWidth
-              autoComplete="billing postal-code"
-              value={info.zip || ''}
-              onChange={updateInfo}
-            />
-          </Grid>
-        </Grid>
-        <Grid className={classes.submitButton} container direction="row" alignItems="center">
-          <Button
-            type="submit" onClick={() => {
-              window.fetch(
-                userSetInfo(),
-                {
-                  mode: 'cors',
-                  credentials: 'include',
-                  method: 'POST',
-                  body: JSON.stringify(info)
-                }
-              ).then((result) => {
-                if (result.ok) {
-                  this.setState({submitMessage: "Submitted Successfully."});
-                } else {
-                  this.setState({submitMessage: "Error, please try again later."});
-                }
-              });
-            }}
-            variant="contained"
-            color="primary"
-            size="large">Submit</Button>
-          <Grid item>
-            <Typography style={{marginLeft: '20px', fontSize: '1.2rem'}}>{this.state.submitMessage}</Typography>
-          </Grid>
-        </Grid>
-      </Paper>
-    )
-  }
-}
-
 class GiftCard extends React.Component {
   constructor (props) {
     super(props);
@@ -277,10 +130,17 @@ class GiftCard extends React.Component {
   }
 
   async componentDidMount () {
+    if (this.props.card.details) {
+      this.setState({
+        details: this.props.card.details
+      });
+      return
+    }
     const details = await this.getRestaurant(this.props.card.restaurant);
     this.setState({
       details: details
     });
+    this.props.updateCard({...this.props.card, details});
   }
 
   formatTime (timestamp) {
@@ -382,11 +242,17 @@ function MyCards (props) {
     setDialogOpen(false);
   }
   
+  const updateCard = (idx, card) => {
+    cards[idx] = card;
+    setCards(cards);
+  }
+
   return (
     <React.Fragment>
       <Grid container spacing={3}>
-        {cards.map(card => <Grid item xs={12} sm={4}>
-          <GiftCard key={card.id} card={card} classes={classes} handleQR={handleQR}/>
+        {cards.map((card, idx) => <Grid item xs={12} sm={4}>
+          <GiftCard key={card.id} card={card} updateCard={(data) => updateCard(idx, data)} classes={classes} 
+            handleQR={handleQR}/>
         </Grid>)}
       </Grid>
       <Dialog maxWidth='sm' fullWidth open={dialogOpen} onClose={handleClose}>{dialogContents}</Dialog>
@@ -394,211 +260,11 @@ function MyCards (props) {
   )
 }
 
-class Homepage extends React.Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      list: {
-          addInfo: {name: <Typography>Add Your Information</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-          getCards: {name: <Typography>Get Cards</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
-      }
-    }
-  }
-
-  checkBackend (url, key) {
-    let ok;
-    return (
-      window.fetch(
-        url,
-        {
-          method: 'GET',
-          credentials: 'include',
-          mode: 'cors',
-          cache: 'no-cache'
-        }
-      )
-      .then(result => {
-        ok = result.ok;
-        return result.json();
-      }).then(response => {
-        if (!ok) {
-          throw new Error(response.error);
-        }
-        return response
-      })
-    )
-  }
-
-  displayResult(key, data, component="link") {
-    let item = this.state.list[key];
-    const componentMap = {
-      "a": "a",
-      "link": Link
-    };
-    const linkMap = {
-      "a": "href",
-      "link": "to"
-    };
-    item.value = data.link && <ListItemSecondaryAction>
-      <Button component={componentMap[component]} {...{[linkMap[component]]: data.link}} style={{textTransform: 'none'}}
-        endIcon={<AddRounded style={{ marginRight: '6px', marginLeft: 'none', color: 'blue', fontSize: 40}} />}>
-        <Hidden smDown><Typography className={this.props.classes.resultText}>{data.text}</Typography></Hidden>
-      </Button>
-    </ListItemSecondaryAction>
-    this.setState({
-      list: {
-        ...this.state.list,
-        [key]: item
-      }
-    });
-  }
-
-  displayError (key, msg) {
-    let item = this.state.list[key];
-    item.value = <React.Fragment>
-        <Typography className={this.props.classes.resultText}>{msg}</Typography>
-        <ListItemIcon>
-          <CloseRounded style={{ color:"red", fontSize: 40 }} />
-        </ListItemIcon>
-      </React.Fragment>
-    this.setState({
-      list: {
-        ...this.state.list,
-        [key]: item
-      }
-    });
-  }
-
-  displayDone (key, msg = "Done!") {
-    let item = this.state.list[key];
-    item.value = <React.Fragment>
-      <Hidden smDown><Typography className={this.props.classes.resultText}>{msg}</Typography></Hidden>
-      <ListItemIcon>
-        <CheckRounded style={{ color: "green", fontSize: 40 }} />
-      </ListItemIcon>
-    </React.Fragment>
-    this.setState({
-      list: {
-        ...this.state.list,
-        [key]: item
-      }
-    });
-  }
-
-  checkItems(key) {
-    const itemsDict = {
-      addInfo: () => {
-        if (Object.keys(this.props.info).length === 0) {
-          this.checkBackend(userGetInfo()).then(
-            (info) => {
-              if (info["name"]) {
-                this.props.setInfo(info);
-                this.displayDone("addInfo", 
-                  <React.Fragment>
-                    Done!
-                    <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                      component={Link} to="/users/info">Update Info</Button>
-                  </React.Fragment>);
-              } else {
-                this.props.setInfo(info);
-                this.displayResult("addInfo", {text: "Get Started", link: "/users/info"}, "link");
-              }
-            },
-            error => {
-              console.log(error);
-              this.displayError("addInfo", "Please log in again.");
-            }
-          )
-        } else {
-          if (this.props.info["name"]) {
-            this.displayDone("addInfo", 
-              <React.Fragment>
-                Done!
-                <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                  component={Link} to="/users/info">Update Info</Button>
-              </React.Fragment>);
-          } else {
-            this.displayResult("addInfo", {text: "Get Started", link: "/users/info"}, "link");
-          }
-        }
-      },
-      getCards: () => {
-        if (this.props.cards && this.props.cards.length === 0) {
-          this.checkBackend(userGetCards()).then(
-            cards => {
-              if (cards.length > 0) {
-                this.props.setCards(cards);
-                this.displayDone("getCards", 
-                  <React.Fragment>
-                    Done!
-                    <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                      component={Link} to="/users/cards">See Cards</Button>
-                  </React.Fragment>);
-              } else {
-                this.props.setCards(null);
-                this.displayResult("getCards", {text: "Get Started", link: "/"}, "link");
-              }
-            },
-            error => {
-              console.log(error);
-              this.props.setCards(null);
-              this.displayError("addInfo", "Please log in again.");
-            }
-          )
-        } else {
-          if (this.props.cards) {
-            this.displayDone("getCards", <React.Fragment>
-                Done!
-              <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                component={Link} to="/users/cards">See Cards</Button>
-            </React.Fragment>);
-          }
-          else {
-            this.displayResult("getCards", {text: "Get Started", link: "/"}, "link");
-          }
-        }
-      }
-    };
-    itemsDict[key]();
-  }
-
-  componentDidMount() {
-    for (let key in this.state.list) {
-      this.checkItems(key);
-    }
-  }
-
-  render() {
-    const classes = this.props.classes;
-    return (
-      <Paper className={classes.paper}>
-        <Typography align="center" variant="h4">Dashboard</Typography>
-        <List component="nav">
-          {Object.entries(this.state.list).map(([key,{name, value}]) => (
-            <ListItem divider key={key}>
-              <ListItemText primary={name} className={classes.homepageListText}/>
-              {value}
-            </ListItem>
-          ))}
-        </List>
-      </Paper>
-    );
-  }
-}
-
 function Content(props) {
-  const { classes, tabValue, info, setInfo } = props;
-
-  const [cards, setCards] = React.useState([]);
+  const { classes, tabValue, cards, setCards } = props;
 
   return (
   <React.Fragment>
-    <TabPanel index="dashboard" tabValue={tabValue}>
-      <Homepage classes={classes} setInfo={setInfo} info={info} cards={cards} setCards={setCards}/>
-    </TabPanel>
-    <TabPanel index="info" tabValue={tabValue}>
-      <AddInfo classes={classes} setInfo={setInfo} info={info}/>
-    </TabPanel>
     <TabPanel index="cards" tabValue={tabValue}>
       <MyCards classes={classes} cards={cards} setCards={setCards}/>
     </TabPanel>
@@ -609,8 +275,6 @@ function Content(props) {
 Content.propTypes = {
   classes: PropTypes.object.isRequired,
   tabValue: PropTypes.string.isRequired,
-  info: PropTypes.object.isRequired,
-  setInfo: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Content);
