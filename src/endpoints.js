@@ -13,7 +13,7 @@ export function apiUrl () {
 export function frontUrl () {
     const env = process.env.REACT_APP_ENV;
     const dict = {
-        prod: "https://benevolentbites.tech",
+        prod: "https://app.benevolentbites.tech",
         dev:  "https://dev.benevolentbites.tech",
         local: "http://localhost:3000"
     }
