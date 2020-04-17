@@ -107,3 +107,7 @@ export function restPublish () {
 export function restRefer () {
     return frontUrl() + "/refer"
 }
+
+export function restContract () {
+    return apiUrl() + "/rest/contract"
+}

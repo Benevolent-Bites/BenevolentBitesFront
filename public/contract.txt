@@ -1,0 +1,2 @@
+<p>Test contract: <br/> <b> bold terms </b> are for emphasis, <br/> <em> italic terms </em> are also for emphasis.
+</p>

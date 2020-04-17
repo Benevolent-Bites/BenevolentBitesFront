@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
 import { Link } from 'react-router-dom';
 import { restGetInfo, restSetInfo, squareSignup, restSetPassword, 
-  restPublish, restVerifyCall, restVerifyCode } from '../../endpoints';
+  restPublish, restVerifyCall, restVerifyCode, restContract } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -14,12 +14,15 @@ import {
   TextField,
   Dialog,
   DialogContent,
+  DialogActions,
   DialogTitle,
   List,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   ListItem,
+  useMediaQuery,
+  withWidth
 } from '@material-ui/core'
 
 import {
@@ -448,6 +451,7 @@ class Homepage extends React.Component {
         regEmployees: {name: <Typography>Register Employees</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         setCode: {name: <Typography>Set Security Code</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         verify: {name: <Typography>Verify Your Phone</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
+        contract: {name: <Typography>Agree to Terms of Service</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
         publish: {name: <Typography>Publish Your Restaurant</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
       },
       verify: false,
@@ -455,7 +459,9 @@ class Homepage extends React.Component {
       verifyResultMessage: "",
       phone: "",
       publish: false,
-      publishResultMessage: ""
+      publishResultMessage: "",
+      contract: false,
+      contractResultMessage: ""
     }
   }
 
@@ -475,27 +481,25 @@ class Homepage extends React.Component {
 
   checkBackend (url, method="GET", body=null) {
     let ok;
-    return (
-      window.fetch(
-        url,
-        {
-          method: method,
-          body: body && JSON.stringify(body),
-          credentials: 'include',
-          mode: 'cors',
-          cache: 'no-cache'
-        }
-      )
-      .then(result => {
-        ok = result.ok;
-        return result.json();
-      }).then(response => {
-        if (!ok) {
-          throw new Error(response.error);
-        }
-        return response
-      })
+    return window.fetch(
+      url,
+      {
+        method: method,
+        body: body && JSON.stringify(body),
+        credentials: 'include',
+        mode: 'cors',
+        cache: 'no-cache'
+      }
     )
+    .then(result => {
+      ok = result.ok;
+      return result.json();
+    }).then(response => {
+      if (!ok) {
+        throw new Error(response.error);
+      }
+      return response
+    })
   }
 
   displayResult(key, data, component="link", buttonProps={}, icon=true) {
@@ -579,6 +583,18 @@ class Homepage extends React.Component {
       this.props.setInfo({...this.props.info, published: true})
     } else {
       this.setState({publishResultMessage: "Error: " + error.message});
+    }
+  }
+
+  async contract() {
+    let error;
+    const res = await this.checkBackend(restContract()).catch(err => {
+      error = err; console.log(err)})
+    if (res) {
+      this.setState({contractResultMessage: "Submitted Successfully"});
+      this.props.setInfo({...this.props.info, signed: true})
+    } else {
+      this.setState({contractResultMessage: "Error: " + error.message});
     }
   }
 
@@ -770,6 +786,42 @@ class Homepage extends React.Component {
           }
         }
       },
+      contract: () => {
+        if (Object.keys(this.props.info).length === 0) {
+          this.checkBackend(restGetInfo()).then(
+            info => {
+              this.props.setInfo(info);
+              if (info.signed) {
+                this.displayDone("contract");
+              }
+              else {
+                this.displayResult("contract", {text: "View", link: () => 
+                  this.setState({contract: true})}, "button");
+              }
+            },
+            error => {
+              if (error.message === "sorry bro, that restaurant doesn't exist") {
+                this.displayError("contract", "Please add info first");
+              } else {
+                console.log(error);
+                this.displayError("contract", "Please log in again.");
+              }
+            }
+          )
+        } else {
+          if (this.props.info.name) {
+            if (this.props.info.signed) {
+              this.displayDone("contract");
+            }
+            else {
+              this.displayResult("contract", {text: "View", link: () => 
+                this.setState({contract: true})}, "button");
+            }
+          } else {
+            this.displayError("contract", "Please add info first");
+          }
+        }
+      },
       addInfo: () => {
         if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
@@ -818,8 +870,18 @@ class Homepage extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.info !== prevProps.info) {
+      for (let key in this.state.list) {
+        this.checkItems(key);
+      }
+    }
+  }
+
   render() {
     const classes = this.props.classes;
+    const fullScreen = this.props.width < 600;
+
     return (
       <Paper className={classes.paper}>
         <Typography align="center" variant="h4">Dashboard</Typography>
@@ -856,10 +918,29 @@ class Homepage extends React.Component {
             {this.state.publishResultMessage && <Typography align="center">{this.state.publishResultMessage}</Typography>}
           </DialogContent>
         </Dialog>
+        <Dialog maxWidth='md' fullWidth fullscreen={fullScreen ? true : undefined} open={this.state.contract} 
+          onClose={() => this.setState({contract: false})}>
+          <DialogTitle style={{margin: 'auto'}}>Read These Terms and Sign Below</DialogTitle>
+          <DialogContent>
+            {(() => {this.state.contract && window.fetch(process.env.PUBLIC_URL + "/contract.txt").then(
+              result => result.text()).then(h => document.getElementById("contract").innerHTML = h);
+              return <Typography id="contract" variant="body1" gutterBottom style={{fontSize: '1.1rem'}}>
+                </Typography>})()}
+            <DialogActions>
+              <TextField required margin="dense" id="name" label="Signature" fullWidth style={{marginRight: '30px'}}/>
+              <Button onClick={() => this.setState({contract: false})} color="primary">Cancel</Button>
+              <Button type="submit" variant="contained" color="secondary" onClick={() => this.contract()}>Sign</Button>
+            </DialogActions>
+            {this.state.contractResultMessage 
+              && <Typography align="center">{this.state.contractResultMessage}</Typography>}
+          </DialogContent>
+        </Dialog>
       </Paper>
     );
   }
 }
+
+Homepage = withWidth()(Homepage);
 
 function Content(props) {
   const { classes, tabValue, info, setInfo } = props;

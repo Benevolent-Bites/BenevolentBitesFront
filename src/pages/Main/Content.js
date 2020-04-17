@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { ConditionalRender } from '../common';
 import RestaurantCard from './RestaurantCard';
 import { searchCoords } from '../../endpoints';
+import { Alert, AlertTitle } from '@material-ui/lab'
 import {
   AppBar,
   Toolbar,
@@ -13,6 +14,7 @@ import {
   Grid,
   CircularProgress,
   TextField,
+  Snackbar,
   Divider
 } from '@material-ui/core'
 
@@ -102,18 +104,6 @@ function TabPanel(props) {
   )
 }
 
-const test_on = {
-  image: "",
-  description: "Custom description - Restaurants that sign up can add their own custom description for users to read.",
-  uuid: '8a3d5c7f-157d-1c4d-963d-7e8d93e4a89b',
-  name: "Test Restaurant",
-  priceLevel: 1,
-  rating: 4.5,
-  latitude: 30.273788,
-  longitude: -97.800623,
-  address: "3201 Bee Cave Rd. Austin, TX 78746"
-};
-
 class MainView extends React.Component {
   constructor (props) {
     super(props);
@@ -127,14 +117,18 @@ class MainView extends React.Component {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       position => {
         this.setState({
           coords: {lat: position.coords.latitude, lng: position.coords.longitude}
         })
         this.searchRestaurants(true);
-    })
+    });
+    let err = (new URLSearchParams(window.location.search)).get("error");
+    if (err) {
+      this.setState({error: err});
+    }
   }
 
   handleChange(e) {
@@ -237,6 +231,14 @@ class MainView extends React.Component {
         <GoogleMapsContainer signedIn={this.props.signedIn} coords={this.state.coords} list={list}/>
         <Backdrop className={classes.backdrop} open={this.state.loading}><CircularProgress/></Backdrop>
       </TabPanel>
+      <Snackbar open={!!this.state.error} autoHideDuration={6000} style={{maxWidth: 700, width: "100%"}}
+        onClose={(_, r) => {if (r !== 'clickaway') this.setState({error: false})}}>
+        <Alert variant="filled" onClose={(_, r) => {if (r !== 'clickaway') this.setState({error: false})}} 
+          severity="error" style={{width: "100%", fontSize: "1.5rem"}}>
+          <AlertTitle style={{fontSize: "1.5rem"}}>Error</AlertTitle>
+          {this.state.error}
+        </Alert>
+      </Snackbar>
     </React.Fragment>)
   }
 }
