@@ -1,113 +1,113 @@
 import React from "react";
 
-export function apiUrl () {
-    const env = process.env.REACT_APP_ENV;
-    const dict = {
-        prod: "https://api.benevolentbites.tech",
-        dev:  "https://devapi.benevolentbites.tech",
-        local: "http://localhost:9000"
-    }
-    return dict[env.toLowerCase()];
+export function apiUrl() {
+  const env = process.env.REACT_APP_ENV;
+  const dict = {
+    prod: "https://api.benevolentbites.tech",
+    dev: "https://devapi.benevolentbites.tech",
+    local: "http://localhost:9000",
+  };
+  return dict[env.toLowerCase()];
 }
 
-export function frontUrl () {
-    const env = process.env.REACT_APP_ENV;
-    const dict = {
-        prod: "https://app.benevolentbites.tech",
-        dev:  "https://dev.benevolentbites.tech",
-        local: "http://localhost:3000"
-    }
-    return dict[env.toLowerCase()];
+export function frontUrl() {
+  const env = process.env.REACT_APP_ENV;
+  const dict = {
+    prod: "https://app.benevolentbites.tech",
+    dev: "https://dev.benevolentbites.tech",
+    local: "http://localhost:3000",
+  };
+  return dict[env.toLowerCase()];
 }
 
-export function restLogin () {
-    return apiUrl() + "/rest/signup"
+export function restLogin() {
+  return apiUrl() + "/rest/signup";
 }
 
-export function userLogin () {
-    return apiUrl() + "/user/signup"
+export function userLogin() {
+  return apiUrl() + "/user/signup";
 }
 
-export function authVerify () {
-    return apiUrl() + "/verify"
+export function authVerify() {
+  return apiUrl() + "/verify";
 }
 
-export function restGetInfo () {
-    return apiUrl() + "/rest/getinfo"
+export function restGetInfo() {
+  return apiUrl() + "/rest/getinfo";
 }
 
-export function restSetInfo () {
-    return apiUrl() + "/rest/setinfo"
+export function restSetInfo() {
+  return apiUrl() + "/rest/setinfo";
 }
 
-export function restSetPassword () {
-    return apiUrl() + "/rest/setpassword"
+export function restSetPassword() {
+  return apiUrl() + "/rest/setpassword";
 }
 
-export function userGetInfo () {
-    return apiUrl() + "/user/getinfo"
+export function userGetInfo() {
+  return apiUrl() + "/user/getinfo";
 }
 
-export function userSetInfo () {
-    return apiUrl() + "/user/setinfo"
+export function userSetInfo() {
+  return apiUrl() + "/user/setinfo";
 }
 
-export function squareSignup () {
-    return apiUrl() + "/square/signup"
+export function squareSignup() {
+  return apiUrl() + "/square/signup";
 }
 
-export function getAvatar () {
-    return apiUrl() + "/user/getavatar"
+export function getAvatar() {
+  return apiUrl() + "/user/getavatar";
 }
 
-export function userBuy () {
-    return apiUrl() + "/user/buy"
+export function userBuy() {
+  return apiUrl() + "/user/buy";
 }
 
-export function userGetCards () {
-    return apiUrl() + "/user/getcards"
+export function userGetCards() {
+  return apiUrl() + "/user/getcards";
 }
 
-export function restGetDetails () {
-    return apiUrl() + "/rest/getdetails"
+export function restGetDetails() {
+  return apiUrl() + "/rest/getdetails";
 }
 
-export function restGetPhoto () {
-    return apiUrl() + "/rest/getphoto"
+export function restGetPhoto() {
+  return apiUrl() + "/rest/getphoto";
 }
 
-export function searchCoords () {
-    return apiUrl() + "/search/coords"
+export function searchCoords() {
+  return apiUrl() + "/search/coords";
 }
 
-export function restRedeemCard () {
-    return apiUrl() + "/rest/redeemcard"
+export function restRedeemCard() {
+  return apiUrl() + "/rest/redeemcard";
 }
 
-export function restGetLocations () {
-    return apiUrl() + "/rest/getlocations"
+export function restGetLocations() {
+  return apiUrl() + "/rest/getlocations";
 }
 
-export function restSetLocation () {
-    return apiUrl() + "/rest/setlocation"
+export function restSetLocation() {
+  return apiUrl() + "/rest/setlocation";
 }
 
-export function restVerifyCall () {
-    return apiUrl() + "/rest/verifycall"
+export function restVerifyCall() {
+  return apiUrl() + "/rest/verifycall";
 }
 
-export function restVerifyCode () {
-    return apiUrl() + "/rest/verifycode"
+export function restVerifyCode() {
+  return apiUrl() + "/rest/verifycode";
 }
 
-export function restPublish () {
-    return apiUrl() + "/rest/publish"
+export function restPublish() {
+  return apiUrl() + "/rest/publish";
 }
 
-export function restRefer () {
-    return frontUrl() + "/refer"
+export function restRefer() {
+  return frontUrl() + "/refer";
 }
 
-export function restContract () {
-    return apiUrl() + "/rest/contract"
+export function restContract() {
+  return apiUrl() + "/rest/contract";
 }
