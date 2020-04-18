@@ -19,10 +19,6 @@ export default function Restaurants(props) {
     "/restaurants/data": "data",
   };
 
-  // REMOVE THIS //
-  Cookies.set("signed_in", "1", { expires: 6 / 24 });
-  /////////////////
-
   const tabValue = pathDict[useLocation().pathname];
 
   const queryString = new URLSearchParams(window.location.search);

@@ -113,5 +113,5 @@ export function restContract() {
 }
 
 export function restGetReport() {
-  return apiUrl() + "/rest/reports";
+  return apiUrl() + "/rest/report";
 }
