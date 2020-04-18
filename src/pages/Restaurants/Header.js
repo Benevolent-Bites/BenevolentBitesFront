@@ -175,6 +175,8 @@ function Header(props) {
               textColor="inherit" label="My Employees" value="employees" component={Link} to="/restaurants/employees"/>
             <Tab style={{fontSize: '1.25rem'}} 
               textColor="inherit" label="Security Code" value="password" component={Link} to="/restaurants/setpassword"/>
+            <Tab style={{fontSize: '1.25rem'}} 
+              textColor="inherit" label="Data" value="data" component={Link} to="/restaurants/data"/>
           </Tabs>
           <ConditionalRender condition={() => signedIn}>
             <Tooltip title="Alerts • No alerts">
