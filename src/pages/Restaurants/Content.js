@@ -1,10 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Spinner } from '../common';
-import { Link } from 'react-router-dom';
-import { restGetInfo, restSetInfo, squareSignup, restSetPassword, 
-  restPublish, restVerifyCall, restVerifyCode, restContract } from '../../endpoints';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import { Spinner } from "../common";
+import { Link } from "react-router-dom";
+import {
+  restGetInfo,
+  restSetInfo,
+  squareSignup,
+  restSetPassword,
+  restPublish,
+  restVerifyCall,
+  restVerifyCode,
+  restContract,
+} from "../../endpoints";
 import {
   Typography,
   Paper,
@@ -22,8 +30,8 @@ import {
   ListItemText,
   ListItem,
   useMediaQuery,
-  withWidth
-} from '@material-ui/core'
+  withWidth,
+} from "@material-ui/core";
 
 import { CheckRounded, CloseRounded, AddRounded } from "@material-ui/icons";
 
@@ -526,13 +534,62 @@ class Homepage extends React.Component {
     super(props);
     this.state = {
       list: {
-        addInfo: {name: <Typography>Add Your Information</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        regSquare: {name: <Typography>Add Square Integration</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        regEmployees: {name: <Typography>Register Employees</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        setCode: {name: <Typography>Set Security Code</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        verify: {name: <Typography>Verify Your Phone</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        contract: {name: <Typography>Agree to Terms of Service</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>},
-        publish: {name: <Typography>Publish Your Restaurant</Typography>, value: <ListItemIcon><Spinner/></ListItemIcon>}
+        addInfo: {
+          name: <Typography>Add Your Information</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        regSquare: {
+          name: <Typography>Add Square Integration</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        regEmployees: {
+          name: <Typography>Register Employees</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        setCode: {
+          name: <Typography>Set Security Code</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        verify: {
+          name: <Typography>Verify Your Phone</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        contract: {
+          name: <Typography>Agree to Terms of Service</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
+        publish: {
+          name: <Typography>Publish Your Restaurant</Typography>,
+          value: (
+            <ListItemIcon>
+              <Spinner />
+            </ListItemIcon>
+          ),
+        },
       },
       verify: false,
       code: "",
@@ -541,19 +598,22 @@ class Homepage extends React.Component {
       publish: false,
       publishResultMessage: "",
       contract: false,
-      contractResultMessage: ""
-    }
+      contractResultMessage: "",
+    };
   }
 
-  async makeCall () {
+  async makeCall() {
     try {
       const res = await this.checkBackend(restVerifyCall());
-      this.setState({verify: true, phone: res.phone});
+      this.setState({ verify: true, phone: res.phone });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (error.message === "sorry bro, no phone number on google maps") {
-        this.displayError("verify", "Please add your phone number on Google Maps");
-        return
+        this.displayError(
+          "verify",
+          "Please add your phone number on Google Maps"
+        );
+        return;
       }
       this.displayError("verify", "Sorry, there was an error.");
     }
@@ -561,28 +621,27 @@ class Homepage extends React.Component {
 
   checkBackend(url, method = "GET", body = null) {
     let ok;
-    return window.fetch(
-      url,
-      {
+    return window
+      .fetch(url, {
         method: method,
         body: body && JSON.stringify(body),
-        credentials: 'include',
-        mode: 'cors',
-        cache: 'no-cache'
-      }
-    )
-    .then(result => {
-      ok = result.ok;
-      return result.json();
-    }).then(response => {
-      if (!ok) {
-        throw new Error(response.error);
-      }
-      return response
-    })
+        credentials: "include",
+        mode: "cors",
+        cache: "no-cache",
+      })
+      .then((result) => {
+        ok = result.ok;
+        return result.json();
+      })
+      .then((response) => {
+        if (!ok) {
+          throw new Error(response.error);
+        }
+        return response;
+      });
   }
 
-  displayResult(key, data, component="link", buttonProps={}, icon=true) {
+  displayResult(key, data, component = "link", buttonProps = {}, icon = true) {
     let item = this.state.list[key];
     const componentMap = {
       a: "a",
@@ -594,14 +653,34 @@ class Homepage extends React.Component {
       link: "to",
       button: "onClick",
     };
-    item.value = data.link && <ListItemSecondaryAction>
-      <Button {...buttonProps} component={componentMap[component]} {...{[linkMap[component]]: data.link}} 
-        style={{textTransform: 'none'}} endIcon={icon ? <AddRounded style={{ marginRight: '10px', marginLeft: 'none', 
-        color: 'blue', fontSize: 40}} /> : null}
-      >
-        <Hidden smDown><Typography className={icon?this.props.classes.resultText:null}>{data.text}</Typography></Hidden>
-      </Button>
-    </ListItemSecondaryAction>
+    item.value = data.link && (
+      <ListItemSecondaryAction>
+        <Button
+          {...buttonProps}
+          component={componentMap[component]}
+          {...{ [linkMap[component]]: data.link }}
+          style={{ textTransform: "none" }}
+          endIcon={
+            icon ? (
+              <AddRounded
+                style={{
+                  marginRight: "10px",
+                  marginLeft: "none",
+                  color: "blue",
+                  fontSize: 40,
+                }}
+              />
+            ) : null
+          }
+        >
+          <Hidden smDown>
+            <Typography className={icon ? this.props.classes.resultText : null}>
+              {data.text}
+            </Typography>
+          </Hidden>
+        </Button>
+      </ListItemSecondaryAction>
+    );
     this.setState({
       list: {
         ...this.state.list,
@@ -659,34 +738,38 @@ class Homepage extends React.Component {
       console.log(err);
     });
     if (res) {
-      this.setState({verifyResultMessage: "Successfully Verified"});
-      this.props.setInfo({...this.props.info, verified: true})
+      this.setState({ verifyResultMessage: "Successfully Verified" });
+      this.props.setInfo({ ...this.props.info, verified: true });
     } else {
-      this.setState({verifyResultMessage: "Error: " + error});
+      this.setState({ verifyResultMessage: "Error: " + error });
     }
   }
 
   async publish() {
     let error;
-    const res = await this.checkBackend(restPublish()).catch(err => {
-      error = err; console.log(err)})
+    const res = await this.checkBackend(restPublish()).catch((err) => {
+      error = err;
+      console.log(err);
+    });
     if (res) {
-      this.setState({publishResultMessage: "Published Successfully"});
-      this.props.setInfo({...this.props.info, published: true})
+      this.setState({ publishResultMessage: "Published Successfully" });
+      this.props.setInfo({ ...this.props.info, published: true });
     } else {
-      this.setState({publishResultMessage: "Error: " + error.message});
+      this.setState({ publishResultMessage: "Error: " + error.message });
     }
   }
 
   async contract() {
     let error;
-    const res = await this.checkBackend(restContract()).catch(err => {
-      error = err; console.log(err)})
+    const res = await this.checkBackend(restContract()).catch((err) => {
+      error = err;
+      console.log(err);
+    });
     if (res) {
-      this.setState({contractResultMessage: "Submitted Successfully"});
-      this.props.setInfo({...this.props.info, signed: true})
+      this.setState({ contractResultMessage: "Submitted Successfully" });
+      this.props.setInfo({ ...this.props.info, signed: true });
     } else {
-      this.setState({contractResultMessage: "Error: " + error.message});
+      this.setState({ contractResultMessage: "Error: " + error.message });
     }
   }
 
@@ -767,40 +850,72 @@ class Homepage extends React.Component {
       setCode: () => {
         if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
-            info => {
+            (info) => {
               this.props.setInfo(info);
               if (info.employees) {
-                this.displayDone("setCode", 
+                this.displayDone(
+                  "setCode",
                   <React.Fragment>
                     Done!
-                    <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                      component={Link} to="/restaurants/setpassword">Change</Button>
-                  </React.Fragment>);
+                    <Button
+                      style={{ marginLeft: "15px" }}
+                      variant="outlined"
+                      size="small"
+                      component={Link}
+                      to="/restaurants/setpassword"
+                    >
+                      Change
+                    </Button>
+                  </React.Fragment>
+                );
               } else {
-                this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
+                this.displayResult(
+                  "setCode",
+                  { text: "Get Started", link: "/restaurants/setpassword" },
+                  "link"
+                );
               }
             },
-            error => {
-              if (error.message === "sorry bro, that restaurant doesn't exist") {
-                this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
-                this.props.setInfo({checked: true});
+            (error) => {
+              if (
+                error.message === "sorry bro, that restaurant doesn't exist"
+              ) {
+                this.displayResult(
+                  "setCode",
+                  { text: "Get Started", link: "/restaurants/setpassword" },
+                  "link"
+                );
+                this.props.setInfo({ checked: true });
               } else {
                 console.log(error);
-                this.props.setInfo({checked:true});
+                this.props.setInfo({ checked: true });
                 this.displayError("setCode", "Please log in again.");
               }
             }
-          )
+          );
         } else {
           if (this.props.info.employees) {
-            this.displayDone("setCode", 
+            this.displayDone(
+              "setCode",
               <React.Fragment>
                 Done!
-                <Button style={{marginLeft: '15px'}} variant="outlined" size="small" 
-                  component={Link} to="/restaurants/setpassword">Change</Button>
-              </React.Fragment>);
+                <Button
+                  style={{ marginLeft: "15px" }}
+                  variant="outlined"
+                  size="small"
+                  component={Link}
+                  to="/restaurants/setpassword"
+                >
+                  Change
+                </Button>
+              </React.Fragment>
+            );
           } else {
-            this.displayResult("setCode", {text: "Get Started", link: "/restaurants/setpassword"}, "link");
+            this.displayResult(
+              "setCode",
+              { text: "Get Started", link: "/restaurants/setpassword" },
+              "link"
+            );
           }
         }
       },
@@ -891,35 +1006,49 @@ class Homepage extends React.Component {
       publish: () => {
         if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
-            info => {
+            (info) => {
               this.props.setInfo(info);
               if (info.published) {
                 this.displayDone("publish");
-              }
-              else {
-                this.displayResult("publish", {text: "Publish", link: () => 
-                  this.setState({publish: true})}, "button", 
-                    {color: 'secondary', variant: 'outlined', size: 'small'}, false);
+              } else {
+                this.displayResult(
+                  "publish",
+                  {
+                    text: "Publish",
+                    link: () => this.setState({ publish: true }),
+                  },
+                  "button",
+                  { color: "secondary", variant: "outlined", size: "small" },
+                  false
+                );
               }
             },
-            error => {
-              if (error.message === "sorry bro, that restaurant doesn't exist") {
+            (error) => {
+              if (
+                error.message === "sorry bro, that restaurant doesn't exist"
+              ) {
                 this.displayError("publish", "Please add info first");
               } else {
                 console.log(error);
                 this.displayError("publish", "Please log in again.");
               }
             }
-          )
+          );
         } else {
           if (this.props.info.name) {
             if (this.props.info.published) {
               this.displayDone("publish");
-            }
-            else {
-              this.displayResult("publish", {text: "Publish", link: () => 
-                this.setState({publish: true})}, "button", 
-                  {color: 'secondary', variant: 'outlined', size: 'small'}, false);
+            } else {
+              this.displayResult(
+                "publish",
+                {
+                  text: "Publish",
+                  link: () => this.setState({ publish: true }),
+                },
+                "button",
+                { color: "secondary", variant: "outlined", size: "small" },
+                false
+              );
             }
           } else {
             this.displayError("publish", "Please add info first");
@@ -929,33 +1058,42 @@ class Homepage extends React.Component {
       contract: () => {
         if (Object.keys(this.props.info).length === 0) {
           this.checkBackend(restGetInfo()).then(
-            info => {
+            (info) => {
               this.props.setInfo(info);
               if (info.signed) {
                 this.displayDone("contract");
-              }
-              else {
-                this.displayResult("contract", {text: "View", link: () => 
-                  this.setState({contract: true})}, "button");
+              } else {
+                this.displayResult(
+                  "contract",
+                  {
+                    text: "View",
+                    link: () => this.setState({ contract: true }),
+                  },
+                  "button"
+                );
               }
             },
-            error => {
-              if (error.message === "sorry bro, that restaurant doesn't exist") {
+            (error) => {
+              if (
+                error.message === "sorry bro, that restaurant doesn't exist"
+              ) {
                 this.displayError("contract", "Please add info first");
               } else {
                 console.log(error);
                 this.displayError("contract", "Please log in again.");
               }
             }
-          )
+          );
         } else {
           if (this.props.info.name) {
             if (this.props.info.signed) {
               this.displayDone("contract");
-            }
-            else {
-              this.displayResult("contract", {text: "View", link: () => 
-                this.setState({contract: true})}, "button");
+            } else {
+              this.displayResult(
+                "contract",
+                { text: "View", link: () => this.setState({ contract: true }) },
+                "button"
+              );
             }
           } else {
             this.displayError("contract", "Please add info first");
@@ -1064,50 +1202,127 @@ class Homepage extends React.Component {
             </ListItem>
           ))}
         </List>
-        <Dialog maxWidth='xs' fullWidth open={this.state.verify} onClose={() => this.setState({verify: false})}>
-          <DialogTitle style={{margin: 'auto'}}>You Will Receive a Code Shortly<br/>
-            Phone: {this.state.phone}</DialogTitle>
+        <Dialog
+          maxWidth="xs"
+          fullWidth
+          open={this.state.verify}
+          onClose={() => this.setState({ verify: false })}
+        >
+          <DialogTitle style={{ margin: "auto" }}>
+            You Will Receive a Code Shortly
+            <br />
+            Phone: {this.state.phone}
+          </DialogTitle>
           <DialogContent>
-              <Grid container spacing={2} style={{marginBottom: '16px'}}>
-                  <Grid item xs={10} sm={8}>
-                      <TextField InputProps={{className: classes.searchInput}} 
-                          variant="outlined" label="Code" value={this.state.code} 
-                              onChange={(e) => this.setState({code: e.target.value})} className={classes.searchBar} />
-                  </Grid>
-                  <Grid item container alignItems="flex-end" xs={6} sm={4}>
-                      <Button variant="contained" color="secondary" onClick={() => this.verify()}>Confirm</Button>
-                  </Grid>
-                  {this.state.verifyResultMessage && <Typography>{this.state.verifyResultMessage}</Typography>}
+            <Grid container spacing={2} style={{ marginBottom: "16px" }}>
+              <Grid item xs={10} sm={8}>
+                <TextField
+                  InputProps={{ className: classes.searchInput }}
+                  variant="outlined"
+                  label="Code"
+                  value={this.state.code}
+                  onChange={(e) => this.setState({ code: e.target.value })}
+                  className={classes.searchBar}
+                />
               </Grid>
-              {this.state.resultMessage && (
-                <Typography>{this.state.resultMessage}</Typography>
+              <Grid item container alignItems="flex-end" xs={6} sm={4}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => this.verify()}
+                >
+                  Confirm
+                </Button>
+              </Grid>
+              {this.state.verifyResultMessage && (
+                <Typography>{this.state.verifyResultMessage}</Typography>
               )}
             </Grid>
+            {this.state.resultMessage && (
+              <Typography>{this.state.resultMessage}</Typography>
+            )}
           </DialogContent>
         </Dialog>
-        <Dialog maxWidth='xs' fullWidth open={this.state.publish} onClose={() => this.setState({publish: false})}>
-          <DialogTitle style={{margin: 'auto'}}>Confirm Publish</DialogTitle>
+        <Dialog
+          maxWidth="xs"
+          fullWidth
+          open={this.state.publish}
+          onClose={() => this.setState({ publish: false })}
+        >
+          <DialogTitle style={{ margin: "auto" }}>Confirm Publish</DialogTitle>
           <DialogContent>
-            <Button variant="contained" color="secondary" style={{margin: 'auto', marginBottom: '10px', display: 'block'}}
-              onClick={() => this.publish()}>Confirm</Button>
-            {this.state.publishResultMessage && <Typography align="center">{this.state.publishResultMessage}</Typography>}
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin: "auto", marginBottom: "10px", display: "block" }}
+              onClick={() => this.publish()}
+            >
+              Confi rm
+            </Button>
+            {this.state.publishResultMessage && (
+              <Typography align="center">
+                {this.state.publishResultMessage}
+              </Typography>
+            )}
           </DialogContent>
         </Dialog>
-        <Dialog maxWidth='md' fullWidth fullscreen={fullScreen ? true : undefined} open={this.state.contract} 
-          onClose={() => this.setState({contract: false})}>
-          <DialogTitle style={{margin: 'auto'}}>Read These Terms and Sign Below</DialogTitle>
+        <Dialog
+          maxWidth="md"
+          fullWidth
+          fullscreen={fullScreen ? true : undefined}
+          open={this.state.contract}
+          onClose={() => this.setState({ contract: false })}
+        >
+          <DialogTitle style={{ margin: "auto" }}>
+            Read These Terms and Sign Below
+          </DialogTitle>
           <DialogContent>
-            {(() => {this.state.contract && window.fetch(process.env.PUBLIC_URL + "/contract.txt").then(
-              result => result.text()).then(h => document.getElementById("contract").innerHTML = h);
-              return <Typography id="contract" variant="body1" gutterBottom style={{fontSize: '1.1rem'}}>
-                </Typography>})()}
+            {(() => {
+              this.state.contract &&
+                window
+                  .fetch(process.env.PUBLIC_URL + "/contract.txt")
+                  .then((result) => result.text())
+                  .then(
+                    (h) => (document.getElementById("contract").innerHTML = h)
+                  );
+              return (
+                <Typography
+                  id="contract"
+                  variant="body1"
+                  gutterBottom
+                  style={{ fontSize: "1.1rem" }}
+                ></Typography>
+              );
+            })()}
             <DialogActions>
-              <TextField required margin="dense" id="name" label="Signature" fullWidth style={{marginRight: '30px'}}/>
-              <Button onClick={() => this.setState({contract: false})} color="primary">Cancel</Button>
-              <Button type="submit" variant="contained" color="secondary" onClick={() => this.contract()}>Sign</Button>
+              <TextField
+                required
+                margin="dense"
+                id="name"
+                label="Signature"
+                fullWidth
+                style={{ marginRight: "30px" }}
+              />
+              <Button
+                onClick={() => this.setState({ contract: false })}
+                color="primary"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                onClick={() => this.contract()}
+              >
+                Sign
+              </Button>
             </DialogActions>
-            {this.state.contractResultMessage 
-              && <Typography align="center">{this.state.contractResultMessage}</Typography>}
+            {this.state.contractResultMessage && (
+              <Typography align="center">
+                {this.state.contractResultMessage}
+              </Typography>
+            )}
           </DialogContent>
         </Dialog>
       </Paper>

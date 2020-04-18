@@ -111,3 +111,7 @@ export function restRefer() {
 export function restContract() {
   return apiUrl() + "/rest/contract";
 }
+
+export function restGetReport() {
+  return apiUrl() + "/rest/reports";
+}
