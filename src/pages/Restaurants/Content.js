@@ -1242,7 +1242,7 @@ class Homepage extends React.Component {
     return (
       <Paper className={classes.paper}>
         <Typography align="center" variant="h4">
-          Dashboard
+          Restaurant Dashboard
         </Typography>
         <List component="nav">
           {Object.entries(this.state.list).map(([key, { name, value }]) => (

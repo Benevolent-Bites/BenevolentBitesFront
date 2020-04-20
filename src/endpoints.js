@@ -20,12 +20,13 @@ export function frontUrl() {
   return dict[env.toLowerCase()];
 }
 
-export function restLogin() {
-  return apiUrl() + "/rest/signup";
-}
-
-export function userLogin() {
-  return apiUrl() + "/user/signup";
+export function login(type) {
+  if (type == "user") {
+    return apiUrl() + "/user/signup";
+  }
+  if (type == "rest") {
+    return apiUrl() + "/rest/signup";
+  }
 }
 
 export function authVerify() {
