@@ -1,34 +1,35 @@
-import React from 'react';
-import {
-  NavLink,
-  Link
-} from 'react-router-dom';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { withStyles } from "@material-ui/core/styles";
 import {
   Divider,
   Drawer,
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
-} from '@material-ui/core'
+  ListItemText,
+} from "@material-ui/core";
 import {
   PeopleRounded,
   EmojiFoodBeverageRounded,
   HomeRounded,
-  MenuBookRounded
-} from '@material-ui/icons';
+  MenuBookRounded,
+} from "@material-ui/icons";
 
 const categories = [
   {
-    id: '',
+    id: "",
     children: [
-      { id: 'My Gift Cards', icon: <PeopleRounded />, link: "/users"},
-      { id: 'Restaurant Portal', icon: <EmojiFoodBeverageRounded />, link: "/restaurants"},
+      { id: "My Gift Cards", icon: <PeopleRounded />, link: "/users" },
+      {
+        id: "Restaurant Portal",
+        icon: <EmojiFoodBeverageRounded />,
+        link: "/restaurants",
+      },
     ],
-  }
+  },
 ];
 
 const styles = (theme) => ({
@@ -38,19 +39,19 @@ const styles = (theme) => ({
   },
   categoryHeaderPrimary: {
     color: theme.palette.common.white,
-    fontSize: "1.45rem"
+    fontSize: "1.45rem",
   },
   item: {
     paddingTop: 1,
     paddingBottom: 1,
-    color: 'rgba(255, 255, 255, 0.7)',
-    '&:hover,&:focus': {
-      backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    color: "rgba(255, 255, 255, 0.7)",
+    "&:hover,&:focus": {
+      backgroundColor: "rgba(255, 255, 255, 0.08)",
     },
   },
   itemCategory: {
-    backgroundColor: '#232f3e',
-    boxShadow: '0 -1px 0 #404854 inset',
+    backgroundColor: "#232f3e",
+    boxShadow: "0 -1px 0 #404854 inset",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
@@ -59,22 +60,22 @@ const styles = (theme) => ({
     color: theme.palette.common.white,
   },
   firebaseIcon: {
-    minWidth: 'auto',
-    '& svg': {
-      fontSize: 30
-    }
+    minWidth: "auto",
+    "& svg": {
+      fontSize: 30,
+    },
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: "#2fcaf7",
   },
   itemPrimary: {
-    fontSize: '1.2rem',
+    fontSize: "1.2rem",
   },
   itemDescription: {
-    fontSize: '1rem'
+    fontSize: "1rem",
   },
   itemIcon: {
-    minWidth: 'auto',
+    minWidth: "auto",
     marginRight: theme.spacing(2),
   },
   divider: {
@@ -88,34 +89,45 @@ function Navigator(props) {
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <ListItem button component={Link} 
-          to="/" className={clsx(classes.item, classes.firebase, classes.itemCategory)}>
+        <ListItem
+          button
+          component={Link}
+          to="/"
+          className={clsx(classes.item, classes.firebase, classes.itemCategory)}
+        >
           Benevolent Bites
           <ListItemIcon className={classes.firebaseIcon}>
             <HomeRounded fontSize="inherit" />
           </ListItemIcon>
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
-          <ListItemText classes={{primary: classes.itemDescription}}>
-            A 501(c)(3) nonprofit providing gift cards to support your favorite restaurants during the COVID-19 outbreak.
+          <ListItemText classes={{ primary: classes.itemDescription }}>
+            A 501(c)(3) nonprofit providing gift cards to support your favorite
+            restaurants during the COVID-19 outbreak.
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
           <React.Fragment key={id}>
-            {id ?
-            <ListItem className={classes.categoryHeader}>
-              <ListItemText
-                classes={{
-                  primary: classes.categoryHeaderPrimary,
-                }}
-              >
-                {id}
-              </ListItemText>
-            </ListItem> : <br/>}
+            {id ? (
+              <ListItem className={classes.categoryHeader}>
+                <ListItemText
+                  classes={{
+                    primary: classes.categoryHeaderPrimary,
+                  }}
+                >
+                  {id}
+                </ListItemText>
+              </ListItem>
+            ) : (
+              <br />
+            )}
             {children.map(({ id: childId, icon, link }) => (
               <ListItem
                 key={childId}
-                button component={NavLink} to={link} activeClassName={classes.itemActiveItem}
+                button
+                component={NavLink}
+                to={link}
+                activeClassName={classes.itemActiveItem}
                 className={classes.item}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
@@ -130,19 +142,24 @@ function Navigator(props) {
             ))}
             <Divider className={classes.divider} />
             <ListItem
-                key="Our Mission"
-                button component={NavLink} to={"/about"} activeClassName={classes.itemActiveItem}
-                className={classes.item}
+              key="Our Mission"
+              button
+              component={NavLink}
+              to={"/about"}
+              activeClassName={classes.itemActiveItem}
+              className={classes.item}
+            >
+              <ListItemIcon className={classes.itemIcon}>
+                <MenuBookRounded />
+              </ListItemIcon>
+              <ListItemText
+                classes={{
+                  primary: classes.itemPrimary,
+                }}
               >
-                <ListItemIcon className={classes.itemIcon}><MenuBookRounded /></ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
-                >
-                  Our Mission
-                </ListItemText>
-              </ListItem>
+                Our Mission
+              </ListItemText>
+            </ListItem>
           </React.Fragment>
         ))}
       </List>
