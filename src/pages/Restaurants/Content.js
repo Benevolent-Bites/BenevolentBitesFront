@@ -12,11 +12,16 @@ import {
   restVerifyCall,
   restVerifyCode,
   restContract,
+  restAddPhotos
 } from "../../endpoints";
 import {
   Typography,
   Paper,
   Grid,
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  IconButton,
   Hidden,
   Button,
   TextField,
@@ -29,14 +34,13 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   ListItem,
-  useMediaQuery,
   withWidth,
+  useMediaQuery
 } from "@material-ui/core";
 
-import { CheckRounded, CloseRounded, AddRounded } from "@material-ui/icons";
+import { CheckRounded, CloseRounded, AddRounded, DeleteRounded } from "@material-ui/icons";
 
 import Data from "./Data";
-import Header from "./Header";
 
 const styles = (theme) => ({
   paper: {
@@ -76,6 +80,10 @@ const styles = (theme) => ({
   resultText: {
     marginRight: theme.spacing(2),
   },
+  titleBar: {
+    background:
+      'rgba(0,0,0,0)',
+  },
 });
 
 function TabPanel(props) {
@@ -86,6 +94,13 @@ function TabPanel(props) {
 function AddInfo(props) {
   const { classes, info, setInfo } = props;
   const [submitMessage, setSubmitMessage] = React.useState();
+  const [photoSubmitMessage, setPhotoSubmitMessage] = React.useState();
+  const [photos, setPhotos] = React.useState({});
+  React.useEffect(() => {
+    setPhotos(info.photos ? Object.fromEntries(info.photos.map(p => [p, {name: p, old: true}])) : {})
+  }, [info.photos]);
+  const [deleted, setDeleted] = React.useState([]);
+  const wide = useMediaQuery('(min-width:960px)');
 
   function updateInfo(event) {
     setInfo({
@@ -128,6 +143,8 @@ function AddInfo(props) {
       </Paper>
     );
   }
+
+  console.log(deleted);
 
   return (
     <Paper className={classes.paper}>
@@ -241,47 +258,83 @@ function AddInfo(props) {
             multiline
             id="description"
             name="description"
-            label="Description"
+            label="Description (shown on search page and purchase page)"
             value={info.description || ""}
             onChange={updateInfo}
             fullWidth
           />
         </Grid>
-      </Grid>
-      <Grid
-        className={classes.submitButton}
-        container
-        direction="row"
-        alignItems="center"
-      >
-        <Button
-          type="submit"
-          onClick={() => {
-            window
-              .fetch(restSetInfo(), {
-                mode: "cors",
-                credentials: "include",
-                method: "POST",
-                body: JSON.stringify(info),
-              })
-              .then((result) => {
-                if (result.ok) {
-                  setSubmitMessage("Submitted Successfully.");
-                } else {
-                  setSubmitMessage("Error, please try again later.");
-                }
-              });
-          }}
-          variant="contained"
-          color="primary"
-          size="large"
-        >
-          Submit
-        </Button>
-        <Grid item>
-          <Typography style={{ marginLeft: "20px", fontSize: "1.2rem" }}>
-            {submitMessage}
-          </Typography>
+        <Grid item container xs={12}>
+          <Grid item xs={12} sm={8}><Typography variant="h6">Team Photos (shown on purchase page, select multiple): 
+            </Typography></Grid>
+          <input style={{display:'none'}} id="upload" type="file" accept="image/*" multiple onChange={(e) => 
+            setPhotos({...photos, ...Object.fromEntries(Array.from(e.target.files).map(f => [f.name, f]))})}></input>
+          <Grid item xs={2}><label htmlFor="upload"><Button variant="contained" component="span">Upload
+            </Button></label></Grid>
+          </Grid>
+        {Object.keys(photos).length > 0 && <Grid item xs={12}>
+            <GridList cols={wide ? 5 : 3}>
+              {Object.entries(photos).map(([_, file]) => <GridListTile>
+                <img src={file.old ? file.name : URL.createObjectURL(file)} alt="upload"/>
+                {<GridListTileBar titlePosition="top" actionPosition="left" actionIcon={<IconButton 
+                  onClick={() => {let p = photos; delete p[file.name]; setPhotos({...p});
+                    if (file.old) setDeleted([...deleted, file.name])}}>
+                  <DeleteRounded style={{color: "white"}}/></IconButton>} className={classes.titleBar}/>}
+                  </GridListTile>)}
+            </GridList>
+          </Grid>}
+        <Grid item xs={12} className={classes.submitButton} container alignItems="center">
+          <Button
+            type="submit"
+            onClick={() => {
+              window.fetch(restSetInfo(), {
+                  mode: "cors",
+                  credentials: "include",
+                  method: "POST",
+                  body: JSON.stringify(info),
+                }).then((result) => {
+                  if (result.ok) {
+                    setSubmitMessage("Submitted Info Successfully.");
+                  } else {
+                    setSubmitMessage("Error, please try again later.");
+                  }
+                });
+                const formData = new FormData();
+                Object.entries(photos).forEach(([_, file]) => {
+                  if (!file.old) formData.append("new[]", file);
+                });
+                for (const url of deleted) {
+                  formData.append("deleted[]", url);
+                };
+                (Object.keys(photos).length > 0 || deleted.length > 0) && window.fetch(restAddPhotos(), {
+                  mode: "cors",
+                  credentials: 'include',
+                  method: "POST",
+                  body: formData
+                }).then((result) => {
+                  if (result.ok) {
+                    setPhotoSubmitMessage("Submitted Photos Successfully.");
+                  } else {
+                    setPhotoSubmitMessage("Error, could not upload photos.");
+                  }
+                });
+            }}
+            variant="contained"
+            color="primary"
+            size="large"
+          >
+            Submit
+          </Button>
+          <Grid item xs="auto">
+            <Typography style={{ marginLeft: "20px", fontSize: "1.2rem" }}>
+              {submitMessage}
+            </Typography>
+          </Grid>
+          <Grid item xs="auto">
+            <Typography style={{ marginLeft: "20px", fontSize: "1.2rem" }}>
+              {photoSubmitMessage}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Paper>
