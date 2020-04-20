@@ -115,3 +115,7 @@ export function restContract() {
 export function restGetReport() {
   return apiUrl() + "/rest/report";
 }
+
+export function restAddPhotos() {
+  return apiUrl() + "/rest/addphotos";
+}
