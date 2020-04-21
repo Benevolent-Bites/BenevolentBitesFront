@@ -1,18 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  Menu
-} from '@material-ui/icons'
-import {
-  AppBar,
-  Toolbar,
-  Grid,
-  Hidden,
-  IconButton
-} from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { Menu } from "@material-ui/icons";
+import { AppBar, Toolbar, Grid, Hidden, IconButton } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import * as Colors from "../Colors";
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const styles = (theme) => ({
   avatar: {
@@ -29,7 +22,7 @@ const styles = (theme) => ({
         width: "24px",
         height: "30px",
         marginRight: "15px",
-        marginLeft: "-15px"
+        marginLeft: "-15px",
       },
       "& .fab,& .fas,& .far,& .fal,& .material-icons": {
         fontSize: "24px",
@@ -37,49 +30,51 @@ const styles = (theme) => ({
         width: "24px",
         height: "30px",
         marginRight: "15px",
-        marginLeft: "-15px"
+        marginLeft: "-15px",
       },
       "& > span": {
         justifyContent: "flex-start",
-        width: "100%"
-      }
-    }
+        width: "100%",
+      },
+    },
   },
   manager: {
     [theme.breakpoints.down("sm")]: {
-      width: "100%"
+      width: "100%",
     },
-    display: "inline-block"
+    display: "inline-block",
   },
   topBar: {
     paddingTop: theme.spacing(2),
-    marginBottom: -theme.spacing(1)
+    marginBottom: -theme.spacing(1),
+    backgroundColor: Colors.TextRegular,
   },
   secondaryBar: {
     zIndex: 0,
+    backgroundColor: Colors.TextRegular,
   },
   menuButton: {
     marginLeft: -theme.spacing(1),
   },
   link: {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: lightColor,
-    '&:hover': {
+    "&:hover": {
       color: theme.palette.common.white,
     },
   },
   button: {
     borderColor: lightColor,
-    '&:hover': {
+    "&:hover": {
       borderColor: "#b0bec5",
-      backgroundColor: "#caceda"
-    }
+      backgroundColor: "#caceda",
+    },
   },
   titleBar: {
     marginTop: theme.spacing(2),
-    '& h1': {
-      fontSize: '2.5rem'
-    }
+    "& h1": {
+      fontSize: "2.5rem",
+    },
   },
   dropdownItem: {
     fontSize: "13px",
@@ -102,7 +97,7 @@ const styles = (theme) => ({
     "&:hover": {
       backgroundColor: "#ef5350",
       color: "white",
-    }
+    },
   },
   popperNav: {
     [theme.breakpoints.down("sm")]: {
@@ -126,24 +121,28 @@ const styles = (theme) => ({
           padding: "10px 15px !important",
           "&:hover": {
             backgroundColor: "hsla(0,0%,78%,.2)",
-            boxShadow: "none"
-          }
-        }
-      }
-    }
+            boxShadow: "none",
+          },
+        },
+      },
+    },
   },
   popperClose: {
-    pointerEvents: "none"
+    pointerEvents: "none",
   },
 });
 
 function Header(props) {
-
   const { classes, onDrawerToggle } = props;
 
   return (
-    <React.Fragment>  
-      <AppBar color="primary" position="static" elevation={0} className={classes.topBar}>
+    <React.Fragment>
+      <AppBar
+        color="primary"
+        position="static"
+        elevation={0}
+        className={classes.topBar}
+      >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden mdUp>
@@ -168,7 +167,7 @@ function Header(props) {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  onDrawerToggle: PropTypes.func.isRequired
+  onDrawerToggle: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Header);

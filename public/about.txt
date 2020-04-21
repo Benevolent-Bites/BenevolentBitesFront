@@ -1,14 +1,20 @@
 <p style="color:inherit">Benevolent Bites is a non-profit which aims to provide cash now to small restaurants and cafes (and their staffs)
 that are typically frequented by locals. During these trying times when we are all undertaking extremely necessary social
 distancing, these restaurants are facing hard times despite takeout and delivery, which also come with the costs 
-associated with using delivery apps. We believe the locals who frequent these businesses would be happy to help 
+associated with using delivery apps.
+<br/>
+<br/>
+We believe the locals who frequent these businesses would be happy to help 
 them out. An easy way would be to purchase gift cards for future meals or drinks, but the smaller local restaurants 
 and cafes do not typically have the ability to provide those simply. Benevolent Bites provides a platform for electronic 
 gift cards for these businesses with minimal friction, facilitating the payment of money into existing restaurant 
 (Square or Stripe) accounts without becoming a middleman, and later facilitating the redemption of the gift cards. 
+<br/>
+<br/>
 The biggest twist in relation to a standard gift card is that 25% of the money provided by the purchaser is not intended 
 to be redeemed for future services, but instead goes as a gift to restaurant staff, who are most impacted by the lack 
 of business.
+<br/>
 <br/>
 In addition, we would like to highlight the dire circumstances for restaurants and their employees by including a link
 to <a href="https://www.wired.com/story/delivery-apps-offer-restaurants-lifeline-cost/">this</a> article from WIRED.
