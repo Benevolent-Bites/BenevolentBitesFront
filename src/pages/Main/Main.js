@@ -29,7 +29,7 @@ const styles = (theme) => ({
     flex: 1,
     paddingLeft: 0,
     paddingTop: 50,
-    background: Colors.BackgroundHighlight,
+    background: Colors.White,
   },
   footer: {
     padding: theme.spacing(2),

@@ -17,7 +17,7 @@ const styles = (theme) => ({
       fontSize: "1.3rem",
     },
     position: "relative",
-    background: Colors.TextRegular,
+    background: Colors.BackgroundHighlight,
     color: Colors.White,
   },
   app: {
@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
   main: {
     flex: 1,
-    background: Colors.BackgroundHighlight,
+    background: Colors.TextRegular,
   },
   formGrid: {
     marginTop: theme.spacing(3),
