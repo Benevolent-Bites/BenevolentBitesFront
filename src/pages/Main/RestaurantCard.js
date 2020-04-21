@@ -1,29 +1,12 @@
-import React from "react";
-import Cookies from "js-cookie";
-import {
-  Typography,
-  Card,
-  Grid,
-  CardActions,
-  CardMedia,
-  CardContent,
-  Button,
-  ButtonGroup,
-  CardHeader,
-  Collapse,
-  Divider,
-  IconButton,
-  useMediaQuery,
-} from "@material-ui/core";
-import {
-  ExpandMore,
-  StarRounded,
-  StarBorderRounded,
-  AttachMoneyRounded,
-} from "@material-ui/icons";
-import { userBuy, login, restGetPhoto, restRefer } from "../../endpoints";
-import clsx from "clsx";
-import { ConditionalRender } from "../common";
+import React from 'react';
+import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
+import { Paper, Typography, Card, Grid, CardActions, CardMedia,
+  CardContent, Button, ButtonGroup, CardHeader, Collapse, Divider, IconButton, useMediaQuery } from '@material-ui/core';
+import { ExpandMore, StarRounded, StarBorderRounded, AttachMoneyRounded } from '@material-ui/icons';
+import { userBuy, userLogin, restGetPhoto, restRefer } from '../../endpoints';
+import clsx from 'clsx';
+import { ConditionalRender } from '../common';
 
 export default function RestaurantCard(props) {
   const { classes, data, supported, signedIn, map } = props;
@@ -69,94 +52,44 @@ export default function RestaurantCard(props) {
               .map(() => (
                 <StarBorderRounded color="primary" />
               ))}
-          </Grid>
-          <Grid item xs={12} container alignItems="center" wrap="nowrap">
-            <Typography style={{ marginRight: "8px" }} variant="body1">
-              Price Level:
-            </Typography>
-            {Array(Math.round(data.priceLevel))
-              .fill()
-              .map(() => (
-                <AttachMoneyRounded
-                  style={{ margin: "-4px" }}
-                  color="primary"
-                />
-              ))}
-          </Grid>
-        </Grid>
-      </CardContent>
-      <CardActions disableSpacing>
-        <ConditionalRender
-          condition={() => supported}
-          alt={
-            <Grid
-              container
-              spacing={1}
-              style={{ marginLeft: "8px" }}
-              alignItems="center"
-            >
-              <Typography variant="body1">Want them on here?</Typography>
-              <Button
-                color="primary"
-                component="a"
-                target="_blank"
-                href={restRefer() + "?pid=" + data.restID}
-              >
-                Refer Them
-              </Button>
+            <Grid item xs={12} container alignItems="center" wrap='nowrap'>
+              <Typography style={{marginRight: '8px'}} variant="body1">Price Level:</Typography>
+              {Array(Math.round(data.priceLevel)).fill().map(() => 
+                <AttachMoneyRounded style={{margin:'-4px'}} color="primary"/>)}
             </Grid>
-          }
-        >
-          <Button
-            color="secondary"
-            variant="outlined"
-            style={{ marginRight: "15px" }}
-            onClick={() => {
-              const link =
-                userBuy() +
-                "?restId=" +
-                data.restID +
-                "&amount=" +
-                amount * 100;
-              if (!signedIn) {
-                Cookies.set("signed_in", "1");
-                window.location.assign(
-                  login("user") + "?redirect=" + link.replace("&", "%26")
-                );
-              } else {
-                window.location.assign(link);
-              }
-            }}
-          >
-            Buy ${amount} Card
-          </Button>
-          <ButtonGroup
-            color="primary"
-            size="small"
-            orientation={
-              useMediaQuery("(min-width:600px)") ? "horizontal" : "vertical"
-            }
-          >
-            <Button onClick={() => setAmount(minAmount)}>${minAmount}</Button>
-            <Button onClick={() => setAmount(medAmount)}>${medAmount}</Button>
-            <Button onClick={() => setAmount(maxAmount)}>${maxAmount}</Button>
-          </ButtonGroup>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-          >
-            <ExpandMore />
-          </IconButton>
-        </ConditionalRender>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Divider style={{ backgroundColor: "rgba(0,0,0,0.13)" }} />
-        <CardContent>
-          <Typography variant="body1">{data.description}</Typography>
+          </Grid>
         </CardContent>
-      </Collapse>
-    </Card>
-  );
+        {!supported && <Divider style={{backgroundColor: "rgba(0,0,0,0.28)"}}/>}
+        <CardActions disableSpacing>
+          <ConditionalRender condition={() => supported} alt={<Grid container spacing={1} style={{marginLeft: '8px'}} 
+            alignItems="center">
+              <Typography variant="body1">Want them on here?</Typography>
+              <Button color="primary" component="a" target="_blank" href={restRefer() + "?pid=" + data.restID}>
+                Refer Them</Button></Grid>}>
+            <Button color="secondary" variant="outlined" style={{marginRight:'15px', textAlign:'center'}} component={Link}
+              to={`/purchase/${data.restID}`}>Buy ${amount} Card</Button>
+            <ButtonGroup color="primary" size="small" 
+              orientation={useMediaQuery('(min-width:600px)') ? 'horizontal' : 'vertical'}>
+              <Button onClick={() => setAmount(minAmount)}>${minAmount}</Button>
+              <Button onClick={() => setAmount(medAmount)}>${medAmount}</Button>
+              <Button onClick={() => setAmount(maxAmount)}>${maxAmount}</Button>
+            </ButtonGroup>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded,
+              })}
+            onClick={handleExpandClick}
+            >
+              <ExpandMore />
+            </IconButton>
+          </ConditionalRender>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Divider style={{backgroundColor: "rgba(0,0,0,0.28)"}} />
+          <CardContent>
+            <Typography variant="body1">{data.description}</Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    )
 }

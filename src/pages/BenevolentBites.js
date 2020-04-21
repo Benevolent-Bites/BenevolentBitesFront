@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+
   createMuiTheme,
   ThemeProvider,
   withStyles,
@@ -15,7 +16,8 @@ import Redeem from "./Redeem/Redeem";
 import About from "./About/About";
 import Locations from "./Locations/Locations";
 import Refer from "./Refer/Refer";
-import LoginHandler from "./LoginHandler";
+import { LoginHandler } from "./LoginHandler";
+import Purchase from './Purchase/Purchase';
 
 function Copyright() {
   return (
@@ -175,7 +177,7 @@ function BenevolentBites(props) {
 
   const [userCards, setUserCards] = React.useState([]);
   const [restInfo, setRestInfo] = React.useState({});
-
+  
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -236,6 +238,8 @@ function BenevolentBites(props) {
           <Route path="/refer">
             <Refer handleDrawerToggle={handleDrawerToggle} />
           </Route>
+          <Route path="/purchase/:restId" render={props => <Purchase {...props} 
+					  handleDrawerToggle={handleDrawerToggle}/>}/>
           <Route
             path="/"
             render={(props) => (

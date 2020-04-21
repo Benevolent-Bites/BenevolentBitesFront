@@ -1,27 +1,18 @@
 import React from 'react';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
-import { Link } from 'react-router-dom';
-import { userGetCards, restGetDetails, frontUrl, restGetPhoto } from '../../endpoints';
+import { restGetDetails, userBuy, userLogin } from '../../endpoints';
 import {
   Typography,
   Paper,
-  Card,
-  CardMedia,
-  Dialog,
-  Divider,
-  DialogTitle,
-  CardActions,
-  CardContent,
-  Collapse,
-  CardHeader,
+  Divider, 
+  Button, 
+  ButtonGroup,
+  IconButton,
+  GridList,
   Grid,
-  Button,
-  List,
-  ListItemText,
-  ListItem,
 } from '@material-ui/core'
 
 import {
@@ -31,7 +22,7 @@ import {
 const styles = (theme) => ({
   paper: {
     borderRadius: '10px',
-    maxWidth: 600,
+    maxWidth: 800,
     margin: 'auto',
     padding: theme.spacing(3.4),
     overflow: 'hidden',
@@ -90,11 +81,12 @@ function TabPanel(props) {
   )
 }
 
-class ReferContent extends React.Component {
+class PurchaseContent extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      data: {}
+      data: {},
+      amount: 30
     };
   }
 
@@ -120,11 +112,10 @@ class ReferContent extends React.Component {
   }
 
   async componentDidMount() {
-    const queryString = new URLSearchParams(window.location.search);
-    const placeID = queryString.get("pid");
+    const { restId } = this.props.match.params
 
     try {
-      this.setState({data: await this.checkBackend(restGetDetails() + "?restId=" + placeID)});
+      this.setState({data: await this.checkBackend(restGetDetails() + "?restId=" + restId)});
     } catch (err) {
       console.log(err);
       this.setState({data: { error: "Sorry, could not load restaurant info" }})
@@ -132,9 +123,9 @@ class ReferContent extends React.Component {
   }
   
   render() {
+    const [ minAmount, medAmount, maxAmount ] = [ 20, 30, 50 ];
     const { classes } = this.props;
     const data = this.state.data;
-    console.log(data);
     return (
       <Paper className={classes.paper}>
       {Object.keys(data).length === 0 ?
@@ -148,27 +139,45 @@ class ReferContent extends React.Component {
             <Typography variant="body2">{data.address}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <img alt="restaurant" src={data.image ? 
-              restGetPhoto() + "?photoreference=" + data.image : process.env.PUBLIC_URL + "/img/none.jpg"} />
+            <GridList cols={3}>
+              {data.customPhotos && data.customPhotos.map(url => <img alt="team" src={url} />)}
+            </GridList>
           </Grid>
-          <Grid item container xs={12} spacing={3}>
-            <Grid item xs={3}>
-              <Button disabled={!data.phone} variant="contained" color="primary" component="a" 
-                href={data.phone && "tel:+" + data.phone.replace(" ", "")}>Call Now</Button>
+          <Grid item xs={12}><Typography variant="body2">{data.description}</Typography></Grid>
+          <Grid item container xs={12} spacing={3} alignItems="center">
+            <Grid item>
+              <Typography variant="body1" >Purchase Amount: </Typography>
             </Grid>
-            <Grid item xs={4}>
-              <Button disabled={!data.website} variant="outlined" color="primary" component="a" 
-                href={data.website}>Visit Website</Button>
+            <Grid item>
+              <ButtonGroup color="primary" size="large" orientation='horizontal'>
+                <Button onClick={() => this.setState({amount: minAmount})}>${minAmount}</Button>
+                <Button onClick={() => this.setState({amount: medAmount})}>${medAmount}</Button>
+                <Button onClick={() => this.setState({amount: maxAmount})}>${maxAmount}</Button>
+              </ButtonGroup>
             </Grid>
-            {(!data.website && !data.phone) && <Grid item xs={4}>
-              <Typography variant="body2">Sorry, could not find contact info</Typography></Grid>}
+            <Grid item>
+              <Button color="secondary" variant="contained" size = "large"
+                onClick={() => {
+                  const link = userBuy() + "?restId=" + this.props.match.params.restId + "&amount=" + 
+                    this.state.amount * 100;
+                  if (!this.props.signedIn) {
+                    Cookies.set("signed_in", "1")
+                    window.location.assign(userLogin() + "?redirect=" + link.replace("&", "%26"));
+                  } else {
+                    window.location.assign(link);
+                  }
+                }}>Buy ${this.state.amount} Card</Button>
+            </Grid>
           </Grid>
-          <Divider flexItem />
+          <Grid item xs={12}><Divider style={{backgroundColor: "rgba(0,0,0,0.28)"}}/></Grid>
           <Grid item xs={12}>
-            <Typography variant="body1">
-              Please contact this restaurant using their phone number or website above, and ask them to check out our 
-              platform. If neither are available, feel free to reach out another way. <br/>
-              Thank you for supporting your community and the Benevolent Bites Project!
+            <Typography variant="body3">
+              By purchasing a gift card to <strong>{data.name}</strong>, you are providing them essential support in
+              surviving and mitigating the worst economic circumstances ever to hit the service industry. Your help
+              especially benefits the tens of thousands of staff members whose jobs are currently at risk, because 
+              <strong> 25% of your purchase</strong> is given directly to the {data.name} team as a gift. It is up to
+              the establishment to decide how the other 75% translates into menu items, but you can be assured that your
+              contribution is immensely appreciated.
             </Typography>
           </Grid>
         </Grid>
@@ -180,12 +189,12 @@ class ReferContent extends React.Component {
 }
 
 function Content(props) {
-  const { classes, tabValue } = props;
+  const { classes, tabValue, match } = props;
 
   return (
   <React.Fragment>
-    <TabPanel index="refer" tabValue={tabValue}>
-      <ReferContent classes={classes} />
+    <TabPanel index="purchase" tabValue={tabValue}>
+      <PurchaseContent classes={classes} match={match}/>
     </TabPanel>
   </React.Fragment>
   )
@@ -194,6 +203,7 @@ function Content(props) {
 Content.propTypes = {
   classes: PropTypes.object.isRequired,
   tabValue: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Content);
