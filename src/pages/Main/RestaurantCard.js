@@ -52,6 +52,7 @@ export default function RestaurantCard(props) {
               .map(() => (
                 <StarBorderRounded color="primary" />
               ))}
+            </Grid>
             <Grid item xs={12} container alignItems="center" wrap='nowrap'>
               <Typography style={{marginRight: '8px'}} variant="body1">Price Level:</Typography>
               {Array(Math.round(data.priceLevel)).fill().map(() => 

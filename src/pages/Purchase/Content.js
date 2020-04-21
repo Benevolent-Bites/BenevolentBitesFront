@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
-import { restGetDetails, userBuy, userLogin } from '../../endpoints';
+import { restGetDetails, userBuy, login } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -162,7 +162,7 @@ class PurchaseContent extends React.Component {
                     this.state.amount * 100;
                   if (!this.props.signedIn) {
                     Cookies.set("signed_in", "1")
-                    window.location.assign(userLogin() + "?redirect=" + link.replace("&", "%26"));
+                    window.location.assign(login("user") + "?redirect=" + link.replace("&", "%26"));
                   } else {
                     window.location.assign(link);
                   }

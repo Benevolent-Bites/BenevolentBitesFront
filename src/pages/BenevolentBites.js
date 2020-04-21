@@ -16,7 +16,7 @@ import Redeem from "./Redeem/Redeem";
 import About from "./About/About";
 import Locations from "./Locations/Locations";
 import Refer from "./Refer/Refer";
-import { LoginHandler } from "./LoginHandler";
+import LoginHandler from "./LoginHandler";
 import Purchase from './Purchase/Purchase';
 
 function Copyright() {
