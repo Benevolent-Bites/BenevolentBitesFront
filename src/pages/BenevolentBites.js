@@ -16,7 +16,7 @@ import About from "./About/About";
 import Locations from "./Locations/Locations";
 import Refer from "./Refer/Refer";
 import Purchase from "./Purchase/Purchase";
-import { LoginHandler } from "./LoginHandler";
+import LoginHandler from "./LoginHandler";
 import * as Colors from "./Colors";
 
 function Copyright() {
