@@ -13,7 +13,7 @@ let centerStyle = {
 // Login handler manages user logins, and shows children after
 // user is successfully logged in.
 
-export function LoginHandler(props) {
+export default function LoginHandler(props) {
   const { text, children, type } = props;
 
   const queryString = new URLSearchParams(window.location.search);
