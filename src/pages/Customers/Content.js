@@ -181,7 +181,8 @@ class GiftCard extends React.Component {
                     <Typography variant="body">{this.formatTime(transaction.timestamp)}</Typography>
                   </ListItemText>
                   <ListItemText disableTypography>
-                    <Typography variant="body">${transaction.amount / 100}</Typography>
+                    <Typography variant="body1" style={{color: transaction.amount > 0 ? 'green' : 'red'}}>
+                      ${transaction.amount / 100}</Typography>
                   </ListItemText>
                 </ListItem>
               ))}

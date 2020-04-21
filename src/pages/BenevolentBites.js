@@ -15,6 +15,7 @@ import Redeem from './Redeem/Redeem';
 import About from './About/About';
 import Locations from './Locations/Locations';
 import Refer from './Refer/Refer';
+import Purchase from './Purchase/Purchase';
 
 function Copyright() {
 	return (
@@ -213,6 +214,8 @@ function BenevolentBites (props) {
 				<Route path="/refer">
 					<Refer handleDrawerToggle={handleDrawerToggle}/>
 				</Route>
+				<Route path="/purchase/:restId" render={props => <Purchase {...props} 
+					handleDrawerToggle={handleDrawerToggle}/>}/>
 				<Route path="/" render={(props) => <Main {...props} handleDrawerToggle={handleDrawerToggle}/>}/>
 			</Switch>
 			</div>
