@@ -1,95 +1,106 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
-import { withStyles } from '@material-ui/core/styles';
-import { useLocation } from 'react-router-dom';
-import Content from './Content';
-import Header from './Header';
-import { getAvatar } from '../../endpoints';
+import React from "react";
+import PropTypes from "prop-types";
+import Cookies from "js-cookie";
+import { withStyles } from "@material-ui/core/styles";
+import { useLocation } from "react-router-dom";
+import Content from "./Content";
+import Header from "./Header";
+import { getAvatar } from "../../endpoints";
+import * as Colors from "../Colors";
 
 const drawerWidth = 290;
 const styles = (theme) => ({
-	root: {
-		display: 'flex',
-		minHeight: '100vh',
-	},
-	drawer: {
-		[theme.breakpoints.up('sm')]: {
-		width: drawerWidth,
-		flexShrink: 0,
-		},
-	},
-	app: {
-		flex: 1,
-		display: 'flex',
-		flexDirection: 'column',
-	},
-	main: {
-		flex: 1,
-		padding: theme.spacing(6, 4),
-		background: '#eaeff1',
-	},
-	footer: {
-		padding: theme.spacing(2),
-		background: '#eaeff1',
-	},
+  root: {
+    display: "flex",
+    minHeight: "100vh",
+  },
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  app: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+  },
+  main: {
+    flex: 1,
+    paddingLeft: 0,
+    paddingTop: 50,
+    background: Colors.BackgroundHighlight,
+  },
+  footer: {
+    padding: theme.spacing(2),
+    backgroundColor: Colors.BackgroundHighlight,
+  },
 });
 
 function Main(props) {
-	const { classes, handleDrawerToggle, history } = props;
+  const { classes, handleDrawerToggle, history } = props;
 
-	const pathDict = {
-		'/':'map',
-		'/list': 'list'
-	};
+  const pathDict = {
+    "/": "map",
+    "/list": "list",
+  };
 
-	const tabValue = pathDict[useLocation().pathname];
-	
-	const signedIn = Cookies.get("signed_in") === "1" || false;
+  var tabValue = pathDict[useLocation().pathname];
+  if (!tabValue) {
+    tabValue = "map";
+  }
 
-	const [avatarSrc, setAvatarSrc] = React.useState("");
-	if (signedIn) {
-		window.fetch(
-		getAvatar(),
-		{
-			mode: 'cors',
-			credentials: 'include',
-			method: 'GET',
-			cache: 'no-cache'
-		}
-		).then(result => {
-			if (!result.ok) {
-				throw new Error();
-			}
-			return result.json();
-		}
-		).then(
-		response => {
-			setAvatarSrc(response.avatar);
-		},
-			error => {console.log(error)}
-		)
-	}
+  const signedIn = Cookies.get("signed_in") === "1" || false;
 
-	return (
-		<div className={classes.app}>
-			<Header 
-				onDrawerToggle={handleDrawerToggle} 
-				tabValue={tabValue}
-				signedIn = {signedIn}
-				avatarSrc = {avatarSrc}
-			/>
-			<main className={classes.main}>
-				<Content signedIn={signedIn} classes={classes} tabValue={tabValue} history={history}/>
-			</main>
-		</div>
-	);
+  const [avatarSrc, setAvatarSrc] = React.useState("");
+  if (signedIn) {
+    window
+      .fetch(getAvatar(), {
+        mode: "cors",
+        credentials: "include",
+        method: "GET",
+        cache: "no-cache",
+      })
+      .then((result) => {
+        if (!result.ok) {
+          throw new Error();
+        }
+        return result.json();
+      })
+      .then(
+        (response) => {
+          setAvatarSrc(response.avatar);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  return (
+    <div className={classes.app}>
+      <Header
+        onDrawerToggle={handleDrawerToggle}
+        tabValue={tabValue}
+        signedIn={signedIn}
+        avatarSrc={avatarSrc}
+      />
+      <main className={classes.main}>
+        <Content
+          signedIn={signedIn}
+          classes={classes}
+          tabValue={tabValue}
+          history={history}
+        />
+      </main>
+    </div>
+  );
 }
 
 Main.propTypes = {
-	classes: PropTypes.object.isRequired,
-	handleDrawerToggle: PropTypes.func.isRequired,
-	history: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  handleDrawerToggle: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
-  
+
 export default withStyles(styles)(Main);

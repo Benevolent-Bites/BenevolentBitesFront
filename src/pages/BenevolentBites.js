@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-
   createMuiTheme,
   ThemeProvider,
   withStyles,
@@ -16,8 +15,9 @@ import Redeem from "./Redeem/Redeem";
 import About from "./About/About";
 import Locations from "./Locations/Locations";
 import Refer from "./Refer/Refer";
-import LoginHandler from "./LoginHandler";
-import Purchase from './Purchase/Purchase';
+import Purchase from "./Purchase/Purchase";
+import { LoginHandler } from "./LoginHandler";
+import * as Colors from "./Colors";
 
 function Copyright() {
   return (
@@ -138,12 +138,13 @@ theme = {
   },
 };
 
-const drawerWidth = 290;
+const drawerWidth = 250;
 
 const styles = {
   root: {
     display: "flex",
     minHeight: "100vh",
+    overflow: "hidden",
   },
   drawer: {
     [theme.breakpoints.up("md")]: {
@@ -155,15 +156,16 @@ const styles = {
     flex: 1,
     display: "flex",
     flexDirection: "column",
+    background: Colors.BackgroundHighlight,
   },
   main: {
     flex: 1,
-    padding: theme.spacing(6, 4),
-    background: "#eaff1",
+    padding: theme.spacing(0, 0),
+    background: Colors.BackgroundHighlight,
   },
   footer: {
     padding: theme.spacing(2),
-    background: "#eaeff1",
+    background: Colors.BackgroundHighlight,
   },
 };
 
@@ -177,7 +179,7 @@ function BenevolentBites(props) {
 
   const [userCards, setUserCards] = React.useState([]);
   const [restInfo, setRestInfo] = React.useState({});
-  
+
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
@@ -192,7 +194,14 @@ function BenevolentBites(props) {
             />
           </Hidden>
           <Hidden smDown implementation="js">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+            <Navigator
+              PaperProps={{
+                style: {
+                  width: drawerWidth,
+                  backgroundColor: "#4F424B",
+                },
+              }}
+            />
           </Hidden>
         </nav>
         <Switch>
@@ -238,19 +247,26 @@ function BenevolentBites(props) {
           <Route path="/refer">
             <Refer handleDrawerToggle={handleDrawerToggle} />
           </Route>
-          <Route path="/purchase/:restId" render={props => <Purchase {...props} 
-					  handleDrawerToggle={handleDrawerToggle}/>}/>
+          <Route
+            path="/purchase/:restId"
+            render={(props) => (
+              <Purchase {...props} handleDrawerToggle={handleDrawerToggle} />
+            )}
+          />
           <Route
             path="/"
             render={(props) => (
               <Main {...props} handleDrawerToggle={handleDrawerToggle} />
             )}
           />
+          <Route
+            path="/search"
+            render={(props) => (
+              <Main {...props} handleDrawerToggle={handleDrawerToggle} />
+            )}
+          />
         </Switch>
       </div>
-      <footer className={classes.footer}>
-        <Copyright />
-      </footer>
     </ThemeProvider>
   );
 }
