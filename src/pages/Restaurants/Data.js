@@ -29,6 +29,7 @@ import {
   VictoryAxis,
 } from "victory";
 import { nullLiteral } from "@babel/types";
+import * as Colors from "../Colors";
 
 // data should be an array of the form
 // [{timestamp: "", amount: 0}, ...]
@@ -204,7 +205,7 @@ export default class Data extends React.Component {
                 <Grid item xs={1}>
                   <Typography
                     className={classes.title}
-                    color="textSecondary"
+                    color={Colors.White}
                     gutterBottom
                     style={{ marginBottom: 25 }}
                   >
@@ -216,7 +217,10 @@ export default class Data extends React.Component {
                     variant="outlined"
                     className={classes.formControl}
                   >
-                    <InputLabel id="demo-simple-select-outlined-label">
+                    <InputLabel
+                      id="demo-simple-select-outlined-label"
+                      style={{ color: Colors.White }}
+                    >
                       Time
                     </InputLabel>
                     <Select
@@ -225,6 +229,11 @@ export default class Data extends React.Component {
                       value={this.state.range}
                       onChange={(event) => {
                         this.handleChange(event);
+                      }}
+                      style={{
+                        color: Colors.White,
+                        borderColor: Colors.White,
+                        border: 1,
                       }}
                       label="Time"
                       autoWidth
@@ -238,7 +247,10 @@ export default class Data extends React.Component {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={classes.paper} style={{ maxWidth: 2500 }}>
+            <Paper
+              className={classes.paper}
+              style={{ maxWidth: 2500, marginTop: 0 }}
+            >
               <Grid container spacing={3}>
                 <Grid item xs={4}>
                   <Card>
@@ -307,7 +319,10 @@ export default class Data extends React.Component {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={classes.paper} style={{ maxWidth: 2500 }}>
+            <Paper
+              className={classes.paper}
+              style={{ maxWidth: 2500, marginTop: 0 }}
+            >
               <Grid container spacing={3}>
                 <Grid item xs={3}>
                   <Card>
@@ -387,7 +402,10 @@ export default class Data extends React.Component {
             </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper className={classes.paper} style={{ maxWidth: 2500 }}>
+            <Paper
+              className={classes.paper}
+              style={{ maxWidth: 2500, marginTop: 0 }}
+            >
               <Grid container spacing={3}>
                 <Grid item xs={3}>
                   <Card style={{ marginBottom: 50 }}>

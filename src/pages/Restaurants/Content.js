@@ -46,6 +46,7 @@ import {
 } from "@material-ui/icons";
 
 import Data from "./Data";
+import * as Colors from "../Colors";
 
 const styles = (theme) => ({
   paper: {
@@ -58,15 +59,18 @@ const styles = (theme) => ({
       fontSize: "1.3rem",
     },
     marginTop: "6%",
+    backgroundColor: Colors.TextRegular,
+    color: Colors.White,
   },
   formGrid: {
     marginTop: theme.spacing(3),
+    color: Colors.White,
   },
   searchBar: {
     borderBottom: "1px solid rgba(0, 0, 0, 0.12)",
   },
   searchInput: {
-    color: "#000000",
+    color: Colors.White,
   },
   block: {
     display: "block",
@@ -79,6 +83,7 @@ const styles = (theme) => ({
   },
   submitButton: {
     marginTop: theme.spacing(3),
+    color: Colors.Background,
   },
   logoutButton: {
     marginTop: theme.spacing(2),
@@ -88,6 +93,24 @@ const styles = (theme) => ({
   },
   titleBar: {
     background: "rgba(0,0,0,0)",
+  },
+  cssLabel: {
+    color: Colors.White,
+    "& label.Mui-focused": {
+      color: "white",
+    },
+  },
+  cssOutlinedInput: {
+    borderColor: Colors.White,
+    color: Colors.White,
+  },
+  cssFocused: {
+    borderColor: Colors.White,
+    color: Colors.White,
+  },
+  notchedOutline: {
+    borderWidth: "1px",
+    borderColor: "white !important",
   },
 });
 
@@ -157,6 +180,22 @@ function AddInfo(props) {
 
   console.log(deleted);
 
+  let inputLabelProps = {
+    classes: {
+      root: classes.cssLabel,
+      focused: classes.cssFocused,
+    },
+  };
+
+  let inputProps = {
+    classes: {
+      root: classes.cssOutlinedInput,
+      focused: classes.cssFocused,
+      notchedOutline: classes.notchedOutline,
+    },
+    inputMode: "numeric",
+  };
+
   return (
     <Paper className={classes.paper}>
       <Typography variant="h5" gutterBottom>
@@ -173,6 +212,8 @@ function AddInfo(props) {
             value={info.name || ""}
             fullWidth
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -186,6 +227,8 @@ function AddInfo(props) {
             autoComplete="email"
             value={info.contact || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -199,6 +242,8 @@ function AddInfo(props) {
             autoComplete="billing address-line1"
             value={info.address || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -212,6 +257,8 @@ function AddInfo(props) {
             autoComplete="billing address-level2"
             value={info.city || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -225,6 +272,8 @@ function AddInfo(props) {
             fullWidth
             value={info.state || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -238,6 +287,8 @@ function AddInfo(props) {
             autoComplete="billing postal-code"
             value={info.zip || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -249,6 +300,8 @@ function AddInfo(props) {
             fullWidth
             value={info.website || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -260,6 +313,8 @@ function AddInfo(props) {
             fullWidth
             value={info.yelp || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12}>
@@ -272,6 +327,8 @@ function AddInfo(props) {
             label="Description (shown on search page and purchase page)"
             value={info.description || ""}
             onChange={updateInfo}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
             fullWidth
           />
         </Grid>
@@ -385,7 +442,6 @@ function AddInfo(props) {
                   });
             }}
             variant="contained"
-            color="primary"
             size="large"
           >
             Submit
@@ -462,6 +518,22 @@ function Employees(props) {
     );
   }
 
+  let inputLabelProps = {
+    classes: {
+      root: classes.cssLabel,
+      focused: classes.cssFocused,
+    },
+  };
+
+  let inputProps = {
+    classes: {
+      root: classes.cssOutlinedInput,
+      focused: classes.cssFocused,
+      notchedOutline: classes.notchedOutline,
+    },
+    inputMode: "numeric",
+  };
+
   return (
     <Paper className={classes.paper}>
       <Grid container>
@@ -470,7 +542,7 @@ function Employees(props) {
         </Typography>
         <Grid item xs />
         <Button
-          color="primary"
+          style={{ backgroundColor: Colors.White }}
           variant="outlined"
           size="large"
           onClick={addEmployee}
@@ -493,6 +565,8 @@ function Employees(props) {
                   autoComplete="name"
                   value={name || ""}
                   onChange={(e) => updateInfo(e, idx, "name")}
+                  InputLabelProps={inputLabelProps}
+                  InputProps={inputProps}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -506,6 +580,8 @@ function Employees(props) {
                   autoComplete="email"
                   value={email || ""}
                   onChange={(e) => updateInfo(e, idx, "email")}
+                  InputLabelProps={inputLabelProps}
+                  InputProps={inputProps}
                 />
               </Grid>
             </React.Fragment>
@@ -538,7 +614,6 @@ function Employees(props) {
               });
           }}
           variant="contained"
-          color="primary"
           size="large"
         >
           Submit
@@ -567,6 +642,22 @@ function Password(props) {
       : setError("Passwords do not match.");
   };
 
+  let inputLabelProps = {
+    classes: {
+      root: classes.cssLabel,
+      focused: classes.cssFocused,
+    },
+  };
+
+  let inputProps = {
+    classes: {
+      root: classes.cssOutlinedInput,
+      focused: classes.cssFocused,
+      notchedOutline: classes.notchedOutline,
+    },
+    inputMode: "numeric",
+  };
+
   return (
     <Paper className={classes.paper}>
       <Typography variant="h5" gutterBottom>
@@ -589,6 +680,8 @@ function Password(props) {
             inputProps={{ type: "password" }}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
         <Grid item xs={12}>
@@ -604,6 +697,8 @@ function Password(props) {
             helperText={error}
             value={confirmPassword}
             onChange={validatePassword}
+            InputLabelProps={inputLabelProps}
+            InputProps={inputProps}
           />
         </Grid>
       </Grid>
@@ -632,7 +727,6 @@ function Password(props) {
               });
           }}
           variant="contained"
-          color="primary"
           size="large"
         >
           Submit
@@ -777,14 +871,14 @@ class Homepage extends React.Component {
           {...buttonProps}
           component={componentMap[component]}
           {...{ [linkMap[component]]: data.link }}
-          style={{ textTransform: "none" }}
+          style={{ textTransform: "none", color: Colors.White }}
           endIcon={
             icon ? (
               <AddRounded
                 style={{
                   marginRight: "10px",
                   marginLeft: "none",
-                  color: "blue",
+                  color: "orange",
                   fontSize: 40,
                 }}
               />
@@ -825,7 +919,7 @@ class Homepage extends React.Component {
     });
   }
 
-  displayDone(key, msg = "Done!") {
+  displayDone(key, msg = "") {
     let item = this.state.list[key];
     item.value = (
       <React.Fragment>
@@ -902,9 +996,8 @@ class Homepage extends React.Component {
                 this.displayDone(
                   "regEmployees",
                   <React.Fragment>
-                    Done!
                     <Button
-                      style={{ marginLeft: "15px" }}
+                      style={{ marginLeft: "15px", color: Colors.White }}
                       variant="outlined"
                       size="small"
                       component={Link}
@@ -944,9 +1037,8 @@ class Homepage extends React.Component {
             this.displayDone(
               "regEmployees",
               <React.Fragment>
-                Done!
                 <Button
-                  style={{ marginLeft: "15px" }}
+                  style={{ marginLeft: "15px", color: Colors.White }}
                   variant="outlined"
                   size="small"
                   component={Link}
@@ -974,7 +1066,6 @@ class Homepage extends React.Component {
                 this.displayDone(
                   "setCode",
                   <React.Fragment>
-                    Done!
                     <Button
                       style={{ marginLeft: "15px" }}
                       variant="outlined"
@@ -1016,9 +1107,8 @@ class Homepage extends React.Component {
             this.displayDone(
               "setCode",
               <React.Fragment>
-                Done!
                 <Button
-                  style={{ marginLeft: "15px" }}
+                  style={{ marginLeft: "15px", color: Colors.White }}
                   variant="outlined"
                   size="small"
                   component={Link}
@@ -1056,7 +1146,7 @@ class Homepage extends React.Component {
               if (
                 error.message === "sorry bro, that restaurant doesn't exist"
               ) {
-                this.displayError("regSquare", "Please add info first");
+                this.displayError("regSquare", "Please A info first");
               } else {
                 console.log(error);
                 this.displayError("regSquare", "Please log in again.");
@@ -1226,9 +1316,11 @@ class Homepage extends React.Component {
               this.displayDone(
                 "addInfo",
                 <React.Fragment>
-                  Done!
                   <Button
-                    style={{ marginLeft: "15px" }}
+                    style={{
+                      marginLeft: "15px",
+                      color: Colors.White,
+                    }}
                     variant="outlined"
                     size="small"
                     component={Link}
@@ -1261,9 +1353,8 @@ class Homepage extends React.Component {
             this.displayDone(
               "addInfo",
               <React.Fragment>
-                Done!
                 <Button
-                  style={{ marginLeft: "15px" }}
+                  style={{ marginLeft: "15px", color: Colors.White }}
                   variant="outlined"
                   size="small"
                   component={Link}
@@ -1430,7 +1521,6 @@ class Homepage extends React.Component {
               <Button
                 type="submit"
                 variant="contained"
-                color="secondary"
                 onClick={() => this.contract()}
               >
                 Sign

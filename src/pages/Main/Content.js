@@ -34,7 +34,7 @@ const styles = (theme) => ({
       fontSize: "1.3rem",
     },
     color: Colors.White,
-    backgroundColor: Colors.BackgroundHighlight,
+    backgroundColor: Colors.TextRegular,
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,

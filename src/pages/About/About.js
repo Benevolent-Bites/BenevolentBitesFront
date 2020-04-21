@@ -17,7 +17,7 @@ const styles = (theme) => ({
       fontSize: "1.3rem",
     },
     position: "relative",
-    background: Colors.BackgroundHighlight,
+    background: Colors.TextRegular,
     color: Colors.White,
   },
   app: {
@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
   main: {
     flex: 1,
-    background: Colors.TextRegular,
+    background: Colors.LightBackground,
   },
   formGrid: {
     marginTop: theme.spacing(3),
@@ -79,7 +79,11 @@ class About extends React.Component {
       <div className={classes.app}>
         <Header onDrawerToggle={handleDrawerToggle} />
         <main className={classes.main}>
-          <Paper className={classes.paper} id="paper" style={{color: "#B12737"}}></Paper>
+          <Paper
+            className={classes.paper}
+            id="paper"
+            style={{ color: Colors.White }}
+          ></Paper>
         </main>
       </div>
     );
