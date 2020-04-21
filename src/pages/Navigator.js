@@ -37,6 +37,7 @@ const styles = (theme) => ({
     backgroundColor: Colors.Background,
     "&:hover,&:focus": {
       backgroundColor: Colors.BackgroundHighlight,
+      color: Colors.White,
     },
   },
   itemCategory: {
