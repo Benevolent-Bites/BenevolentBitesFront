@@ -196,8 +196,8 @@ export default class Data extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Box style={{ margin: "5%" }}>
-        <Grid container spacing={3}>
+      <Box mx="5%" mb="3%" mt="-2%">
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Paper className={classes.paper} style={{ maxWidth: 2500 }}>
               <Grid container spacing={3}>

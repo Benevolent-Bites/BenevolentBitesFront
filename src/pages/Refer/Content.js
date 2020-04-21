@@ -163,11 +163,11 @@ class ReferContent extends React.Component {
             {(!data.website && !data.phone) && <Grid item xs={4}>
               <Typography variant="body2">Sorry, could not find contact info</Typography></Grid>}
           </Grid>
-          <Divider flexItem />
+          <Grid item xs={12}><Divider style={{backgroundColor: "rgba(0,0,0,0.28)"}}/></Grid>
           <Grid item xs={12}>
             <Typography variant="body1">
               Please contact this restaurant using their phone number or website above, and ask them to check out our 
-              platform. If neither are available, feel free to reach out another way. <br/>
+              platform. If neither are available, feel free to reach out another way. <br/><br/>
               Thank you for supporting your community and the Benevolent Bites Project!
             </Typography>
           </Grid>

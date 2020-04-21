@@ -161,7 +161,7 @@ const styles = {
   main: {
     flex: 1,
     padding: theme.spacing(0, 0),
-    background: Colors.BackgroundHighlight,
+    background: Colors.LightBackground,
   },
   footer: {
     padding: theme.spacing(2),
@@ -255,12 +255,6 @@ function BenevolentBites(props) {
           />
           <Route
             path="/"
-            render={(props) => (
-              <Main {...props} handleDrawerToggle={handleDrawerToggle} />
-            )}
-          />
-          <Route
-            path="/search"
             render={(props) => (
               <Main {...props} handleDrawerToggle={handleDrawerToggle} />
             )}

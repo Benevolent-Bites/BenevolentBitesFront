@@ -26,7 +26,7 @@ const styles = (theme) => ({
   main: {
     flex: 1,
     padding: theme.spacing(6, 4),
-    background: Colors.BackgroundHighlight,
+    background: Colors.LightBackground,
   },
   footer: {
     padding: theme.spacing(2),

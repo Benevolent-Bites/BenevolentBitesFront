@@ -27,9 +27,8 @@ const styles = (theme) => ({
   },
   main: {
     flex: 1,
-    paddingLeft: 0,
-    paddingTop: 50,
-    background: Colors.White,
+    paddingTop: '50px',
+    background: "#eaeff1",
   },
   footer: {
     padding: theme.spacing(2),

@@ -1,4 +1,4 @@
-<p>Benevolent Bites is a non-profit which aims to provide cash now to small restaurants and cafes (and their staffs)
+<p style="color:inherit">Benevolent Bites is a non-profit which aims to provide cash now to small restaurants and cafes (and their staffs)
 that are typically frequented by locals. During these trying times when we are all undertaking extremely necessary social
 distancing, these restaurants are facing hard times despite takeout and delivery, which also come with the costs 
 associated with using delivery apps. We believe the locals who frequent these businesses would be happy to help 

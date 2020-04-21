@@ -213,147 +213,145 @@ class MainView extends React.Component {
     const classes = this.props.classes;
     return (
       <React.Fragment>
-        <Box style={{ backgroundColor: Colors.White }}>
-          <AppBar
-            className={classes.searchBar}
-            position="relative"
-            color="default"
-            elevation={5}
-          >
-            <Toolbar>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item>
-                  <SearchRounded className={classes.block} color="inherit" />
+        <AppBar
+          className={classes.searchBar}
+          position="relative"
+          color="default"
+          elevation={5}
+        >
+          <Toolbar>
+            <Grid container spacing={2} alignItems="center">
+              <Grid item>
+                <SearchRounded className={classes.block} color="inherit" />
+              </Grid>
+              <Grid item xs>
+                <TextField
+                  placeholder="Search for a Restaurant"
+                  onChange={this.handleChange.bind(this)}
+                  value={this.state.searchValue}
+                  InputProps={{
+                    disableUnderline: true,
+                    className: classes.searchInput,
+                    onKeyDown: (e) =>
+                      e.key === "Enter" ? this.searchRestaurants() : false,
+                    onBlur: () => this.searchRestaurants(),
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+        <TabPanel index="list" tabValue={this.props.tabValue}>
+          <Box mt="8%" ml="2.5%">
+            <ConditionalRender
+              condition={() =>
+                this.state.on.length > 0 || this.state.off.length > 0
+              }
+              alt={
+                <Paper className={classes.paper}>
+                  <Typography align="center" variant="h5">
+                    No Search Results
+                  </Typography>
+                </Paper>
+              }
+            >
+              <Grid container spacing={3}>
+                <Grid
+                  container
+                  spacing={2}
+                  item
+                  xs={12}
+                  lg={6}
+                  alignContent="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      align="center"
+                      variant="h5"
+                      style={{ marginBottom: "7px" }}
+                    >
+                      Offering Credit
+                    </Typography>
+                    <Divider light />
+                  </Grid>
+                  {this.state.on.map((data) => (
+                    <Grid item xs={12} sm={6}>
+                      <RestaurantCard
+                        signedIn={this.props.signedIn}
+                        supported
+                        classes={classes}
+                        data={data}
+                      />
+                    </Grid>
+                  ))}
                 </Grid>
-                <Grid item xs>
-                  <TextField
-                    placeholder="Search for a Restaurant"
-                    onChange={this.handleChange.bind(this)}
-                    value={this.state.searchValue}
-                    InputProps={{
-                      disableUnderline: true,
-                      className: classes.searchInput,
-                      onKeyDown: (e) =>
-                        e.key === "Enter" ? this.searchRestaurants() : false,
-                      onBlur: () => this.searchRestaurants(),
-                    }}
-                  />
+                <Divider
+                  orientation="vertical"
+                  light
+                  flexItem
+                  style={{ marginTop: "52px" }}
+                />
+                <Grid
+                  container
+                  spacing={2}
+                  item
+                  xs={12}
+                  lg={6}
+                  alignContent="flex-start"
+                >
+                  <Grid item xs={12}>
+                    <Typography
+                      align="center"
+                      variant="h5"
+                      style={{ marginBottom: "7px" }}
+                    >
+                      Not Yet Supported
+                    </Typography>
+                    <Divider light />
+                  </Grid>
+                  {this.state.off.map((data) => (
+                    <Grid item xs={12} sm={6}>
+                      <RestaurantCard classes={classes} data={data} />
+                    </Grid>
+                  ))}
                 </Grid>
               </Grid>
-            </Toolbar>
-          </AppBar>
-          <TabPanel index="list" tabValue={this.props.tabValue}>
-            <Box style={{ marginTop: "8%" }}>
-              <ConditionalRender
-                condition={() =>
-                  this.state.on.length > 0 || this.state.off.length > 0
-                }
-                alt={
-                  <Paper className={classes.paper}>
-                    <Typography align="center" variant="h5">
-                      No Search Results
-                    </Typography>
-                  </Paper>
-                }
-              >
-                <Grid container spacing={3}>
-                  <Grid
-                    container
-                    spacing={2}
-                    item
-                    xs={12}
-                    lg={6}
-                    alignContent="flex-start"
-                  >
-                    <Grid item xs={12}>
-                      <Typography
-                        align="center"
-                        variant="h5"
-                        style={{ marginBottom: "7px" }}
-                      >
-                        Offering Credit
-                      </Typography>
-                      <Divider light />
-                    </Grid>
-                    {this.state.on.map((data) => (
-                      <Grid item xs={12} sm={6}>
-                        <RestaurantCard
-                          signedIn={this.props.signedIn}
-                          supported
-                          classes={classes}
-                          data={data}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                  <Divider
-                    orientation="vertical"
-                    light
-                    flexItem
-                    style={{ marginTop: "52px" }}
-                  />
-                  <Grid
-                    container
-                    spacing={2}
-                    item
-                    xs={12}
-                    lg={6}
-                    alignContent="flex-start"
-                  >
-                    <Grid item xs={12}>
-                      <Typography
-                        align="center"
-                        variant="h5"
-                        style={{ marginBottom: "7px" }}
-                      >
-                        Not Yet Supported
-                      </Typography>
-                      <Divider light />
-                    </Grid>
-                    {this.state.off.map((data) => (
-                      <Grid item xs={12} sm={6}>
-                        <RestaurantCard classes={classes} data={data} />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-              </ConditionalRender>
-              <Backdrop className={classes.backdrop} open={this.state.loading}>
-                <CircularProgress />
-              </Backdrop>
-            </Box>
-          </TabPanel>
-          <TabPanel index="map" tabValue={this.props.tabValue}>
-            <GoogleMapsContainer
-              signedIn={this.props.signedIn}
-              coords={this.state.coords}
-              list={list}
-            />
+            </ConditionalRender>
             <Backdrop className={classes.backdrop} open={this.state.loading}>
               <CircularProgress />
             </Backdrop>
-          </TabPanel>
-          <Snackbar
-            open={!!this.state.error}
-            autoHideDuration={6000}
-            style={{ maxWidth: 700, width: "100%" }}
+          </Box>
+        </TabPanel>
+        <TabPanel index="map" tabValue={this.props.tabValue}>
+          <GoogleMapsContainer
+            signedIn={this.props.signedIn}
+            coords={this.state.coords}
+            list={list}
+          />
+          <Backdrop className={classes.backdrop} open={this.state.loading}>
+            <CircularProgress />
+          </Backdrop>
+        </TabPanel>
+        <Snackbar
+          open={!!this.state.error}
+          autoHideDuration={6000}
+          style={{ maxWidth: 700, width: "100%" }}
+          onClose={(_, r) => {
+            if (r !== "clickaway") this.setState({ error: false });
+          }}
+        >
+          <Alert
+            variant="filled"
             onClose={(_, r) => {
               if (r !== "clickaway") this.setState({ error: false });
             }}
+            severity="error"
+            style={{ width: "100%", fontSize: "1.5rem" }}
           >
-            <Alert
-              variant="filled"
-              onClose={(_, r) => {
-                if (r !== "clickaway") this.setState({ error: false });
-              }}
-              severity="error"
-              style={{ width: "100%", fontSize: "1.5rem" }}
-            >
-              <AlertTitle style={{ fontSize: "1.5rem" }}>Error</AlertTitle>
-              {this.state.error}
-            </Alert>
-          </Snackbar>
-        </Box>
+            <AlertTitle style={{ fontSize: "1.5rem" }}>Error</AlertTitle>
+            {this.state.error}
+          </Alert>
+        </Snackbar>
       </React.Fragment>
     );
   }

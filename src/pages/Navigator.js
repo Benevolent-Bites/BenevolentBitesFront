@@ -116,7 +116,8 @@ function Navigator(props) {
           key="Search"
           button
           component={NavLink}
-          to={"/search"}
+          to={"/"}
+          exact
           activeClassName={classes.itemActiveItem}
           className={classes.item}
         >

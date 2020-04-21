@@ -79,7 +79,7 @@ class About extends React.Component {
       <div className={classes.app}>
         <Header onDrawerToggle={handleDrawerToggle} />
         <main className={classes.main}>
-          <Paper className={classes.paper} id="paper"></Paper>
+          <Paper className={classes.paper} id="paper" style={{color: "#B12737"}}></Paper>
         </main>
       </div>
     );
