@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import Content from "./Content";
 import Header from "./Header";
+import * as Colors from "../Colors";
 
 const drawerWidth = 290;
 const styles = (theme) => ({
@@ -25,11 +26,11 @@ const styles = (theme) => ({
   main: {
     flex: 1,
     padding: theme.spacing(6, 4),
-    background: "#eaeff1",
+    background: Colors.BackgroundHighlight,
   },
   footer: {
     padding: theme.spacing(2),
-    background: "#eaeff1",
+    background: Colors.BackgroundHighlight,
   },
 });
 

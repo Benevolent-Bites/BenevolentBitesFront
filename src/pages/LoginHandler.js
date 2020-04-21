@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Card, IconButton, Box } from "@material-ui/core";
 import Cookies from "js-cookie";
 import { login, authVerify, getAvatar } from "../endpoints";
+import * as Colors from "./Colors";
 
 let centerStyle = {
   display: "flex",
@@ -103,39 +104,49 @@ export default function LoginHandler(props) {
 
   if (!signedIn) {
     return (
-      <Card
+      <Box
         style={{
-          marginLeft: "30%",
-          marginRight: "30%",
-          marginTop: "15%",
-          marginBottom: "25%",
-          padding: 25,
+          width: "100%",
+          backgroundColor: Colors.TextRegular,
         }}
       >
-        <Typography style={centerStyle}>{text}</Typography>
-        <Box style={centerStyle}>
-          <IconButton
-            style={{
-              ...{
-                backgroundColor: "transparent",
-              },
-              ...centerStyle,
-            }}
-            onClick={() => {
-              SignIn();
-            }}
-            disableRipple
-            disableFocusRipple
-            disableElevation
-          >
-            <img
-              alt="restaurant"
-              src={process.env.PUBLIC_URL + "/img/google_signin.png"}
-              style={{ ...{ width: 200, height: 50 }, ...centerStyle }}
-            />
-          </IconButton>
-        </Box>
-      </Card>
+        <Card
+          style={{
+            marginLeft: "30%",
+            marginRight: "30%",
+            marginTop: "15%",
+            marginBottom: "25%",
+            padding: 25,
+            backgroundColor: Colors.BackgroundHighlight,
+          }}
+        >
+          <Typography style={{ ...centerStyle, ...{ color: Colors.White } }}>
+            {text}
+          </Typography>
+          <Box style={centerStyle}>
+            <IconButton
+              style={{
+                ...{
+                  backgroundColor: "transparent",
+                },
+                ...centerStyle,
+              }}
+              onClick={() => {
+                SignIn();
+              }}
+              disableRipple
+              disableFocusRipple
+              disableElevation
+            >
+              <img
+                alt="restaurant"
+                src={process.env.PUBLIC_URL + "/img/google_signin.png"}
+                style={{ ...{ width: 200, height: 50 }, ...centerStyle }}
+              />
+            </IconButton>
+          </Box>
+        </Card>
+      </Box>
     );
   } else {
     return UpdatedChildren();
