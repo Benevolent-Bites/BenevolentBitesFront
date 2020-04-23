@@ -185,8 +185,8 @@ class MainView extends React.Component {
         (data) => {
           this.setState({
             loading: false,
-            on: data.on,
-            off: data.off,
+            on: data.on || [],
+            off: data.off || [],
           });
         },
         (error) => console.log(error)
