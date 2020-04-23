@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { withStyles } from '@material-ui/core/styles';
 import { Spinner } from '../common';
-import { restGetDetails, userBuy, login } from '../../endpoints';
+import { restGetDetails, userBuy, login, restGetPhoto } from '../../endpoints';
 import {
   Typography,
   Paper,
@@ -142,6 +142,9 @@ class PurchaseContent extends React.Component {
             <GridList cols={3}>
               {data.customPhotos && data.customPhotos.map(url => <img alt="team" src={url} />)}
             </GridList>
+            {data.hasOwnProperty("customPhotos") && data.customPhotos === null && data.image &&
+             <img alt="restaurant" src={data.image ? restGetPhoto() + `?photoreference=${data.image}` : 
+              process.env.PUBLIC_URL + "/img/none.jpg"}></img>}
           </Grid>
           <Grid item xs={12}><Typography variant="body2">{data.description}</Typography></Grid>
           <Grid item container xs={12} spacing={3} alignItems="center">
@@ -171,7 +174,7 @@ class PurchaseContent extends React.Component {
           </Grid>
           <Grid item xs={12}><Divider style={{backgroundColor: "rgba(0,0,0,0.28)"}}/></Grid>
           <Grid item xs={12}>
-            <Typography variant="body3">
+            <Typography variant="body2" style={{fontSize: '1rem'}}>
               By purchasing a gift card to <strong>{data.name}</strong>, you are providing them essential support in
               surviving and mitigating the worst economic circumstances ever to hit the service industry. Your help
               especially benefits the tens of thousands of staff members whose jobs are currently at risk, because 

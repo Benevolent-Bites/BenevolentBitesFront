@@ -197,7 +197,7 @@ function AddInfo(props) {
   };
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} style={{marginTop: "3%", marginBottom: "3%"}}>
       <Typography variant="h5" gutterBottom>
         Enter Your Information Below:
       </Typography>
@@ -1466,7 +1466,7 @@ class Homepage extends React.Component {
               style={{ margin: "auto", marginBottom: "10px", display: "block" }}
               onClick={() => this.publish()}
             >
-              Confi rm
+              Confirm
             </Button>
             {this.state.publishResultMessage && (
               <Typography align="center">

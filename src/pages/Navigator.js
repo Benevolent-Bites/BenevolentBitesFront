@@ -176,7 +176,7 @@ function Navigator(props) {
       </List>
       <List
         disablePadding
-        style={{ position: "absolute", bottom: 20, marginLeft: "10%" }}
+        style={{ position: "absolute", bottom: 20, marginLeft: "5.5%" }}
       >
         <Divider className={classes.divider} />
         <ListItem
@@ -196,7 +196,7 @@ function Navigator(props) {
               primary: classes.itemPrimary,
             }}
           >
-            {"Manager Portal"}
+            {"Restaurant Portal"}
           </ListItemText>
         </ListItem>
       </List>

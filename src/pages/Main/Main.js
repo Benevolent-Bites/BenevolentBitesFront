@@ -27,7 +27,6 @@ const styles = (theme) => ({
   },
   main: {
     flex: 1,
-    paddingTop: '50px',
     background: "#eaeff1",
   },
   footer: {
@@ -38,7 +37,10 @@ const styles = (theme) => ({
 
 function Main(props) {
   const { classes, handleDrawerToggle, history } = props;
+  const initialSearchValue = new URLSearchParams(window.location.search).get("search") || "";
+  const [searchValue, setSearchValue] = React.useState(initialSearchValue);
 
+  console.log(searchValue);
   const pathDict = {
     "/": "map",
     "/list": "list",
@@ -83,13 +85,17 @@ function Main(props) {
         tabValue={tabValue}
         signedIn={signedIn}
         avatarSrc={avatarSrc}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
       />
-      <main className={classes.main}>
+      <main className={classes.main} id="main">
         <Content
           signedIn={signedIn}
+          lmao="bitch"
           classes={classes}
           tabValue={tabValue}
           history={history}
+          searchValue={(() => {console.log(searchValue); return searchValue})()}
         />
       </main>
     </div>

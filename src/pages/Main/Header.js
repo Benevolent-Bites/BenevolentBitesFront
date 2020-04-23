@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Menu, Notifications, Person } from "@material-ui/icons";
+import { Menu, Notifications, Person, SearchRounded } from "@material-ui/icons";
 import {
   AppBar,
   Paper,
@@ -18,6 +18,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  TextField
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { ConditionalRender } from "../common";
@@ -146,13 +147,27 @@ const styles = (theme) => ({
       },
     },
   },
+  searchBar: {
+    border: "1px solid rgba(0, 0, 0, 0.25)",
+    marginTop: '3px',
+    borderWidth: "1px",
+    borderRadius: "10px",
+    borderStyle: "solid",
+  },
   popperClose: {
     pointerEvents: "none",
+  },
+  block: {
+    display: "block",
+  },
+  searchInput: {
+    fontSize: "1.25rem",
+    color: "#000000",
   },
 });
 
 function Header(props) {
-  const { classes, onDrawerToggle, tabValue, signedIn, avatarSrc } = props;
+  const { classes, onDrawerToggle, tabValue, signedIn, avatarSrc, searchValue, setSearchValue } = props;
 
   const [openProfile, setOpenProfile] = React.useState(null);
   function handleClickProfile(event) {
@@ -197,7 +212,7 @@ function Header(props) {
               Nearby Restaurants
             </Typography>
           </Grid>
-          <Grid item xs>
+          <Grid item>
             <Tabs
               style={{ overflow: "visible" }}
               value={tabValue}
@@ -220,6 +235,24 @@ function Header(props) {
                 to="/list"
               />
             </Tabs>
+          </Grid>
+          <Grid item container lg={8} spacing={2} alignItems="center" className={classes.searchBar} style={{marginLeft: '24px'}}>
+            <Grid item style={{padding: '4px', paddingLeft: '8px'}}>
+              <SearchRounded className={classes.block} color="inherit" />
+            </Grid>
+            <Grid item xs style={{padding: '4px'}}>
+              <TextField
+                placeholder="Search for a Restaurant"
+                defaultValue={searchValue}
+                InputProps={{
+                  disableUnderline: true,
+                  className: classes.searchInput,
+                  onKeyDown: (e) =>
+                    e.key === "Enter" ? setSearchValue(e.target.value) : false,
+                  onBlur: (e) => {setSearchValue(e.target.value)},
+                }}
+              />
+            </Grid>
           </Grid>
         </Grid>
         <ConditionalRender condition={() => signedIn}>

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { ConditionalRender } from "../common";
+import { ConditionalRender, Spinner } from "../common";
 import RestaurantCard from "./RestaurantCard";
 import { searchCoords } from "../../endpoints";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -38,7 +38,7 @@ const styles = (theme) => ({
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -105,16 +105,13 @@ const styles = (theme) => ({
 
 function TabPanel(props) {
   const { children, tabValue, index } = props;
-  return index === tabValue && children;
+  return index === tabValue && children
 }
 
 class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValue:
-        new URLSearchParams(window.location.search).get("search") ||
-        "restaurants",
       range: 5,
       coords: {},
       on: [],
@@ -139,34 +136,30 @@ class MainView extends React.Component {
     }
   }
 
-  handleChange(e) {
-    this.setState({ searchValue: e.target.value });
-  }
-
   searchRestaurants(override = false) {
     const queryString = new URLSearchParams(window.location.search);
     if (
-      this.state.searchValue === queryString.get("search") ||
+      this.props.searchValue === queryString.get("search") ||
       Object.keys(this.state.coords).length === 0
     ) {
       if (!override) {
         return;
       }
     }
+    queryString.set("search", this.props.searchValue);
+    this.props.history.push(
+      window.location.pathname + "?" + queryString.toString()
+    );
     const { lat, lng } = this.state.coords;
     this.setState({ loading: true });
     window.setTimeout(() => this.setState({ loading: false }), 5000);
     this.setState({ on: [], off: [] });
-    queryString.set("search", this.state.searchValue);
-    this.props.history.push(
-      window.location.pathname + "?" + queryString.toString()
-    );
     let ok;
     window
       .fetch(
         searchCoords() +
           "?query=" +
-          this.state.searchValue +
+          this.props.searchValue +
           "&lat=" +
           lat +
           "&lng=" +
@@ -200,6 +193,12 @@ class MainView extends React.Component {
       );
   }
 
+  componentDidUpdate() {
+    if (Object.keys(this.state.coords).length > 0) {
+      this.searchRestaurants();
+    }
+  }
+
   render() {
     const list = [
       ...this.state.on.map((obj) => {
@@ -213,64 +212,28 @@ class MainView extends React.Component {
     const classes = this.props.classes;
     return (
       <React.Fragment>
-        <AppBar
-          className={classes.searchBar}
-          position="relative"
-          color="default"
-          elevation={5}
-        >
-          <Toolbar>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item>
-                <SearchRounded className={classes.block} color="inherit" />
-              </Grid>
-              <Grid item xs>
-                <TextField
-                  placeholder="Search for a Restaurant"
-                  onChange={this.handleChange.bind(this)}
-                  value={this.state.searchValue}
-                  InputProps={{
-                    disableUnderline: true,
-                    className: classes.searchInput,
-                    onKeyDown: (e) =>
-                      e.key === "Enter" ? this.searchRestaurants() : false,
-                    onBlur: () => this.searchRestaurants(),
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <TabPanel index="list" tabValue={this.props.tabValue}>
-          <Box mt="8%" ml="2.5%">
+        <TabPanel index="list" tabValue ={this.props.tabValue}>
             <ConditionalRender
               condition={() =>
                 this.state.on.length > 0 || this.state.off.length > 0
               }
               alt={
-                <Paper className={classes.paper}>
-                  <Typography align="center" variant="h5">
+                <Paper className={classes.paper} style={{marginTop: "5%"}}>
+                  {!this.state.loading ? <Typography align="center" variant="h5">
                     No Search Results
-                  </Typography>
+                  </Typography> : <div style={{textAlign:'center'}}><Spinner/></div>}
                 </Paper>
               }
             >
-              <Grid container spacing={3}>
-                <Grid
-                  container
-                  spacing={2}
-                  item
-                  xs={12}
-                  lg={6}
-                  alignContent="flex-start"
-                >
+              <Grid container spacing={3} style={{margin: '0', marginTop: "3%"}}>
+                <Grid container spacing={2} item xs={12} lg={6} alignContent="flex-start">
                   <Grid item xs={12}>
                     <Typography
                       align="center"
                       variant="h5"
                       style={{ marginBottom: "7px" }}
                     >
-                      Offering Credit
+                      Gift Cards Available
                     </Typography>
                     <Divider light />
                   </Grid>
@@ -317,10 +280,6 @@ class MainView extends React.Component {
                 </Grid>
               </Grid>
             </ConditionalRender>
-            <Backdrop className={classes.backdrop} open={this.state.loading}>
-              <CircularProgress />
-            </Backdrop>
-          </Box>
         </TabPanel>
         <TabPanel index="map" tabValue={this.props.tabValue}>
           <GoogleMapsContainer
@@ -328,9 +287,6 @@ class MainView extends React.Component {
             coords={this.state.coords}
             list={list}
           />
-          <Backdrop className={classes.backdrop} open={this.state.loading}>
-            <CircularProgress />
-          </Backdrop>
         </TabPanel>
         <Snackbar
           open={!!this.state.error}
@@ -358,7 +314,7 @@ class MainView extends React.Component {
 }
 
 function Content(props) {
-  const { classes, tabValue, signedIn, history } = props;
+  const { classes, tabValue, signedIn, history, searchValue } = props;
 
   return (
     <MainView
@@ -366,6 +322,7 @@ function Content(props) {
       signedIn={signedIn}
       tabValue={tabValue}
       history={history}
+      searchValue={searchValue}
     />
   );
 }
@@ -375,6 +332,7 @@ Content.propTypes = {
   tabValue: PropTypes.string.isRequired,
   signedIn: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
+  searchValue: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(Content);

@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Spinner } from "../common";
 import { Link } from "react-router-dom";
-import { userGetCards, restGetDetails, frontUrl } from "../../endpoints";
+import { userGetCards, restGetDetails, frontUrl, restGetPhoto } from "../../endpoints";
 import {
   Typography,
   Paper,
   Card,
   CardMedia,
   Dialog,
+  CardActionArea,
   Divider,
   DialogTitle,
   CardActions,
@@ -168,11 +169,12 @@ class GiftCard extends React.Component {
           title={details && details.name}
           subheader={details && details.address}
         />
-        <CardMedia
+        <CardActionArea component="a" href={`/purchase/${this.props.card.restaurant}`} target="_blank"><CardMedia
           component="img"
           height="120"
-          image={process.env.PUBLIC_URL + "/img/giftcard.jpg"}
-        />
+          image={details && details.image ? restGetPhoto() + "?photoreference=" + details.image : 
+            process.env.PUBLIC_URL + "/img/giftcard.jpg"}
+        /></CardActionArea>
         <CardContent>
           <Typography variant="h6">Balance: ${card.balance / 100}</Typography>
         </CardContent>
@@ -205,7 +207,7 @@ class GiftCard extends React.Component {
               {card.transactions.map((transaction) => (
                 <ListItem dense divider key={transaction.paymentId}>
                   <ListItemText disableTypography>
-                    <Typography variant="body">
+                    <Typography variant="body2">
                       {this.formatTime(transaction.timestamp)}
                     </Typography>
                   </ListItemText>
@@ -261,7 +263,7 @@ function MyCards(props) {
       );
     return (
       <Paper className={classes.paper}>
-        <Spinner style={{ margin: "auto" }} />
+        <div style={{textAlign: 'center'}}><Spinner/></div>
       </Paper>
     );
   } else if (!cards) {

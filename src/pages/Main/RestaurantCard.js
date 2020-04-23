@@ -67,8 +67,8 @@ export default function RestaurantCard(props) {
               <Typography variant="body1">Want them on here?</Typography>
               <Button color="primary" component="a" target="_blank" href={restRefer() + "?pid=" + data.restID}>
                 Refer Them</Button></Grid>}>
-            <Button color="secondary" variant="outlined" style={{marginRight:'15px', textAlign:'center'}} component={Link}
-              to={`/purchase/${data.restID}`}>Buy ${amount} Card</Button>
+            <Button color="secondary" variant="outlined" style={{marginRight:'15px', textAlign:'center'}} component="a"
+              href={`/purchase/${data.restID}`} target="_blank">Buy ${amount} Card</Button>
             <ButtonGroup color="primary" size="small" 
               orientation={useMediaQuery('(min-width:600px)') ? 'horizontal' : 'vertical'}>
               <Button onClick={() => setAmount(minAmount)}>${minAmount}</Button>

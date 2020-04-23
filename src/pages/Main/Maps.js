@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
 import { withStyles } from "@material-ui/core/styles";
 import RestaurantCard from "./RestaurantCard";
+import { BrowserRouter } from "react-router-dom";
 
 const styles = (theme) => ({
   expand: {
@@ -81,10 +82,14 @@ class GoogleMapsContainer extends React.Component {
     this.setState({ expanded: !expanded });
   }
 
+  componentDidMount() {
+    document.querySelector("#main > div:first-child").style = "height:100%"
+  }
+
   render() {
     const style = {
       width: "100%",
-      height: "100vh",
+      height: "100%",
       marginLeft: "auto",
       marginRight: "auto",
     };
@@ -95,14 +100,12 @@ class GoogleMapsContainer extends React.Component {
     };
     return (
       <Map
-        item
-        xs={12}
         style={style}
         containerStyle={containerStyle}
         google={this.props.google}
         onClick={this.onMapClick}
         zoom={Object.keys(this.props.coords).length == 0 ? 4 : 14}
-        initialCenter={{
+        initialCenter={Object.keys(this.props.coords).length > 0 ? this.props.coords : {
           lat: 30.27379,
           lng: -97.80073,
         }}
