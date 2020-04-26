@@ -83,7 +83,8 @@ class GoogleMapsContainer extends React.Component {
   }
 
   componentDidMount() {
-    document.querySelector("#main > div:first-child").style = "height:100%"
+    document.querySelector("#main > div:first-child").style =
+      "height:100%; z-index:-1";
   }
 
   render() {
@@ -98,7 +99,7 @@ class GoogleMapsContainer extends React.Component {
       height: "100%",
       position: "relative",
     };
-    const mapObj =
+    const mapObj = (
       <Map
         style={style}
         containerStyle={containerStyle}
@@ -106,16 +107,24 @@ class GoogleMapsContainer extends React.Component {
         onClick={this.onMapClick}
         zoom={Object.keys(this.props.coords).length === 0 ? 4 : 14}
         onIdle={(_, map) => this.props.mapSearch(map)}
-        onReady={() => this.setState({needsUpdate: true})}
-        initialCenter={Object.keys(this.props.coords).length > 0 ? this.props.coords : {
-          lat: 30.27379,
-          lng: -97.80073,
-        }}
+        onReady={() => this.setState({ needsUpdate: true })}
+        initialCenter={
+          Object.keys(this.props.coords).length > 0
+            ? this.props.coords
+            : {
+                lat: 30.27379,
+                lng: -97.80073,
+              }
+        }
       >
-        {this.props.list.map((place) =>
-          <Memoized component={Marker}
-            shouldUpdate={np => {
-              if (this.state.needsUpdate || np.place.restID !== place.restID) return true; else return false}}
+        {this.props.list.map((place) => (
+          <Memoized
+            component={Marker}
+            shouldUpdate={(np) => {
+              if (this.state.needsUpdate || np.place.restID !== place.restID)
+                return true;
+              else return false;
+            }}
             position={{ lat: place.latitude, lng: place.longitude }}
             name={place.title}
             title={place.title}
@@ -123,16 +132,19 @@ class GoogleMapsContainer extends React.Component {
             list={this.props.list}
             place={place}
             icon={
-              place.on ? null : { url: process.env.PUBLIC_URL + "/img/greymarker.png",
-                    scaledSize: new this.props.google.maps.Size(25, 40)
+              place.on
+                ? null
+                : {
+                    url: process.env.PUBLIC_URL + "/img/greymarker.png",
+                    scaledSize: new this.props.google.maps.Size(25, 40),
                   }
             }
           />
-        )}
+        ))}
         <InfoWindowEx
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
-          onClose={() => this.setState({showingInfoWindow: false})}
+          onClose={() => this.setState({ showingInfoWindow: false })}
         >
           {Object.keys(this.state.place).length > 0 && (
             <RestaurantCard
@@ -144,9 +156,10 @@ class GoogleMapsContainer extends React.Component {
             />
           )}
         </InfoWindowEx>
-      </Map>;
-      if (this.state.needsUpdate) this.setState({needsUpdate: false});
-      return mapObj
+      </Map>
+    );
+    if (this.state.needsUpdate) this.setState({ needsUpdate: false });
+    return mapObj;
   }
 }
 

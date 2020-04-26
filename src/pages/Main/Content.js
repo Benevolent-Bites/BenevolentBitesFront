@@ -14,6 +14,7 @@ import {
   Grid,
   CircularProgress,
   TextField,
+  Card,
   Snackbar,
   Divider,
   Box,
@@ -105,7 +106,7 @@ const styles = (theme) => ({
 
 function TabPanel(props) {
   const { children, tabValue, index } = props;
-  return index === tabValue && children
+  return index === tabValue && children;
 }
 
 class MainView extends React.Component {
@@ -116,7 +117,7 @@ class MainView extends React.Component {
       coords: {},
       on: [],
       off: [],
-      loading: false
+      loading: false,
     };
   }
 
@@ -143,7 +144,7 @@ class MainView extends React.Component {
       Object.keys(this.state.coords).length === 0
     ) {
       if (!override) {
-        return
+        return;
       }
     }
     queryString.set("search", this.props.searchValue);
@@ -164,8 +165,8 @@ class MainView extends React.Component {
           "&lng=" +
           lng +
           "&range=" +
-          this.state.range
-          + (map ? "&view=map" : ""),
+          this.state.range +
+          (map ? "&view=map" : ""),
         {
           method: "GET",
           mode: "cors",
@@ -182,32 +183,48 @@ class MainView extends React.Component {
         return response;
       })
       .then(
-        data => {
+        (data) => {
           if (override) {
-            let on = Object.fromEntries(this.state.on.map(r => [r.restID, r]));
-            let off = Object.fromEntries(this.state.off.map(r => [r.restID, r]));
-            data.on.forEach(r => {on[r.restID] = r});
-            data.off.forEach(r => {off[r.restID] = r});
+            let on = Object.fromEntries(
+              this.state.on.map((r) => [r.restID, r])
+            );
+            let off = Object.fromEntries(
+              this.state.off.map((r) => [r.restID, r])
+            );
+            data.on.forEach((r) => {
+              on[r.restID] = r;
+            });
+            data.off.forEach((r) => {
+              off[r.restID] = r;
+            });
             this.setState({
-              loading: false, on: Object.values(on), off: Object.values(off)});
+              loading: false,
+              on: Object.values(on),
+              off: Object.values(off),
+            });
           } else {
             this.setState({
-              loading: false, on: data.on, off: data.off});
+              loading: false,
+              on: data.on,
+              off: data.off,
+            });
           }
-          
         },
         (error) => console.log(error)
       );
   }
 
   mapSearch(map) {
-    const range = map.getBounds().toSpan().lat() * 69 / 2 // Diameter in latitude -> diameter in miles -> radius in miles
-    this.setState({coords: map.center.toJSON(), range});
+    const range = (map.getBounds().toSpan().lat() * 69) / 2; // Diameter in latitude -> diameter in miles -> radius in miles
+    this.setState({ coords: map.center.toJSON(), range });
     this.searchRestaurants(true, true);
   }
 
   componentDidUpdate(prevProps) {
-    if (Object.keys(this.state.coords).length > 0 && prevProps.searchValue !== this.props.searchValue) {
+    if (
+      Object.keys(this.state.coords).length > 0 &&
+      prevProps.searchValue !== this.props.searchValue
+    ) {
       this.searchRestaurants();
     }
   }
@@ -225,74 +242,91 @@ class MainView extends React.Component {
     const classes = this.props.classes;
     return (
       <React.Fragment>
-        <TabPanel index="list" tabValue ={this.props.tabValue}>
-            <ConditionalRender
-              condition={() =>
-                this.state.on.length > 0 || this.state.off.length > 0
-              }
-              alt={
-                <Paper className={classes.paper} style={{marginTop: "5%"}}>
-                  {!this.state.loading ? <Typography align="center" variant="h5">
+        <TabPanel index="list" tabValue={this.props.tabValue}>
+          <ConditionalRender
+            condition={() =>
+              this.state.on.length > 0 || this.state.off.length > 0
+            }
+            alt={
+              <Paper className={classes.paper} style={{ marginTop: "5%" }}>
+                {!this.state.loading ? (
+                  <Typography align="center" variant="h5">
                     No Search Results
-                  </Typography> : <div style={{textAlign:'center'}}><Spinner/></div>}
-                </Paper>
-              }
+                  </Typography>
+                ) : (
+                  <div style={{ textAlign: "center" }}>
+                    <Spinner />
+                  </div>
+                )}
+              </Paper>
+            }
+          >
+            <Grid
+              container
+              spacing={3}
+              style={{ margin: "0", marginTop: "3%" }}
             >
-              <Grid container spacing={3} style={{margin: '0', marginTop: "3%"}}>
-                <Grid container spacing={2} item xs={12} lg={6} alignContent="flex-start">
-                  <Grid item xs={12}>
-                    <Typography
-                      align="center"
-                      variant="h5"
-                      style={{ marginBottom: "7px" }}
-                    >
-                      Gift Cards Available
-                    </Typography>
-                    <Divider light />
-                  </Grid>
-                  {this.state.on.map((data) => (
-                    <Grid item xs={12} sm={6}>
-                      <RestaurantCard
-                        signedIn={this.props.signedIn}
-                        supported
-                        classes={classes}
-                        data={data}
-                      />
-                    </Grid>
-                  ))}
+              <Grid
+                container
+                spacing={2}
+                item
+                xs={12}
+                lg={6}
+                alignContent="flex-start"
+              >
+                <Grid item xs={12}>
+                  <Typography
+                    align="center"
+                    variant="h5"
+                    style={{ marginBottom: "7px" }}
+                  >
+                    Gift Cards Available
+                  </Typography>
+                  <Divider light />
                 </Grid>
-                <Divider
-                  orientation="vertical"
-                  light
-                  flexItem
-                  style={{ marginTop: "52px" }}
-                />
-                <Grid
-                  container
-                  spacing={2}
-                  item
-                  xs={12}
-                  lg={6}
-                  alignContent="flex-start"
-                >
-                  <Grid item xs={12}>
-                    <Typography
-                      align="center"
-                      variant="h5"
-                      style={{ marginBottom: "7px" }}
-                    >
-                      Not Yet Supported
-                    </Typography>
-                    <Divider light />
+                {this.state.on.map((data) => (
+                  <Grid item xs={12} sm={6}>
+                    <RestaurantCard
+                      signedIn={this.props.signedIn}
+                      supported
+                      classes={classes}
+                      data={data}
+                    />
                   </Grid>
-                  {this.state.off.map((data) => (
-                    <Grid item xs={12} sm={6}>
-                      <RestaurantCard classes={classes} data={data} />
-                    </Grid>
-                  ))}
-                </Grid>
+                ))}
               </Grid>
-            </ConditionalRender>
+              <Divider
+                orientation="vertical"
+                light
+                flexItem
+                style={{ marginTop: "52px" }}
+              />
+              <Grid
+                container
+                spacing={2}
+                item
+                xs={12}
+                lg={6}
+                alignContent="flex-start"
+              >
+                <Grid item xs={12}>
+                  <Typography
+                    align="center"
+                    variant="h5"
+                    style={{ marginBottom: "7px" }}
+                  >
+                    Not Yet Supported
+                  </Typography>
+                  <Divider light />
+                </Grid>
+                {this.state.off.map((data) => (
+                  <Grid item xs={12} sm={6}>
+                    <RestaurantCard classes={classes} data={data} />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </ConditionalRender>
         </TabPanel>
         <TabPanel index="map" tabValue={this.props.tabValue}>
           <GoogleMapsContainer
@@ -301,6 +335,25 @@ class MainView extends React.Component {
             mapSearch={this.mapSearch.bind(this)}
             list={list}
           />
+          <ConditionalRender
+            condition={() => {
+              return this.state.loading;
+            }}
+          >
+            <Box
+              style={{
+                textAlign: "center",
+                position: "absolute",
+                right: "40%",
+                bottom: "10px",
+                zIndex: 10,
+              }}
+            >
+              <Card style={{ padding: 10, paddingLeft: 30, paddingRight: 30 }}>
+                <Spinner></Spinner>
+              </Card>
+            </Box>
+          </ConditionalRender>
         </TabPanel>
         <Snackbar
           open={!!this.state.error}
@@ -346,7 +399,7 @@ Content.propTypes = {
   tabValue: PropTypes.string.isRequired,
   signedIn: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
-  searchValue: PropTypes.string.isRequired
+  searchValue: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(Content);
