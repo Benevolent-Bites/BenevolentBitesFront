@@ -117,6 +117,7 @@ class MainView extends React.Component {
       on: [],
       off: [],
       loading: false,
+      mapMoving: null
     };
   }
 
@@ -153,7 +154,6 @@ class MainView extends React.Component {
     const { lat, lng } = this.state.coords;
     this.setState({ loading: true });
     window.setTimeout(() => this.setState({ loading: false }), 5000);
-    this.setState({ on: [], off: [] });
     let ok;
     window
       .fetch(
@@ -182,15 +182,23 @@ class MainView extends React.Component {
         return response;
       })
       .then(
-        (data) => {
+        data => {
+          let on = Object.fromEntries(this.state.on.map(r => [r.restID, r]));
+          let off = Object.fromEntries(this.state.off.map(r => [r.restID, r]));
+          data.on.forEach(r => {on[r.restID] = r});
+          data.off.forEach(r => {off[r.restID] = r});
           this.setState({
-            loading: false,
-            on: data.on || [],
-            off: data.off || [],
-          });
+            loading: false, on: Object.values(on), off: Object.values(off)});
         },
         (error) => console.log(error)
       );
+  }
+
+  mapSearch(map) {
+    window.clearTimeout(this.state.mapMoving);
+    const range = Math.round(map.getBounds().toSpan().lat() * 69 / 2); // Diameter in latitude -> diameter in miles -> radius in miles
+    this.setState({coords: map.center.toJSON(), range, mapMoving:
+      window.setTimeout(() => this.searchRestaurants(true), 1500)});
   }
 
   componentDidUpdate() {
@@ -285,6 +293,7 @@ class MainView extends React.Component {
           <GoogleMapsContainer
             signedIn={this.props.signedIn}
             coords={this.state.coords}
+            mapSearch={this.mapSearch.bind(this)}
             list={list}
           />
         </TabPanel>

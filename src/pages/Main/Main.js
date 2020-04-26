@@ -40,7 +40,6 @@ function Main(props) {
   const initialSearchValue = new URLSearchParams(window.location.search).get("search") || "";
   const [searchValue, setSearchValue] = React.useState(initialSearchValue);
 
-  console.log(searchValue);
   const pathDict = {
     "/": "map",
     "/list": "list",
@@ -95,7 +94,7 @@ function Main(props) {
           classes={classes}
           tabValue={tabValue}
           history={history}
-          searchValue={(() => {console.log(searchValue); return searchValue})()}
+          searchValue={searchValue}
         />
       </main>
     </div>

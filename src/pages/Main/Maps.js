@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
 import { withStyles } from "@material-ui/core/styles";
 import RestaurantCard from "./RestaurantCard";
-import { BrowserRouter } from "react-router-dom";
 
 const styles = (theme) => ({
   expand: {
@@ -104,12 +103,12 @@ class GoogleMapsContainer extends React.Component {
         containerStyle={containerStyle}
         google={this.props.google}
         onClick={this.onMapClick}
-        zoom={Object.keys(this.props.coords).length == 0 ? 4 : 14}
+        zoom={Object.keys(this.props.coords).length === 0 ? 4 : 14}
+        onBounds_changed={(_, map) => this.props.mapSearch(map)} // shoutout to the google maps react team for silently changing the name of this event handler
         initialCenter={Object.keys(this.props.coords).length > 0 ? this.props.coords : {
           lat: 30.27379,
           lng: -97.80073,
         }}
-        center={this.props.coords}
       >
         {this.props.list.map((place) => (
           <Marker
@@ -121,7 +120,9 @@ class GoogleMapsContainer extends React.Component {
             icon={
               place.on
                 ? null
-                : { url: process.env.PUBLIC_URL + "/img/greymarker.png" }
+                : { url: process.env.PUBLIC_URL + "/img/greymarker.png",
+                    scaledSize: new this.props.google.maps.Size(25, 40)
+                  }
             }
           />
         ))}
