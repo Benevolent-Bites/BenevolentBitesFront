@@ -90,7 +90,6 @@ function Main(props) {
       <main className={classes.main} id="main">
         <Content
           signedIn={signedIn}
-          lmao="bitch"
           classes={classes}
           tabValue={tabValue}
           history={history}

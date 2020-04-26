@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
 import { withStyles } from "@material-ui/core/styles";
 import RestaurantCard from "./RestaurantCard";
+import { Memoized } from "../common";
 
 const styles = (theme) => ({
   expand: {
@@ -97,38 +98,41 @@ class GoogleMapsContainer extends React.Component {
       height: "100%",
       position: "relative",
     };
-    return (
+    const mapObj =
       <Map
         style={style}
         containerStyle={containerStyle}
         google={this.props.google}
         onClick={this.onMapClick}
         zoom={Object.keys(this.props.coords).length === 0 ? 4 : 14}
-        onBounds_changed={(_, map) => this.props.mapSearch(map)} // shoutout to the google maps react team for silently changing the name of this event handler
+        onIdle={(_, map) => this.props.mapSearch(map)}
+        onReady={() => this.setState({needsUpdate: true})}
         initialCenter={Object.keys(this.props.coords).length > 0 ? this.props.coords : {
           lat: 30.27379,
           lng: -97.80073,
         }}
       >
-        {this.props.list.map((place) => (
-          <Marker
+        {this.props.list.map((place) =>
+          <Memoized component={Marker}
+            shouldUpdate={np => {
+              if (this.state.needsUpdate || np.place.restID !== place.restID) return true; else return false}}
             position={{ lat: place.latitude, lng: place.longitude }}
             name={place.title}
             title={place.title}
             onClick={this.onMarkerClick}
+            list={this.props.list}
             place={place}
             icon={
-              place.on
-                ? null
-                : { url: process.env.PUBLIC_URL + "/img/greymarker.png",
+              place.on ? null : { url: process.env.PUBLIC_URL + "/img/greymarker.png",
                     scaledSize: new this.props.google.maps.Size(25, 40)
                   }
             }
           />
-        ))}
+        )}
         <InfoWindowEx
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
+          onClose={() => this.setState({showingInfoWindow: false})}
         >
           {Object.keys(this.state.place).length > 0 && (
             <RestaurantCard
@@ -140,8 +144,9 @@ class GoogleMapsContainer extends React.Component {
             />
           )}
         </InfoWindowEx>
-      </Map>
-    );
+      </Map>;
+      if (this.state.needsUpdate) this.setState({needsUpdate: false});
+      return mapObj
   }
 }
 

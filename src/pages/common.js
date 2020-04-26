@@ -32,3 +32,18 @@ const spinning = (
 );
 
 export const Spinner = () => <React.Fragment>{spinning}</React.Fragment>;
+
+export class Memoized extends React.PureComponent {
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (!this.props.shouldUpdate) {
+      return super.shouldComponentUpdate(nextProps, nextState);
+    } else {
+      return this.props.shouldUpdate(nextProps, nextState);
+    }
+  }
+
+  render() {
+    return <this.props.component {...this.props} />
+  }
+}

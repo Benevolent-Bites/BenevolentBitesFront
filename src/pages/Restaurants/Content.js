@@ -1062,7 +1062,7 @@ class Homepage extends React.Component {
           this.checkBackend(restGetInfo()).then(
             (info) => {
               this.props.setInfo(info);
-              if (info.employees) {
+              if (info.hasPassword) {
                 this.displayDone(
                   "setCode",
                   <React.Fragment>
@@ -1103,7 +1103,7 @@ class Homepage extends React.Component {
             }
           );
         } else {
-          if (this.props.info.employees) {
+          if (this.props.info.hasPassword) {
             this.displayDone(
               "setCode",
               <React.Fragment>

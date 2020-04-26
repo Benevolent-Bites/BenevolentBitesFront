@@ -242,7 +242,8 @@ function Header(props) {
             </Grid>
             <Grid item xs style={{padding: '4px'}}>
               <TextField
-                placeholder="Search for a Restaurant"
+                fullWidth
+                placeholder="Search for: restaurants, cafes, food trucks, etc."
                 defaultValue={searchValue}
                 InputProps={{
                   disableUnderline: true,

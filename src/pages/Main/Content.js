@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { ConditionalRender, Spinner } from "../common";
+import { ConditionalRender, Spinner, Memoized } from "../common";
 import RestaurantCard from "./RestaurantCard";
 import { searchCoords } from "../../endpoints";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -116,8 +116,7 @@ class MainView extends React.Component {
       coords: {},
       on: [],
       off: [],
-      loading: false,
-      mapMoving: null
+      loading: false
     };
   }
 
@@ -137,14 +136,14 @@ class MainView extends React.Component {
     }
   }
 
-  searchRestaurants(override = false) {
+  searchRestaurants(override = false, map = false) {
     const queryString = new URLSearchParams(window.location.search);
     if (
       this.props.searchValue === queryString.get("search") ||
       Object.keys(this.state.coords).length === 0
     ) {
       if (!override) {
-        return;
+        return
       }
     }
     queryString.set("search", this.props.searchValue);
@@ -159,13 +158,14 @@ class MainView extends React.Component {
       .fetch(
         searchCoords() +
           "?query=" +
-          this.props.searchValue +
+          (this.props.searchValue === "" ? "food" : this.props.searchValue) +
           "&lat=" +
           lat +
           "&lng=" +
           lng +
           "&range=" +
-          this.state.range,
+          this.state.range
+          + (map ? "&view=map" : ""),
         {
           method: "GET",
           mode: "cors",
@@ -183,26 +183,31 @@ class MainView extends React.Component {
       })
       .then(
         data => {
-          let on = Object.fromEntries(this.state.on.map(r => [r.restID, r]));
-          let off = Object.fromEntries(this.state.off.map(r => [r.restID, r]));
-          data.on.forEach(r => {on[r.restID] = r});
-          data.off.forEach(r => {off[r.restID] = r});
-          this.setState({
-            loading: false, on: Object.values(on), off: Object.values(off)});
+          if (override) {
+            let on = Object.fromEntries(this.state.on.map(r => [r.restID, r]));
+            let off = Object.fromEntries(this.state.off.map(r => [r.restID, r]));
+            data.on.forEach(r => {on[r.restID] = r});
+            data.off.forEach(r => {off[r.restID] = r});
+            this.setState({
+              loading: false, on: Object.values(on), off: Object.values(off)});
+          } else {
+            this.setState({
+              loading: false, on: data.on, off: data.off});
+          }
+          
         },
         (error) => console.log(error)
       );
   }
 
   mapSearch(map) {
-    window.clearTimeout(this.state.mapMoving);
-    const range = Math.round(map.getBounds().toSpan().lat() * 69 / 2); // Diameter in latitude -> diameter in miles -> radius in miles
-    this.setState({coords: map.center.toJSON(), range, mapMoving:
-      window.setTimeout(() => this.searchRestaurants(true), 1500)});
+    const range = map.getBounds().toSpan().lat() * 69 / 2 // Diameter in latitude -> diameter in miles -> radius in miles
+    this.setState({coords: map.center.toJSON(), range});
+    this.searchRestaurants(true, true);
   }
 
-  componentDidUpdate() {
-    if (Object.keys(this.state.coords).length > 0) {
+  componentDidUpdate(prevProps) {
+    if (Object.keys(this.state.coords).length > 0 && prevProps.searchValue !== this.props.searchValue) {
       this.searchRestaurants();
     }
   }
