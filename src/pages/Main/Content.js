@@ -159,7 +159,7 @@ class MainView extends React.Component {
       .fetch(
         searchCoords() +
           "?query=" +
-          (this.props.searchValue === "" ? "food" : this.props.searchValue) +
+          (this.props.searchValue === "" ? "" : this.props.searchValue) +
           "&lat=" +
           lat +
           "&lng=" +
