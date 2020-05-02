@@ -224,7 +224,7 @@ function Header(props) {
                 label="Map"
                 value="map"
                 component={Link}
-                to="/"
+                to="/map"
               />
               <Tab
                 style={{ fontSize: "1.25rem" }}
@@ -232,7 +232,7 @@ function Header(props) {
                 label="List"
                 value="list"
                 component={Link}
-                to="/list"
+                to="/"
               />
             </Tabs>
           </Grid>

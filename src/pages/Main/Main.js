@@ -41,13 +41,13 @@ function Main(props) {
   const [searchValue, setSearchValue] = React.useState(initialSearchValue);
 
   const pathDict = {
-    "/": "map",
-    "/list": "list",
+    "/": "list",
+    "/map": "map",
   };
 
   var tabValue = pathDict[useLocation().pathname];
   if (!tabValue) {
-    tabValue = "map";
+    tabValue = "list";
   }
 
   const signedIn = Cookies.get("signed_in") === "1" || false;
