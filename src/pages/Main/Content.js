@@ -115,6 +115,7 @@ class MainView extends React.Component {
     this.state = {
       range: 5,
       coords: {},
+      location: null,
       on: [],
       off: [],
       loading: false,
@@ -128,8 +129,15 @@ class MainView extends React.Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         },
+        location: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
       });
       this.searchRestaurants(true);
+    }, () => {},
+    {
+      enableHighAccuracy: true
     });
     let err = new URLSearchParams(window.location.search).get("error");
     if (err) {
@@ -217,7 +225,7 @@ class MainView extends React.Component {
   mapSearch(map) {
     const range = (map.getBounds().toSpan().lat() * 69) / 2; // Diameter in latitude -> diameter in miles -> radius in miles
     this.setState({ coords: map.center.toJSON(), range });
-    this.searchRestaurants(true, true);
+    this.state.location && this.searchRestaurants(true, true);
   }
 
   componentDidUpdate(prevProps) {
@@ -331,7 +339,7 @@ class MainView extends React.Component {
         <TabPanel index="map" tabValue={this.props.tabValue}>
           <GoogleMapsContainer
             signedIn={this.props.signedIn}
-            coords={this.state.coords}
+            location={this.state.location}
             mapSearch={this.mapSearch.bind(this)}
             list={list}
           />

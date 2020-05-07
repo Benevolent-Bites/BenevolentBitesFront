@@ -105,17 +105,14 @@ class GoogleMapsContainer extends React.Component {
         containerStyle={containerStyle}
         google={this.props.google}
         onClick={this.onMapClick}
-        zoom={Object.keys(this.props.coords).length === 0 ? 4 : 16}
+        zoom={Object.keys(this.props.location || {}).length === 0 ? 4 : 16}
         onIdle={(_, map) => this.props.mapSearch(map)}
         onReady={() => this.setState({ needsUpdate: true })}
-        initialCenter={
-          Object.keys(this.props.coords).length > 0
-            ? this.props.coords
-            : {
-                lat: 30.27379,
-                lng: -97.80073,
-              }
-        }
+        center={this.props.location || {}}
+        initialCenter={this.props.location || {
+          lat: 30.27379,
+          lng: -97.80073,
+        }}
       >
         {this.props.list.map((place) => (
           <Memoized
