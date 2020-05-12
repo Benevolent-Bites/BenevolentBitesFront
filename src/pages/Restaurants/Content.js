@@ -1491,8 +1491,11 @@ class Homepage extends React.Component {
                 window
                   .fetch(process.env.PUBLIC_URL + "/contract.txt")
                   .then((result) => result.text())
+                  .then(s => s.replace(/\[INSERT RESTAURANT\]/g, this.props.info.name)
+                    .replace(/\[INSERT ADDRESS\]/g, this.props.info.address)
+                    .replace(/\[INSERT DATE\]/g, (new Date()).toDateString()))
                   .then(
-                    (h) => (document.getElementById("contract").innerHTML = h)
+                    h => (document.getElementById("contract").innerHTML = h)
                   );
               return (
                 <Typography

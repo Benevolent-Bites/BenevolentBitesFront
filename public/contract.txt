@@ -1,2 +1,430 @@
-<p>Test contract: <br/> <b> bold terms </b> are for emphasis, <br/> <em> italic terms </em> are also for emphasis.
-</p>
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.6.2 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Mark Thornton">
+	<META NAME="CREATED" CONTENT="20200508;82000000000000">
+	<META NAME="CHANGEDBY" CONTENT="Leo Orshansky">
+	<META NAME="CHANGED" CONTENT="20200512;181812170503270">
+	<META NAME="AppVersion" CONTENT="00.0001">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin-left: 0.5in; margin-right: 0.5in; margin-top: 0.5in; margin-bottom: 0.38in }
+		P { text-indent: 0.5in; margin-bottom: 0.17in; direction: ltr; widows: 2; orphans: 2 }
+		P.western { font-size: 12pt }
+		P.cjk { font-size: 12pt }
+		H1 { margin-top: 0in; margin-bottom: 0.17in; direction: ltr; widows: 2; orphans: 2; text-decoration: underline }
+		H1.western { font-family: "Times New Roman", serif; font-size: 12pt; font-weight: normal }
+		H1.cjk { font-size: 12pt; font-weight: normal }
+		H1.ctl { font-size: 10pt; font-weight: normal }
+		H2 { margin-top: 0in; margin-bottom: 0.17in; direction: ltr; widows: 2; orphans: 2; text-decoration: underline; page-break-after: auto }
+		H2.western { font-family: "Times New Roman", serif; font-size: 12pt; font-weight: normal }
+		H2.cjk { font-family: "Times New Roman"; font-size: 12pt; font-weight: normal }
+		H2.ctl { font-family: "Times New Roman"; font-size: 10pt; font-weight: normal }
+		A:link { color: #0000ff; so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#0000ff" DIR="LTR">
+<DIV ID="TextSection" DIR="LTR">
+	<P CLASS="western" ALIGN=CENTER STYLE="text-indent: 0in"><SUP><FONT SIZE=2 STYLE="font-size: 11pt"><U>BENEVOLENT
+	BITES RESTAURANT AGREEMENT</U></FONT></SUP></P>
+	<P CLASS="western" ALIGN=JUSTIFY><FONT SIZE=2 STYLE="font-size: 11pt">This
+	Restaurant Agreement (“Agreement”), effective [INSERT DATE]
+	(“Effective Date”), is entered into by and between Benevolent
+	Bites, an Texas non-profit corporation (“Benevolent Bites”) and
+	[INSERT RESTAURANT] (“Restaurant”), located at [INSERT ADDRESS].</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY><FONT SIZE=2 STYLE="font-size: 11pt">WHEREAS,
+	Benevolent Bites is providing a website at benevolentbites.org (the
+	“Site”) which will list and link to restaurants who will sell
+	gift cards on such linked sites; and</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY><FONT SIZE=2 STYLE="font-size: 11pt">WHEREAS,
+	Restaurant wishes to be listed on the Site;</FONT></P>
+	<H2 CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0.5in"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">NOW,
+	THEREFORE, in consideration of the mutual covenants and promises of
+	the Parties and other good and valuable consideration, the
+	sufficiency and receipt of which is hereby acknowledged, the Parties
+	agree as follows intending to be legally bound:</SPAN></FONT></H2>
+	<OL>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">Definitions.
+		 As used in the Agreement, the following capitalized terms have the
+		meanings set forth in this Section 1:</SPAN></FONT></H1>
+		<OL TYPE=a>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Applicable
+			Law” means federal, state or local laws, rules, regulations,
+			ordinances or guidance or directives from government authorities,
+			including but not limited to the Bank Secrecy Act, applicable to
+			Gift Cards, Gift Card Programs or a Party, in light of that
+			Party’s role with respect to Gift Cards (e.g., issuer, seller,
+			redeemer, etc.). </SPAN></FONT>
+			</H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Cardholder”
+			means a natural person who holds a Gift Card.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Claim”
+			means an action, allegation, cause of action, cease and desist
+			letter, charge, citation, claim, demand, directive, lawsuit or
+			other litigation or proceeding, or notice.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Consumer
+			Purchase Price” means the face value of the Gift Card. </SPAN></FONT>
+			</H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Damages”
+			means an assessment, fine, bona fide settlements, costs, damages
+			(including consequential, indirect, special, incidental or
+			punitive damages), expenses (including without limitation
+			reasonable attorneys’ fees, expenses and costs), judgments,
+			liabilities, losses, or penalties, incurred in connection with a
+			Claim.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Digital
+			Sales Channel” means a website, mobile application, or other
+			digital sales mechanism for Gift Cards (whether physical or
+			electronic Gift Cards), including without limitation the Site.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Gift
+			Card” means branded stored value or branded prepaid cards or
+			other electronic or digital debit payment mechanisms, electronic
+			promises, numbers, codes or devices, which, when Activated, can be
+			used to purchase services and merchandise at Restaurant Stores.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Gift
+			Card Terms and Conditions” means the terms and conditions
+			applicable to the Gift Cards as set forth on Gift Card card
+			carrier and/or the back of the Gift Cards (or located as otherwise
+			allowed or required by Applicable Law).</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">
+			“<FONT SIZE=2 STYLE="font-size: 11pt">Party” means either
+			Benevolent Bites or Restaurant, as the context indicates.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Purchaser”
+			means any person, entity or organization that purchases Gift Cards
+			from a Digital Sales Channel. </SPAN></FONT>
+			</H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">
+			“<FONT SIZE=2 STYLE="font-size: 11pt">Restaurant Marks” means
+			the trademarks, service marks, trade names and logos used on or in
+			connection with the Gift Card.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Restaurant
+			Stores” means any outlet (including on-line, telephone and store
+			location) from which retail purchases can be made with Gift Cards,
+			whether now existing or established in the future.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in"><SPAN STYLE="text-decoration: none">“<FONT SIZE=2 STYLE="font-size: 11pt">Service
+			Bureau” means a third party engaged by Restaurant to Activate
+			the Gift Cards and process Gift Card transaction data.</SPAN></FONT></H1>
+		</OL>
+	</OL>
+	<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+	</P>
+	<OL START=2>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="margin-bottom: 0in; page-break-after: auto">
+		<FONT SIZE=2 STYLE="font-size: 11pt">Gift Card Program</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.</SPAN></FONT></H1>
+		<OL TYPE=a>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Gift Card Sale</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 Upon execution of this Agreement, Restaurant authorizes
+			Benevolent Bites to list Restaurant on the Site. In conjunction
+			with such listing, Restaurant will set up a landing page with a
+			third party payment processor which will be linked from the Site
+			through which the Restaurant will offer, sell and distribute the
+			Gift Cards. Restaurant acknowledges and agrees that Benevolent
+			Bites is not involved in the offer, sell, or distribution of the
+			Gift Cards and that Benevolent Bits is not the money transmitter,
+			payment processor or otherwise involved in the flow of funds
+			between the Purchaser and the Restaurant.</SPAN></FONT><FONT SIZE=2 STYLE="font-size: 11pt">
+			</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">Restaurant
+			acknowledges and agrees that Benevolent Bites may remove
+			Restaurant from the Site at any time.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Customer Service</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 Once a Gift Card is properly Activated, Restaurant shall be
+			solely responsible for all Cardholder and/or Purchaser customer
+			service in connection with any Gift Cards.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Distribution to Employees</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 Restaurant agrees that, promptly upon the purchase of a Gift
+			Card, 25% of the Consumer Purchase Price shall be distributed to
+			Restaurant’s employees.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Restaurant Mark License</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 In connection with the foregoing and subject to the terms and
+			conditions of this Agreement, Restaurant hereby grants to
+			Benevolent Bites a non-exclusive, royalty-free license during the
+			Term to use the Restaurant Marks for the limited purpose of
+			promoting, selling and distributing Gift Cards pursuant to this
+			Agreement.  As between Restaurant and Benevolent Bites, title to
+			and ownership of the Restaurant Marks shall remain with
+			Restaurant. Except as provided herein, neither Party shall use the
+			names, trademarks or logos, nor any adaptation or variation
+			thereof, of the other Party (or the other Party’s Affiliate(s))
+			in any manner whatsoever (including, but not limited to, press
+			releases, advertising, promotion or sales literature), without the
+			prior written consent of the other Party in each instance.</SPAN></FONT></H1>
+		</OL>
+		<LI><P STYLE="text-indent: 0in; margin-bottom: 0in"><FONT SIZE=2><FONT SIZE=2 STYLE="font-size: 11pt"><U>Restaurant
+		Representations and Warranties.</U></FONT><FONT SIZE=2 STYLE="font-size: 11pt">
+		Restaurant represents and warrants throughout the Term that: (a)
+		Restaurant has the right, power and authority to enter into this
+		Agreement, to grant the rights granted herein, and to perform its
+		obligations hereunder on behalf of itself and all Restaurant
+		Stores; and (b) Restaurant’s grant of rights or performance of
+		its obligations hereunder does not violate any other agreement to
+		which Restaurant is a party.  Restaurant further represents and
+		warrants that throughout the Term and thereafter; (e) the Gift Card
+		Terms and Conditions comply with Applicable Law; (f) Restaurant
+		complies with the Gift Card Terms and Conditions and Applicable
+		Law; (g) unless otherwise required by law, Gift Cards may only be
+		redeemed for goods or services; and (h) no more than $1,000
+		(including the maximum initial amount of the Gift Card and any
+		funds that can be added via reloads) can be associated with (i.e.,
+		loaded and reloaded onto) any Gift Card in any one day.</FONT></FONT></P>
+	</OL>
+	<P STYLE="margin-left: 0.25in; text-indent: 0in; margin-bottom: 0in">
+	<BR>
+	</P>
+	<OL START=4>
+		<LI><P STYLE="text-indent: 0in; margin-bottom: 0in"><FONT SIZE=2><FONT SIZE=2 STYLE="font-size: 11pt"><U>Restaurant
+		Indemnification</U></FONT><FONT SIZE=2 STYLE="font-size: 11pt">. 
+		Restaurant agrees to defend, indemnify and hold harmless Benevolent
+		Bites and its affiliates, officers, directors, agents,
+		representatives, contractors and employees from and against any and
+		all third party Claims and Damages arising out of or related to (i)
+		Restaurant’s breach (or, as to defense obligations only, alleged
+		breach) of this Agreement; (ii) Restaurant’s or Service Bureau’s
+		violation of any Applicable Law; (iii) refunds, merchandise
+		returns, credits to the Gift Cards, replacement of lost or stolen
+		Gift Cards, or use or misuse of the Gift Cards, in each case only
+		to the extent set forth elsewhere in the Agreement; (iv) sale of
+		Gift Cards to Purchasers and/or redemption of Gift Cards by
+		Cardholders; (v) any act or omission of any Service Bureau; (vi)
+		Restaurant’s gross negligence, willful misconduct or fraudulent
+		actions; (vii) Restaurant’s infringement of the rights
+		(including, without limitation, the intellectual property rights,
+		proprietary rights, rights to privacy and rights to publicity) of
+		any person or entity; and (viii) the infringement of the rights of
+		any person or entity related to the permitted use of the Restaurant
+		Marks, Gift Cards or systems under this Agreement.</FONT> <FONT SIZE=2 STYLE="font-size: 11pt">If
+		Restaurant is notified of such a Claim, Restaurant shall promptly
+		hire experienced and competent counsel, and will have sole control
+		of the defense and all negotiations for the compromise or
+		settlement of such a Claim, and shall pay any Damages in respect of
+		such Claim and reimburse Benevolent Bites for its reasonable
+		expenses incurred in cooperation with and providing assistance to
+		Restaurant; provided, however, that Restaurant may not settle any
+		such Claim without Benevolent Bites’ consent if the proposed
+		settlement would be in Benevolent Bites’ name or impose pecuniary
+		or other liability or an admission of fault or guilt on Benevolent
+		Bites or would require Benevolent Bites to be bound by an
+		injunction of any kind.</FONT></FONT></P>
+	</OL>
+	<P STYLE="margin-left: 0.25in; text-indent: 0in; margin-bottom: 0in">
+	<BR>
+	</P>
+	<OL START=5>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+		<FONT SIZE=2 STYLE="font-size: 11pt">Term and Termination</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+		 This Agreement shall commence upon the Effective Date and shall
+		continue for one (1) year. Thereafter, it shall automatically renew
+		for additional one (1) year periods. Either party may terminate the
+		Agreement by giving the other party written notice of the same
+		(provided that Benevolent Bites will be given a reasonable period
+		to time to remove Restaurant from the Site following such
+		termination). The expiration of the Term shall not affect
+		Cardholder’s usage of the Gift Cards. The following provisions
+		shall survive termination:  1, 3, 4, 6, 7, 8, and 9.</SPAN></FONT></H1>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+		<FONT SIZE=2 STYLE="font-size: 11pt">Limitations of Liability</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+		 IN NO EVENT SHALL BENEVOLENT BITES, OR ANY OF ITS AFFILIATES, BE
+		LIABLE TO RESTAURANT, ANY OF ITS AFFILIATES, OR ANY THIRD PARTY,
+		WHETHER IN CONTRACT, TORT, EQUITY OR OTHERWISE, FOR (1) ANY
+		INDIRECT, INCIDENTAL, CONSEQUENTIAL, SPECIAL, PUNITIVE OR EXEMPLARY
+		DAMAGES (EVEN IF SUCH DAMAGES ARE FORESEEABLE, AND WHETHER OR NOT
+		BENEVOLENT BITES HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+		DAMAGES) ARISING FROM OR RELATING TO THIS AGREEMENT; OR (2) ANY
+		DIRECT DAMAGES ARISING FROM OR RELATING TO THIS AGREEMENT TO THE
+		EXTENT THAT THE AGGREGATE AMOUNT OF SUCH DAMAGES EXCEEDS THE
+		AGGREGATE AMOUNT ACTUALLY PAID BY RESTAURANT TO BENEVOLENT BITES IN
+		CONNECTION WITH THIS AGREEMENT IN THE SIX (6) MONTHS PRECEDING THE
+		OCCURRENCE GIVING RISE TO SUCH DAMAGES OR $100, WHICHEVER IS
+		GREATER.</SPAN></FONT></H1>
+		<LI><P STYLE="text-indent: 0in; margin-bottom: 0in"><FONT SIZE=2><FONT SIZE=2 STYLE="font-size: 11pt"><U>Disclaimers</U></FONT><FONT SIZE=2 STYLE="font-size: 11pt">.
+		 THE SITE IS PROVIDED AS-IS, AND BENEVOLENT BITES HEREBY EXPRESSLY
+		DISCLAIMS ALL WARRANTIES, EXPRESS, IMPLIED, STATUTORY, OR
+		OTHERWISE, RELATING TO OR ARISING OUT OF THIS AGREEMENT, INCLUDING
+		WITHOUT LIMITATION, ANY WARRANTY OF NON-INFRINGEMENT, ANY IMPLIED
+		WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE AND
+		IMPLIED WARRANTIES ARISING FROM COURSE OF DEALING OR COURSE OF
+		PERFORMANCE.</FONT></FONT></P>
+	</OL>
+	<P CLASS="western" STYLE="text-indent: 0in; margin-bottom: 0in"><BR>
+	</P>
+	<OL START=8>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY><FONT SIZE=2 STYLE="font-size: 11pt">Confidential
+		Information</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.</SPAN></FONT><SPAN STYLE="text-decoration: none">
+		</SPAN><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">For
+		purposes hereof, “Confidential Information” shall mean all
+		information or material which (i) gives that party some competitive
+		business advantage or the opportunity of obtaining such advantage
+		or the disclosure of which could be detrimental to the interests of
+		that party; or (ii) which is either (A) marked “Confidential,”
+		“Restricted,” or “Proprietary Information” or other similar
+		marking, (B) known by the Parties to be considered confidential and
+		proprietary, or (C) from all the relevant circumstances should
+		reasonably be assumed to be confidential and proprietary.
+		Notwithstanding the foregoing, Confidential Information shall not
+		include information which: (i) is or becomes generally known to the
+		public by any means other than a breach of the obligations of a
+		receiving party; (ii) was previously known to the receiving party
+		or rightly received by the receiving party from a third party not
+		subject to an obligation of confidentiality; or (iii) is
+		independently developed by the receiving party without reference to
+		information derived from the other Party. Each Party agrees to hold
+		the other’s Confidential Information in strict confidence, both
+		during the term of this Agreement and until the later of (i) the
+		date which is three (3) years after expiration or termination of
+		this Agreement; or (ii) the date on which any such Confidential
+		Information becomes publicly known and made generally available
+		through no action or inaction of such party.  The Parties agree not
+		to make each other’s Confidential Information available in any
+		form to any third party or to use each other’s Confidential
+		Information for any purpose other than the implementation of, and
+		as specified in, this Agreement.  Each Party agrees to take all
+		reasonable steps to ensure that Confidential Information of either
+		Party is not disclosed or distributed by its employees, agents,
+		representatives or contractors in violation of the provisions of
+		this Agreement.  </SPAN></FONT>
+		</H1>
+		<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+		<FONT SIZE=2 STYLE="font-size: 11pt">Miscellaneous.</FONT></H1>
+		<OL TYPE=a>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Governing Law; Jurisdiction
+			and Venue.</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">
+			 This Agreement shall be governed by and construed in accordance
+			with the laws of the State of Texas, without giving </SPAN></FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">effect
+			to the conflict of law principles thereof.  Any lawsuit, action or
+			proceeding brought by a Party arising out of or in any way
+			connected with this Agreement shall be brought in a state or
+			federal court located in Travis County, in the State of Texas.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Notices</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 All notices hereunder shall be in writing, and shall be given
+			personally, by facsimile, certified mail or by overnight courier
+			to the address set forth below. </SPAN></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">Any
+			Party may from time to time change its address for receiving
+			notices or other communications by providing notice to the other
+			in the manner provided in this Section.</SPAN></FONT></FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">
+			</SPAN></FONT>
+			</H1>
+		</OL>
+	</OL>
+	<TABLE WIDTH=668 CELLPADDING=7 CELLSPACING=0>
+		<COL WIDTH=320>
+		<COL WIDTH=320>
+		<TR VALIGN=TOP>
+			<TD WIDTH=320 HEIGHT=113 STYLE="border: none; padding: 0in">
+				<H1 CLASS="western" STYLE="margin-left: 0.13in; widows: 0; orphans: 0; page-break-after: auto">
+				<FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">If
+				to Restaurant to:</SPAN></FONT></FONT></H1>
+				<H1 CLASS="western" STYLE="margin-left: 0.13in; widows: 0; orphans: 0; page-break-after: auto">
+				<FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">[INSERT
+				ADDRESS]</SPAN></FONT></FONT></H1>
+			</TD>
+			<TD WIDTH=320 STYLE="border: none; padding: 0in">
+				<H1 CLASS="western" STYLE="text-indent: 0.5in; widows: 0; orphans: 0; page-break-after: auto">
+				<FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">If
+				to Benevolent Bites to:</SPAN></FONT></FONT></H1>
+				<P CLASS="western" STYLE="widows: 0; orphans: 0"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 11pt">2110
+				Wychwood Dr.</FONT></FONT></P>
+			</TD>
+		</TR>
+	</TABLE>
+	<P CLASS="western"><BR><BR>
+	</P>
+	<OL>
+		<OL TYPE=a START=3>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Entire Agreement</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 This Agreement set forth the entire agreement and understanding
+			between the Parties as to the subject matter hereof and supersedes
+			all prior discussions, agreements and understandings of any kind,
+			and every nature between them.  This Agreement shall not be
+			changed, modified or amended except in writing and signed by both
+			Parties.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Assignment</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			Neither Party may transfer or assign this Agreement or its
+			obligations under this Agreement, in whole or in part, without the
+			prior written consent of the other Party, except in connection
+			with a merger or acquisition of all or substantially all of such
+			Party’s assets or stocks.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Third Party Beneficiaries</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			Neither Cardholder, Purchaser nor any other third party is a
+			third-party beneficiary to this Agreement.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Independent Contractor</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			The Parties are independent contractors. Nothing in this Agreement
+			shall be construed to create a joint venture, partnership, or an
+			agency relationship between the Parties. Neither Party has the
+			authority to bind or commit the other Party in any way.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto"><A NAME="_GoBack"></A>
+			<FONT SIZE=2 STYLE="font-size: 11pt">Severability; Waiver</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			If any provision of this Agreement (or any portion thereof) is
+			determined to be invalid or unenforceable, the remaining
+			provisions of this Agreement shall not be affected thereby and
+			shall be binding upon the Parties and shall be enforceable as
+			though said invalid or unenforceable provision (or portion
+			thereof) were not contained in this Agreement. The failure of
+			either Party to insist upon strict performance of any of the
+			provisions contained in this Agreement shall in no way constitute
+			a waiver of its rights as set forth in this Agreement, at law or
+			in equity, or a waiver of any other provisions or subsequent by
+			the other Party in the performance of or compliance with any of
+			the terms and conditions set forth in this Agreement. </SPAN></FONT>
+			</H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Headings</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 The headings of this Agreement are intended solely for
+			convenience of reference and shall be given no effect in the
+			interpretation or construction of this Agreement.</SPAN></FONT></H1>
+			<LI><H1 CLASS="western" ALIGN=JUSTIFY STYLE="page-break-after: auto">
+			<FONT SIZE=2 STYLE="font-size: 11pt">Counterparts</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="text-decoration: none">.
+			 This Agreement may be executed in counterparts, which execution
+			may be by facsimile, each of which shall be an original, but all
+			of which shall constitute one, and the same, document.</SPAN></FONT></H1>
+		</OL>
+	</OL>
+	<P CLASS="western" ALIGN=CENTER STYLE="text-indent: 0in; margin-bottom: 0in">
+	<FONT SIZE=2 STYLE="font-size: 11pt">[</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><I>signature
+	page follows</I></FONT><FONT SIZE=2 STYLE="font-size: 11pt">]</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="page-break-before: always"><FONT SIZE=2 STYLE="font-size: 11pt">IN
+	WITNESS WHEREOF, the undersigned have executed this Agreement as of
+	the Effective Date.</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in; margin-bottom: 0.5in; page-break-after: avoid">
+	<FONT SIZE=2 STYLE="font-size: 11pt">BENEVOLENT BITES </FONT>
+	</P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in; margin-bottom: 0.5in; page-break-after: avoid">
+	<FONT SIZE=2 STYLE="font-size: 11pt">Date:  [INSERT DATE]</FONT><FONT SIZE=2 STYLE="font-size: 11pt">	</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><U>	</U></FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in"><BR><BR>
+	</P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in; page-break-after: avoid">
+	<FONT SIZE=2 STYLE="font-size: 11pt">[INSERT RESTAURANT]</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in; page-break-after: avoid">
+	<FONT SIZE=2 STYLE="font-size: 11pt">Print Name:</FONT></P>
+	<P CLASS="western" ALIGN=JUSTIFY STYLE="text-indent: 0in; page-break-after: avoid">
+	<FONT SIZE=2 STYLE="font-size: 11pt">Date: </FONT><FONT SIZE=2 STYLE="font-size: 11pt">	</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><U>	</U></FONT><FONT SIZE=2 STYLE="font-size: 11pt">	</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><U>	</U></FONT><FONT SIZE=2 STYLE="font-size: 11pt">	</FONT><FONT SIZE=2 STYLE="font-size: 11pt"><U>	</U></FONT></P>
+</DIV>
+<DIV ID="Section1" DIR="LTR" GUTTER=24 STYLE="column-count: 2">
+	<P CLASS="western" STYLE="text-indent: 0in"><BR><BR>
+	</P>
+</DIV>
+<P CLASS="western" ALIGN=CENTER STYLE="text-indent: 0in; margin-bottom: 0in">
+<BR>
+</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="text-indent: 0in; margin-top: 0.08in; margin-bottom: 0in">
+	<FONT SIZE=2>- </FONT><FONT SIZE=2><SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE>3</SDFIELD>
+	-</FONT></P>
+</DIV>
+</BODY>
+</HTML>
