@@ -122,6 +122,23 @@ class PurchaseContent extends React.Component {
     }
   }
 
+  buy (amount) {
+    const link =
+      userBuy() +
+      "?restId=" +
+      this.props.match.params.restId +
+      "&amount=" +
+      amount * 100;
+    if (!this.props.signedIn) {
+      Cookies.set("signed_in", "1");
+      window.location.assign(
+        login("user") + "?redirect=" + link.replace("&", "%26")
+      );
+    } else {
+      window.location.assign(link);
+    }
+  }
+
   render() {
     const [minAmount, medAmount, maxAmount] = [20, 30, 50];
     const { classes } = this.props;
@@ -167,45 +184,20 @@ class PurchaseContent extends React.Component {
               </Grid>
               <Grid item>
                 <ButtonGroup
-                  color="primary"
+                  color="secondary"
                   size="large"
                   orientation="horizontal"
                 >
-                  <Button onClick={() => this.setState({ amount: minAmount })}>
+                  <Button onClick={() => this.buy(minAmount)}>
                     ${minAmount}
                   </Button>
-                  <Button onClick={() => this.setState({ amount: medAmount })}>
+                  <Button onClick={() => this.buy(medAmount)}>
                     ${medAmount}
                   </Button>
-                  <Button onClick={() => this.setState({ amount: maxAmount })}>
+                  <Button onClick={() => this.buy(maxAmount)}>
                     ${maxAmount}
                   </Button>
                 </ButtonGroup>
-              </Grid>
-              <Grid item>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  size="large"
-                  onClick={() => {
-                    const link =
-                      userBuy() +
-                      "?restId=" +
-                      this.props.match.params.restId +
-                      "&amount=" +
-                      this.state.amount * 100;
-                    if (!this.props.signedIn) {
-                      Cookies.set("signed_in", "1");
-                      window.location.assign(
-                        login("user") + "?redirect=" + link.replace("&", "%26")
-                      );
-                    } else {
-                      window.location.assign(link);
-                    }
-                  }}
-                >
-                  Buy ${this.state.amount} Card
-                </Button>
               </Grid>
             </Grid>
             <Grid item xs={12}>
