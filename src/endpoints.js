@@ -3,8 +3,8 @@ import React from "react";
 export function apiUrl() {
   const env = process.env.REACT_APP_ENV;
   const dict = {
-    prod: "https://api.benevolentbites.tech",
-    dev: "https://devapi.benevolentbites.tech",
+    prod: "https://api.benevolentbites.org",
+    dev: "https://devapi.benevolentbites.org",
     local: "http://localhost:9000",
   };
   return dict[env.toLowerCase()];
