@@ -14,6 +14,7 @@ import Main from "./Main/Main";
 import Redeem from "./Redeem/Redeem";
 import About from "./About/About";
 import Locations from "./Locations/Locations";
+import Terms from "./Terms/Terms";
 import Refer from "./Refer/Refer";
 import Purchase from "./Purchase/Purchase";
 import LoginHandler from "./LoginHandler";
@@ -211,6 +212,17 @@ function BenevolentBites(props) {
               type="user"
             >
               <Locations
+                classes={classes}
+                handleDrawerToggle={handleDrawerToggle}
+              />
+            </LoginHandler>
+          </Route>
+          <Route path="/users/terms">
+          <LoginHandler
+              text="Please sign in."
+              type="user"
+            >
+              <Terms
                 classes={classes}
                 handleDrawerToggle={handleDrawerToggle}
               />

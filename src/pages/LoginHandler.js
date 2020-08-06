@@ -25,6 +25,8 @@ export default function LoginHandler(props) {
   const [signedIn, setSignedIn] = React.useState(initialSignedIn);
 
   let VerifyLogin = () => {
+    var qs = new URLSearchParams(window.location.search);
+    qs.delete('login');
     window
       .fetch(authVerify(), {
         method: "GET",
@@ -43,7 +45,7 @@ export default function LoginHandler(props) {
         (result) => {
           Cookies.set("signed_in", "1", { expires: 1 / 24 }); // 1/24 days = 1 hour
           window.location.replace(
-            window.location.origin + window.location.pathname
+            window.location.origin + window.location.pathname + "?" + qs.toString()
           );
           setSignedIn(true);
         },
